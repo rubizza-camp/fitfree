@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get 'products/:id', to: 'products#show', :as => :products
   devise_for :users
   resources :users
+  resources :trainings
 end

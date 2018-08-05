@@ -1,0 +1,22 @@
+- unless @training.blank?
+  table
+    thead
+      tr
+        th Price
+        th |Time
+        th |Description
+        th |Created at
+        th |Updated at
+        th.hidden
+    tbody
+      - @training.each do |training|
+        tr
+          td.title= link_to training.price, training
+          td= training.time
+          td= training.description
+          td.date= time_ago_in_words(training.created_at)
+          td.date= time_ago_in_words(training.updated_at)
+
+
+
+li= link_to "Add a new Training", new_training_path, class: "list-group-item"

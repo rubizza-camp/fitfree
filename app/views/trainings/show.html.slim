@@ -1,0 +1,8 @@
+h1= @training.price
+h1= @training.time
+p= simple_format(@training.description)
+
+.buttons
+  = link_to 'Edit', edit_training_path(@training)
+  = link_to 'Delete', training_path(@training), method: :delete, data: {confirm: 'Are you sure?'}
+  = link_to 'All trainings', trainings_path
