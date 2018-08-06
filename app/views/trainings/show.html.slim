@@ -1,9 +1,13 @@
 h1= @training.price
 h1= @training.time
-h1= @training.client_id
+/h1= @training.client_id
+= link_to @training.client.first_name, client_path(@training.client.id)
+h1
+= link_to @training.client.second_name, client_path(@training.client.id)
+h1= @training.status
 p= simple_format(@training.description)
 
 .buttons
-  = link_to 'Edit', edit_training_path(@training)
-  = link_to 'Delete', training_path(@training), method: :delete, data: {confirm: 'Are you sure?'}
+  = link_to 'Edit ', edit_training_path(@training)
+  = link_to 'Delete ', training_path(@training), method: :delete, data: {confirm: 'Are you sure?'}
   = link_to 'All trainings', trainings_path
