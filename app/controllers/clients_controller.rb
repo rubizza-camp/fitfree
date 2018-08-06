@@ -7,7 +7,6 @@ class ClientsController < ApplicationController
   end
 
   def show
-
   end
 
   def new
@@ -16,18 +15,14 @@ class ClientsController < ApplicationController
 
   def create
     @client = current_user.clients.build(client_params)
-
     if @client.save
       redirect_to @client
     else
       render 'new'
     end
-
-
   end
 
   def edit
-
   end
 
   def update
@@ -44,7 +39,6 @@ class ClientsController < ApplicationController
   end
 
   private
-
   def find_client
     @client = Client.find(params[:id])
   end

@@ -7,7 +7,6 @@ class TrainingsController < ApplicationController
   end
 
   def show
-
   end
 
   def new
@@ -16,18 +15,14 @@ class TrainingsController < ApplicationController
 
   def create
     @training = current_user.trainings.build(training_params)
-
     if @training.save
       redirect_to @training
     else
       render 'new'
     end
-
-
   end
 
   def edit
-
   end
 
   def update
@@ -44,7 +39,6 @@ class TrainingsController < ApplicationController
   end
 
   private
-
   def find_training
     @training = Training.find(params[:id])
   end
@@ -52,5 +46,4 @@ class TrainingsController < ApplicationController
   def training_params
     params.require(:training).permit(:time, :price,  :description, :client_id, :status)
   end
-
 end
