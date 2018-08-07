@@ -18,6 +18,7 @@ gem 'high_voltage'
 gem 'pg'
 gem 'slim-rails'
 gem 'sucker_punch'
+gem 'simple_form'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
