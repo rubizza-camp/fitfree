@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   enum role: [:user, :vip, :admin]
   has_many :trainings
+  has_many :clients
+  has_many :transactions
   after_initialize :set_default_role, :if => :new_record?
   after_create :sign_up_for_mailing_list
 

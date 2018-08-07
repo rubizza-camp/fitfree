@@ -39,6 +39,31 @@ ActiveRecord::Schema.define(version: 2018_08_07_070506) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+
+  create_table "clients", force: :cascade do |t|
+    t.string "first_name"
+    t.string "second_name"
+    t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+  end
+
+  create_table "meals", force: :cascade do |t|
+    t.datetime "datetime"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "client_id"
+  end
+
+  create_table "meters", force: :cascade do |t|
+    t.datetime "date"
+    t.string "type"
+    t.float "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "client_id"
   end
 
   create_table "trainings", force: :cascade do |t|
@@ -47,6 +72,16 @@ ActiveRecord::Schema.define(version: 2018_08_07_070506) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "client_id"
+    t.integer "status"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.datetime "datetime"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "client_id"
     t.integer "user_id"
   end
 
