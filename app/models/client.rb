@@ -4,4 +4,5 @@ class Client < ApplicationRecord
   has_many :meals
   has_and_belongs_to_many :meters
   has_many :transactions
+  has_many :meters
 end

@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_111021) do
+ActiveRecord::Schema.define(version: 2018_08_07_131836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "amounts", force: :cascade do |t|
+    t.float "quantity"
+    t.integer "client_id"
+    t.integer "meter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "first_name"
@@ -34,7 +42,6 @@ ActiveRecord::Schema.define(version: 2018_08_07_111021) do
 
   create_table "meters", force: :cascade do |t|
     t.datetime "date"
-    t.float "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "client_id"
