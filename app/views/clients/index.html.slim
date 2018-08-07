@@ -5,6 +5,7 @@
         th First name
         th |Second name
         th |Phone number
+        th |Age
         th |Created at
         th |Updated at
         th.hidden
@@ -14,6 +15,7 @@
           td.title= link_to client.first_name, client
           td= client.second_name
           td= client.phone_number
+          td= Time.zone.now.year - client.birth.year
           td.date= time_ago_in_words(client.created_at)
           td.date= time_ago_in_words(client.updated_at)
 li= link_to 'Add a new client', new_client_path, class: 'list-group-item'

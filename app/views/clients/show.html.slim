@@ -1,10 +1,14 @@
 h1= @client.first_name
 h1= @client.second_name
 p= simple_format(@client.phone_number)
+h1
+  |Age:
+  = Time.zone.now.year - @client.birth.year
 
 .buttons
   = link_to 'Edit ', edit_client_path(@client)
   = link_to 'Delete ', client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
   = link_to 'All clients', clients_path
 
-  = link_to ' Add meter'
+  = link_to ' Add meter', meters_path
+  = link_to ' Add training', new_training_path
