@@ -39,7 +39,7 @@ class MetersController < ApplicationController
 
   private
   def meter_params
-    params.require(:meter).permit(:name)
+    params.require(:meter).permit(:name, :unit)
   end
 
   def find_meter
