@@ -1,0 +1,5 @@
+h1 Edit Meter
+= form_for @meter do |f|
+  = f.text_field :name
+  = f.button :submit
+  = link_to 'Cancel', meters_path

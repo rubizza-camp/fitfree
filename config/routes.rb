@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :users
   resources :trainings
   resources :clients
+  resources :meters
 end

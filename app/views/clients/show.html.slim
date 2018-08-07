@@ -6,3 +6,5 @@ p= simple_format(@client.phone_number)
   = link_to 'Edit ', edit_client_path(@client)
   = link_to 'Delete ', client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
   = link_to 'All clients', clients_path
+
+  = link_to ' Add meter'
