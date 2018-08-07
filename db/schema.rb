@@ -10,18 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_172037) do
+ActiveRecord::Schema.define(version: 2018_08_07_195538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "amounts", force: :cascade do |t|
-    t.float "quantity"
-    t.integer "client_id"
-    t.integer "meter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "clients", force: :cascade do |t|
     t.string "first_name"
@@ -34,6 +26,11 @@ ActiveRecord::Schema.define(version: 2018_08_07_172037) do
     t.string "email"
   end
 
+  create_table "clients_metrics", id: false, force: :cascade do |t|
+    t.bigint "metric_id", null: false
+    t.bigint "client_id", null: false
+  end
+
   create_table "meals", force: :cascade do |t|
     t.datetime "datetime"
     t.text "description"
@@ -42,13 +39,27 @@ ActiveRecord::Schema.define(version: 2018_08_07_172037) do
     t.integer "client_id"
   end
 
-  create_table "meters", force: :cascade do |t|
-    t.datetime "date"
+  create_table "measurements", force: :cascade do |t|
+    t.bigint "snapshot_id"
+    t.bigint "metric_id"
+    t.decimal "value"
+    t.index ["metric_id"], name: "index_measurements_on_metric_id"
+    t.index ["snapshot_id"], name: "index_measurements_on_snapshot_id"
+  end
+
+  create_table "metrics", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "units", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "client_id"
-    t.string "name"
-    t.string "unit"
+  end
+
+  create_table "snapshots", force: :cascade do |t|
+    t.date "date", null: false
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_snapshots_on_client_id"
   end
 
   create_table "trainings", force: :cascade do |t|

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :trainings
-  resources :clients
-  resources :meters
+  resources :clients do
+    resources :metrics, shallow: true
+    resources :snapshots, shallow: true
+  end
 end

@@ -5,6 +5,23 @@ p= simple_format(@client.phone_number)
 h1
   |Age:
   = Time.zone.now.year - @client.birth.year
+/h1= @client.meters
+table.table
+  thead
+    tr
+      th Date
+      th |Meter
+      th |Quantity
+    /th.hidden
+  tbody
+    - @client.meters.each do |meter|
+      tr
+        td= meter.date
+        td= meter.name
+        /td= meter.unit
+        td= meter.amounts.each do |amount|
+        /tr
+         /td= amount.quantity
 
 .buttons
   = link_to 'Edit ', edit_client_path(@client)
