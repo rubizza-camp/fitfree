@@ -16,18 +16,19 @@ table.table
   thead
     tr
       th Date
-      th |Meter
-      th |Quantity
-    /th.hidden
+      th Meter
+      th Quantity
+    th.hidden
   tbody
-    tr
     - @client.snapshots.each do |snapshot|
-      td= snapshot.date
+      tr
+        td= snapshot.date
+        td= link_to "#{@client.metrics.name}", metric_path
+        - @client.metrics.each do |measurement|
+          td= measurement.significations
 
-      td= link_to "Neck", metric_path
-      td= @client.metrics.uniq
 
-    - @client.metrics.each do |meter|
+    /- @client.metrics.each do |meter|
       tr
         td= meter.name
         td= meter.unit
@@ -40,5 +41,5 @@ table.table
   = link_to 'Delete ', client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
   = link_to 'All clients', clients_path
 
-  = link_to ' Add meter',metric_path
+  /= link_to ' Add meter',metric_path
   = link_to ' Add training', new_training_path

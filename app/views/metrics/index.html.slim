@@ -1,0 +1,9 @@
+- if @metric.count == 0
+  h1 There are no metrics!
+- else
+  h1 There are all metrics:
+  - @metric.each do |metric|
+    h3
+      a href="/metrics/#{metric.id}"
+        = metric.name
+= link_to 'Back to clients', clients_path

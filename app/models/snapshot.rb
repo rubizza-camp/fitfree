@@ -11,5 +11,8 @@
 
 class Snapshot < ApplicationRecord
   belongs_to :client
+  has_many :measurements
   has_many :metrics, through: :measurements
+
+  accepts_nested_attributes_for :measurements
 end

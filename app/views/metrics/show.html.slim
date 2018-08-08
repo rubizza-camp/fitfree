@@ -1,6 +1,19 @@
 h1
-  | Type of meter:
+  | Type of metric: 
   = @metric.name
 h2
   | Units:
   = @metric.units
+table
+  thead
+    tr
+      th Measurement
+      th |Created at
+      th |Updated at
+      th.hidden
+  tbody
+    tr
+      /td= @metric.signification
+      td.date= time_ago_in_words(@metric.created_at)
+      td.date= time_ago_in_words(@metric.updated_at)
+= link_to ' Edit', edit_metric_path
