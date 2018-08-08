@@ -1,7 +1,7 @@
-= form_for @training do |f|
-  = f.text_field :price
-  = f.text_field :description
-  = f.datetime_select :time
-  = f.text_field :client_id
-  = f.text_field :status
+= simple_form_for @training do |f|
+  = f.input :price
+  = f.input :description
+  = f.datetime_select :time, label:'Time'
+  = f.input :client_id
+  = f.input :status
   = f.submit

@@ -1,6 +1,12 @@
-h1= @client.first_name
-h1= @client.second_name
-h1= @client.email
+h1
+  |First name:
+  = @client.first_name
+h1
+  |Last name:
+  = @client.second_name
+h1
+  |Email:
+  = @client.email
 p= simple_format(@client.phone_number)
 h1
   |Age:
@@ -14,12 +20,18 @@ table.table
       th |Quantity
     /th.hidden
   tbody
-    - @client.meters.each do |meter|
+    tr
+    - @client.snapshots.each do |snapshot|
+      td= snapshot.date
+
+      td= link_to "Neck", metric_path
+      td= @client.metrics.uniq
+
+    - @client.metrics.each do |meter|
       tr
-        td= meter.date
         td= meter.name
-        /td= meter.unit
-        td= meter.amounts.each do |amount|
+        td= meter.unit
+        /td= meter.amounts.each do |amount|
         /tr
          /td= amount.quantity
 
@@ -28,5 +40,5 @@ table.table
   = link_to 'Delete ', client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
   = link_to 'All clients', clients_path
 
-  = link_to ' Add meter', meters_path
+  = link_to ' Add meter',metric_path
   = link_to ' Add training', new_training_path
