@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   namespace :admin do
       resources :users
       root to: "users#index"
@@ -8,5 +9,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :trainings
-  resources :clients
+  resources :clients do
+    get 'payments/', to: 'payments#index'
+    get 'payments/new'
+    post 'payments/new', to: 'payments#add'
+  end
 end
