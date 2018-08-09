@@ -16,7 +16,7 @@ class MetricsController < ApplicationController
   def create
     @metric = Metric.new(metric_params)
     if @metric.save
-      redirect_to metric_path
+      redirect_to client_metrics_path
     else
       render 'new'
     end

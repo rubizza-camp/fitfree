@@ -19,6 +19,8 @@ gem 'pg'
 gem 'slim-rails'
 gem 'sucker_punch'
 gem 'simple_form'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

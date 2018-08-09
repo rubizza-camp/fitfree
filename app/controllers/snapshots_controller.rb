@@ -4,7 +4,7 @@ class SnapshotsController < ApplicationController
   before_action :find_snapshot, only: [:show]
 
   def index
-    @snapshots = @client.snapshots
+    @snapshots = @client.snapshots.paginate(page: params[:page], per_page: 10)
   end
 
   def show

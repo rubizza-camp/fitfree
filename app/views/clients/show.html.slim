@@ -12,7 +12,7 @@ h1
   |Age:
   = Time.zone.now.year - @client.birth.year
 /h1= @client.meters
-table.table
+/table.table
   thead
     tr
       th Date
@@ -25,7 +25,7 @@ table.table
         td= snapshot.date
         td= link_to "#{@client.metrics.name}", metric_path
         - @client.metrics.each do |measurement|
-          td= measurement.significations
+          /td= measurement.value
 
 
     /- @client.metrics.each do |meter|
@@ -40,6 +40,8 @@ table.table
   = link_to 'Edit ', edit_client_path(@client)
   = link_to 'Delete ', client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
   = link_to 'All clients', clients_path
+  /= link_to ' All Snapshots', client_snapshots_path
+  /= link_to ' All clients metrics', client_metrics_path
 
   /= link_to ' Add meter',metric_path
   = link_to ' Add training', new_training_path
