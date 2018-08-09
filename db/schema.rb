@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_195538) do
+ActiveRecord::Schema.define(version: 2018_08_09_104147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 2018_08_07_195538) do
     t.integer "user_id"
     t.datetime "birth"
     t.string "email"
+    t.string "instagram_link"
+    t.string "facebook_link"
+    t.string "vk_link"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
