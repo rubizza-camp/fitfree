@@ -1,11 +1,13 @@
 doctype html
 html
   head
+    #content
+    - csrf_meta_tags
     title Adding payment for client
   body
     h1 Adding payments for client
-    #content
-  form action='' method='post'
+
+  form action='new' method='post'
     label Date
     input name='date' type='date'
     br

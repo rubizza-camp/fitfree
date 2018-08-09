@@ -1,12 +1,14 @@
 class PaymentsController < ApplicationController
-  protect_from_forgery with: :null_session
-  #before_action :authenticate_user!
 
-  # Question: For what that thing ? - "before_action :authenticate_user!"
+  skip_before_action :verify_authenticity_token
+
+  before_action :authenticate_user!
 
   def index
     @payments_list = Transaction.where(client_id: params[:client_id])
   end
+
+  def create; end
 
   def add
     # TODO: Add payment to DB
@@ -16,8 +18,10 @@ class PaymentsController < ApplicationController
       transaction.updated_at = transaction.created_at
       transaction.client_id = params[:client_id]
       transaction.price = params[:price]
-      transaction.user_id = current_user
+      transaction.user_id = current_user.id
+
     end
+    require 'pry'; binding.pry
     @transaction.save
   end
 end
