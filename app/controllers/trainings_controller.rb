@@ -16,7 +16,7 @@ class TrainingsController < ApplicationController
   def create
     @training = current_user.trainings.build(training_params)
     if @training.save
-      redirect_to @training
+      redirect_to calendar_index_path
     else
       render 'new'
     end
