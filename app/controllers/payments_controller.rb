@@ -11,7 +11,6 @@ class PaymentsController < ApplicationController
   def create; end
 
   def add
-    # TODO: Add payment to DB
     @transaction = Transaction.new do |transaction|
       transaction.datetime = params[:date]
       transaction.created_at = params[:date]
@@ -19,9 +18,7 @@ class PaymentsController < ApplicationController
       transaction.client_id = params[:client_id]
       transaction.price = params[:price]
       transaction.user_id = current_user.id
-
     end
-    require 'pry'; binding.pry
     @transaction.save
   end
 end
