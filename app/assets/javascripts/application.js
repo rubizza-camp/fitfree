@@ -14,4 +14,7 @@
 //= require popper
 //= require rails-ujs
 //= require bootstrap-sprockets
+//= require select2/dist/js/select2.full.js
+//= require select2
+//= require chart.js/dist/Chart.js
 //= require_tree .

@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :find_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_metrics, only: [:new, :edit]
   before_action :authenticate_user!
 
   def index
@@ -7,6 +8,7 @@ class ClientsController < ApplicationController
   end
 
   def show
+    @snapshots = @client.snapshots.includes(measurements: :metric)
   end
 
   def new
@@ -26,6 +28,7 @@ class ClientsController < ApplicationController
   end
 
   def update
+    #require "pry"; binding.pry
     if @client.update(client_params)
       redirect_to @client
     else
@@ -44,7 +47,13 @@ class ClientsController < ApplicationController
   end
 
   def client_params
-    params.require(:client).permit(:first_name, :second_name,  :phone_number, :birth,
-                                   :email, :instagram_link, :facebook_link, :vk_link)
+   # params.require(:client).permit(:first_name, :second_name,  :phone_number, :birth,
+                                 #  :email, :instagram_link, :facebook_link, :vk_link)
+    params.require(:client).slice(:metric_ids, :first_name, :second_name,  :phone_number, :birth,
+                                  :email, :instagram_link, :facebook_link, :vk_link).permit!
+  end
+
+  def set_metrics
+    @metrics = Metric.all
   end
 end

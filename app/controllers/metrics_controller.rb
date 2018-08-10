@@ -3,7 +3,7 @@ class MetricsController < ApplicationController
   include ClientableControllerConcern
 
   def index
-    @metric = Metric.all.order('created_at DESC')
+    @metrics = @client.metrics.order('created_at DESC')
   end
   def show
 
