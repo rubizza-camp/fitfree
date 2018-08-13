@@ -5,8 +5,8 @@ class MetricsController < ApplicationController
   def index
     @metrics = @client.metrics.order('created_at DESC')
   end
-  def show
 
+  def show
   end
 
   def new

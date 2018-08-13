@@ -25,6 +25,7 @@ class SnapshotsController < ApplicationController
       render :new
     end
   end
+
   private
 
   def snapshot_params

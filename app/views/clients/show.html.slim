@@ -32,9 +32,6 @@ h1
   = link_to 'Edit ', edit_client_path(@client)
   = link_to 'Delete ', client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
   = link_to 'All clients', clients_path
-  /= link_to ' All clients metrics', client_metrics_path
-
-  /= link_to ' Add meter',metric_path
   = link_to ' Add training', new_training_path
 
 canvas#client_metrics width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots)
