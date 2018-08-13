@@ -11,6 +11,13 @@ class TrainingsController < ApplicationController
 
   def new
     @training = current_user.trainings.build
+    @list = []
+    Client.all.each do |client|
+      each = []
+      each << client.first_name
+      each << client.id
+      @list << each
+    end
   end
 
   def create
