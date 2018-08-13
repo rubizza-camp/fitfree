@@ -1,9 +1,0 @@
-- if @meter.count == 0
-  h1 There are no meters!
-- else
-    h1 There are all meters:
-    - @meter.each do |meter|
-      h3
-        a href="/meters/#{meter.id}"
-          = meter.name
-= link_to 'Back to clients', clients_path
