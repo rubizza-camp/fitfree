@@ -1,0 +1,23 @@
+- unless @exercise.blank?
+  table
+    thead
+      tr
+        th Name
+        th
+        th Repeats
+        th
+        th Edit
+        th
+        th Delete
+        th.hidden
+    tbody
+      - @exercise.each do |exe|
+        tr
+          td.title= exe[:name]
+          td=
+          td= exe[:exercise].repeats
+          td=
+          td= link_to 'Edit ', edit_exercise_path(exe[:exercise])
+          td=
+          td= link_to 'Delete ', exercise_path(exe[:exercise]), method: :delete, data: {confirm: 'Are you sure?'}
+li= link_to "Add a new Exercise", new_exercise_path, class: "list-group-item"

@@ -32,18 +32,24 @@ ActiveRecord::Schema.define(version: 2018_08_07_070506) do
   end
 
   create_table "exercise_sets", force: :cascade do |t|
-    t.bigint "exercise_id"
+    t.bigint "exercises_id"
     t.bigint "training_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exercise_id"], name: "index_exercise_sets_on_exercise_id"
+    t.index ["exercises_id"], name: "index_exercise_sets_on_exercises_id"
     t.index ["training_id"], name: "index_exercise_sets_on_training_id"
   end
 
+  create_table "exercise_types", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "exercises", force: :cascade do |t|
-    t.integer "repeat"
-    t.string "type"
-    t.string "description"
+    t.integer "exercise_type_id"
+    t.integer "repeats"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -113,6 +119,6 @@ ActiveRecord::Schema.define(version: 2018_08_07_070506) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "exercise_sets", "exercises"
+  add_foreign_key "exercise_sets", "exercises", column: "exercises_id"
   add_foreign_key "exercise_sets", "trainings"
 end

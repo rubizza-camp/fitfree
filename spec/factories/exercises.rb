@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :exercise do
-    repeat 1
-    type ""
-    description "MyString"
+    exercise_type_id 1
+    repeats 1
   end
 end

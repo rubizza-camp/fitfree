@@ -12,6 +12,8 @@ html
     header
       - if user_signed_in?
         = link_to 'Sign Out', destroy_user_session_path, method: :delete
+        h1
+        = link_to 'Main', root_path
       - else
         = link_to 'Log In', new_user_session_path
       == render 'layouts/navigation'
