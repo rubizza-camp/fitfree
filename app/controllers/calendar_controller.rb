@@ -13,7 +13,7 @@ class CalendarController < ApplicationController
     @training.each do |training|
       date = training.time.to_s.delete " UTC"
       info = {
-          title: 'Клиент ' + training.client_id.to_s,
+          title: training.title,
           start: date[0...10].to_s + ' ' + date[10...15],
           price: training.price,
           description: training.description,

@@ -13,6 +13,13 @@ class ExercisesController < ApplicationController
 
   def new
     @exercise = Exercise.new
+    @types = []
+    ExerciseType.all.each do |type|
+      each = []
+      each << type.name
+      each << type.id
+      @types << each
+    end
   end
 
   def create
