@@ -18,6 +18,13 @@ class TrainingsController < ApplicationController
       each << client.id
       @list << each
     end
+    @kit_list = []
+    Kit.all.each do |kit|
+      each = []
+      each << kit.title
+      each << kit.id
+      @kit_list << each
+    end
   end
 
   def create
