@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get 'download', to: 'calendar#download'
   resources :exercise_types, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :exercises
+  resources :kits
 end

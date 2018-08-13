@@ -4,6 +4,7 @@ class CreateMeters < ActiveRecord::Migration[5.2]
       t.datetime :date
       t.string :type
       t.float :value
+      t.integer :client_id
 
       t.timestamps
     end

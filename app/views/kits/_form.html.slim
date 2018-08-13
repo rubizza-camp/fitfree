@@ -1,0 +1,7 @@
+= simple_form_for @kit do |f|
+  = f.input :title
+  = f.input :description
+  = f.input :exercise_id, collection: @exercise
+  = f.input :client_id, collection: @client
+  = f.input :repeats
+  = f.submit

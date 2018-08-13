@@ -14,7 +14,7 @@ class TrainingsController < ApplicationController
     @list = []
     Client.all.each do |client|
       each = []
-      each << client.first_name
+      each << client.first_name + ' ' + client.second_name
       each << client.id
       @list << each
     end

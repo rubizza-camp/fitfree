@@ -1,0 +1,31 @@
+- unless @kit.blank?
+  table
+    thead
+      tr
+        th Name
+        th
+        th Exercises
+        th
+        th Client
+        th
+        th Repeats
+        th
+        th Edit
+        th
+        th Delete
+        th.hidden
+    tbody
+      - @kit.each do |kit|
+        tr
+          td.title= link_to kit[:kit].title, kit[:kit]
+          td=
+          td= kit[:exercise]
+          td=
+          td= kit[:client]
+          td=
+          td= kit[:kit].repeats
+          td=
+          td= link_to 'Edit ', edit_kit_path(kit[:kit])
+          td=
+          td= link_to 'Delete ', kit_path(kit[:kit]), method: :delete, data: {confirm: 'Are you sure?'}
+li= link_to "Add a new Kit", new_kit_path, class: "list-group-item"
