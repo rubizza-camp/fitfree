@@ -6,6 +6,8 @@
         th
         th Repeats
         th
+        th Approachs
+        th
         th Edit
         th
         th Delete
@@ -16,6 +18,8 @@
           td.title= exe[:name]
           td=
           td= exe[:exercise].repeats
+          td=
+          td= exe[:exercise].approach
           td=
           td= link_to 'Edit ', edit_exercise_path(exe[:exercise])
           td=

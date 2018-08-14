@@ -64,6 +64,30 @@ class KitsController < ApplicationController
     redirect_to kits_path
   end
 
+  def new_kit_form
+    @kit = Kit.new
+    @exercise = []
+    @client = []
+    @exercises = Exercise.all.map do |exe|
+      {
+          :name => (ExerciseType.find_by(id: exe.exercise_type_id)).name,
+          :exercise => exe
+      }
+    end
+    @exercises.each do |exe|
+      mass = []
+      mass << exe[:name] + ' ' + exe[:exercise].repeats.to_s
+      mass << exe[:exercise].id
+      @exercise << mass
+    end
+    Client.all.each do |client|
+      mass = []
+      mass << client.first_name + ' ' + client.second_name
+      mass << client.id
+      @client << mass
+    end
+    render layout: false
+  end
 
   private
   def find_kit

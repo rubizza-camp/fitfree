@@ -47,12 +47,24 @@ class ExercisesController < ApplicationController
     redirect_to exercises_path
   end
 
+  def new_exercise_form
+    @exercise = Exercise.new
+    @types = []
+    ExerciseType.all.each do |type|
+      each = []
+      each << type.name
+      each << type.id
+      @types << each
+    end
+    render layout: false
+  end
+
   private
   def find_exercise
     @exercise = Exercise.find(params[:id])
   end
 
   def exercise_params
-    params.require(:exercise).permit(:exercise_type_id, :repeats)
+    params.require(:exercise).permit(:exercise_type_id, :repeats, :approach)
   end
 end
