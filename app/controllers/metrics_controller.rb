@@ -11,10 +11,12 @@ class MetricsController < ApplicationController
 
   def new
     @metric = Metric.new
+    @kinds = Kind.all.map{|k| [k.name, k.id]}
   end
 
   def create
     @metric = Metric.new(metric_params)
+    @metric.kind_id = params[:kind_id]
     if @metric.save
       redirect_to client_metrics_path
     else
@@ -25,7 +27,7 @@ class MetricsController < ApplicationController
   private
 
   def metric_params
-    params.require(:metric).permit(:name, :units)
+    params.require(:metric).permit(:name, :units, :kind_id)
   end
 
   def find_metric

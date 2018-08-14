@@ -47,8 +47,9 @@ class ClientsController < ApplicationController
   end
 
   def client_params
-    params.require(:client).slice(:metric_ids, :first_name, :second_name,  :phone_number, :birth, :email,
-                                  :instagram_link, :facebook_link, :vk_link, "birth(1i)", "birth(2i)", "birth(3i)").permit!
+    params.require(:client).slice(:metric_ids, :first_name, :second_name, :phone_number,
+                                  :birth, :email, :instagram_link, :facebook_link, :vk_link,
+                                  "birth(1i)", "birth(2i)", "birth(3i)").permit!
   end
 
   def set_metrics

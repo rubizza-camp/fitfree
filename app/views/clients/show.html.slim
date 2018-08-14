@@ -1,5 +1,4 @@
 script src="https://use.fontawesome.com/d1341f9b7a.js"
-
 h1
   |First name:
   = @client.first_name
@@ -34,4 +33,9 @@ h1
   = link_to 'All clients', clients_path
   = link_to ' Add training', new_training_path
 
-canvas#client_metrics width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots)
+h1
+  |Client strength schedule:
+canvas#client_strength width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots, kind_id = 1)
+h1
+  |Client anthropometry schedule:
+canvas#client_anthropometry width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots, kind_id = 2)
