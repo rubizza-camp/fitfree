@@ -32,10 +32,5 @@ h1
   = link_to 'Delete ', client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
   = link_to 'All clients', clients_path
   = link_to ' Add training', new_training_path
+  = link_to ' Stats', client_stats_path(@client)
 
-h1
-  |Client strength schedule:
-canvas#client_strength width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots, kind_id = 1)
-h1
-  |Client anthropometry schedule:
-canvas#client_anthropometry width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots, kind_id = 2)

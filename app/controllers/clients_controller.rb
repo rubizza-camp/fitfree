@@ -24,6 +24,11 @@ class ClientsController < ApplicationController
     end
   end
 
+  def stats
+    @client = Client.find(params[:client_id])
+    @snapshots = @client.snapshots.includes(measurements: :metric)
+  end
+
   def edit
   end
 

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users
   resources :trainings
   resources :clients do
+    get 'stats', to: 'clients#stats'
     resources :metrics, shallow: true
     resources :snapshots, shallow: true
   end
