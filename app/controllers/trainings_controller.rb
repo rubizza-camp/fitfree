@@ -20,6 +20,7 @@ class TrainingsController < ApplicationController
     else
       render 'new'
     end
+
   end
 
   def edit
@@ -44,6 +45,7 @@ class TrainingsController < ApplicationController
   end
 
   def training_params
-    params.require(:training).permit(:time, :price,  :description, :client_id, :status)
+    params[:training][:price] = Client.find(params[:training][:client_id]).price if params[:training][:price] == ""
+    params.require(:training).slice(:time, :price,  :description, :client_id, :status).permit!
   end
 end
