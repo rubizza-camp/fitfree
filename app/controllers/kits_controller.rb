@@ -3,6 +3,7 @@ class KitsController < ApplicationController
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
+  @@div_id = 1
 
   def index
     @kit = Kit.all.map do |kit|
@@ -68,7 +69,9 @@ class KitsController < ApplicationController
 
   def new_kit_form
     @kit = Kit.new
+    @id = @@div_id
     render layout: false
+    @@div_id += 1
   end
 
   private

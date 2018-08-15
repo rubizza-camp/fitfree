@@ -4,10 +4,9 @@
   h5
     | New kit
   = f.input :training_id
-  /- id = exercise
-  /div.exercise class="#{id}" style="margin-left: 30px"
-  #exercise[style="margin-left: 30px"]
-  input[type="button" onclick="newexercise()" value="Add exercise"]
+  - id = @id
+  div[id="exercise_#{id}" style="margin-left: 50px"]
+  input[type="button" onclick="newexercise(#{id})" value="Add new exercise"]
   br
-  = f.submit
+  = f.submit 'Add kit'
   h1
