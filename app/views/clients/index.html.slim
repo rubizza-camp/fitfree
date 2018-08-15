@@ -1,3 +1,8 @@
+ul.nav.navbar-nav
+  li.dropdown
+    - Status.all.each do |status|
+      li class=("#{'active' if params[:status] == status.name}")
+        = link_to status.name, clients_path(status: status.name), class: 'link'
 - unless @client.blank?
   table
     thead
