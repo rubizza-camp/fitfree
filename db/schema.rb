@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_14_080230) do
+ActiveRecord::Schema.define(version: 2018_08_13_104203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,13 +27,12 @@ ActiveRecord::Schema.define(version: 2018_08_14_080230) do
     t.string "second_name"
     t.string "phone_number"
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "connectors", force: :cascade do |t|
-    t.integer "kit_id"
-    t.integer "exercise_id"
+    t.datetime "birth"
+    t.string "email"
+    t.string "instagram_link"
+    t.string "facebook_link"
+    t.string "vk_link"
+    t.integer "status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -47,6 +46,7 @@ ActiveRecord::Schema.define(version: 2018_08_14_080230) do
 
   create_table "exercises", force: :cascade do |t|
     t.integer "exercise_type_id"
+    t.integer "kit_id"
     t.integer "repeats"
     t.integer "approach"
     t.datetime "created_at", null: false
@@ -90,8 +90,9 @@ ActiveRecord::Schema.define(version: 2018_08_14_080230) do
 
   create_table "transactions", force: :cascade do |t|
     t.datetime "datetime"
-    t.integer "user_id"
     t.integer "client_id"
+    t.integer "user_id"
+    t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -11,6 +11,7 @@ class ExerciseTypesController < ApplicationController
   end
 
   def create
+    #require "pry"; binding.pry
     @exercise_type = ExerciseType.new(type_params)
     if @exercise_type.save
       redirect_to exercise_types_path

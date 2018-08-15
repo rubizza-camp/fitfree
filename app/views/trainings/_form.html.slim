@@ -4,7 +4,7 @@
   = f.input :title
   = f.input :price
   = f.input :description
-  = f.datetime_select :time
+  = f.input :time, as: :date, html5: true
   = f.input :client_id, collection: @list
   #newkit[style="margin-left: 50px"]
   input[type="button" onclick="newkit()" value="Add new kit"]
