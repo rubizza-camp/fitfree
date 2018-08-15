@@ -1,6 +1,8 @@
 class ExercisesController < ApplicationController
   before_action :find_exercise, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
+  protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token
 
   def index
     @exercise = Exercise.all.map do |exe|

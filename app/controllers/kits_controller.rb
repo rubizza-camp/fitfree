@@ -1,6 +1,8 @@
 class KitsController < ApplicationController
   before_action :find_kit, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token
 
   def index
     @kit = Kit.all.map do |kit|
@@ -66,26 +68,6 @@ class KitsController < ApplicationController
 
   def new_kit_form
     @kit = Kit.new
-    @exercise = []
-    @client = []
-    @exercises = Exercise.all.map do |exe|
-      {
-          :name => (ExerciseType.find_by(id: exe.exercise_type_id)).name,
-          :exercise => exe
-      }
-    end
-    @exercises.each do |exe|
-      mass = []
-      mass << exe[:name] + ' ' + exe[:exercise].repeats.to_s
-      mass << exe[:exercise].id
-      @exercise << mass
-    end
-    Client.all.each do |client|
-      mass = []
-      mass << client.first_name + ' ' + client.second_name
-      mass << client.id
-      @client << mass
-    end
     render layout: false
   end
 
@@ -97,6 +79,4 @@ class KitsController < ApplicationController
   def kit_params
     params.require(:kit).permit(:title, :description, :client_id, :exercise_id, :repeats)
   end
-
-
 end

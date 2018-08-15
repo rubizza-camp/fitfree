@@ -1,4 +1,6 @@
 = simple_form_for @exercise do |f|
+  h5
+    | New exercise
   = f.input :exercise_type_id, collection: @types
   = f.input :repeats
   = f.input :approach
