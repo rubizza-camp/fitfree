@@ -1,16 +1,13 @@
-$(function () {
-    var canvas = document.getElementById('client_strength')
+function metricsGraph(canvasId) {
+    var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
-    var myLineChart = new Chart(ctx, {
+    new Chart(ctx, {
         type: 'line',
         data: $(canvas).data('metrics')
     });
-})
+}
+
 $(function () {
-    var canvas = document.getElementById('client_anthropometry')
-    var ctx = canvas.getContext('2d');
-    var myLineChart = new Chart(ctx, {
-        type: 'line',
-        data: $(canvas).data('metrics')
-    });
-})
+    metricsGraph('client_strength');
+    metricsGraph('client_anthropometry');
+});

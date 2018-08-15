@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_15_062159) do
+ActiveRecord::Schema.define(version: 2018_08_15_181048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2018_08_15_062159) do
     t.string "instagram_link"
     t.string "facebook_link"
     t.string "vk_link"
-    t.integer "status_id"
+    t.integer "status"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -71,12 +71,6 @@ ActiveRecord::Schema.define(version: 2018_08_15_062159) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_snapshots_on_client_id"
-  end
-
-  create_table "statuses", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "trainings", force: :cascade do |t|

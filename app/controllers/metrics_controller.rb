@@ -6,8 +6,7 @@ class MetricsController < ApplicationController
     @metrics = @client.metrics.order('created_at DESC')
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @metric = Metric.new

@@ -20,7 +20,8 @@ class Client < ApplicationRecord
   has_many :transactions
   has_and_belongs_to_many :metrics
   has_many :snapshots
-  belongs_to :status
 
   accepts_nested_attributes_for :metrics
+
+  enum status: [:online, :offline]
 end

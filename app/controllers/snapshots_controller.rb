@@ -7,8 +7,7 @@ class SnapshotsController < ApplicationController
     @snapshots = @client.snapshots.paginate(page: params[:page], per_page: 10)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @snapshot = @client.snapshots.new

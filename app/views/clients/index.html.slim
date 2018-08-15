@@ -12,11 +12,11 @@
               = link_to status.name, clients_path(status: status.name), class: 'link'
 ul.nav.navbar-nav
   li.dropdown
-    - Status.all.each do |status|
-      li class=("#{'active' if params[:status] == status.name}")
-        = link_to status.name, clients_path(status: status.name), class: 'link'
+    - Client.statuses_i18n.each do |status, status_i18n|
+      li class=("#{'active' if params[:status] == status}")
+        = link_to status_i18n, clients_path(status: status), class: 'link'
 
-- unless @client.blank?
+- unless @clients.blank?
   table.table
     thead
       tr
@@ -28,7 +28,7 @@ ul.nav.navbar-nav
         th Updated:
         th.hidden
     tbody
-      - @client.each do |client|
+      - @clients.each do |client|
         tr= link_to  client
           td.title= link_to client.first_name, client
           td= client.second_name
