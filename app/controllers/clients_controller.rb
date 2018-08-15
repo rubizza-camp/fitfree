@@ -24,6 +24,7 @@ class ClientsController < ApplicationController
   end
 
   def create
+    #require "pry"; binding.pry
     @client = current_user.clients.build(client_params)
     @client.status_id = params[:status_id]
     if @client.save

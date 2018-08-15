@@ -22,6 +22,7 @@ gem 'simple_form'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'chart-js-rails'
+gem 'now-ui-kit-rails'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
