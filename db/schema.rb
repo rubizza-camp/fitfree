@@ -76,15 +76,6 @@ ActiveRecord::Schema.define(version: 2018_08_14_080230) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "meters", force: :cascade do |t|
-    t.datetime "date"
-    t.string "type"
-    t.float "value"
-    t.integer "client_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "trainings", force: :cascade do |t|
     t.text "title"
     t.datetime "time"
