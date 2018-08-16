@@ -1,4 +1,3 @@
 class Calendar < ApplicationRecord
-  def index
-  end
+  def index; end
 end

@@ -3,9 +3,7 @@ require 'json'
 class CalendarController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-
-  end
+  def index; end
 
   def download
     @training = Training.where(user_id: current_user)

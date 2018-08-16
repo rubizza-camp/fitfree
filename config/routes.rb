@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   resources :calendar, only: [:index, :download]
   get 'download', to: 'calendar#download'
   resources :exercise_types, only: [:index, :new, :create, :edit, :update, :destroy]
-  resources :exercises
+  resources :exercises, except: :new
+  get 'exercise/new/:id', to: 'exercises#new'
   resources :kits
   post 'newkitform', to: 'kits#new_kit_form'
   post 'newexerciseform', to: 'exercises#new_exercise_form'

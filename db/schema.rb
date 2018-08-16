@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2018_08_13_104203) do
   create_table "exercises", force: :cascade do |t|
     t.integer "exercise_type_id"
     t.integer "kit_id"
+    t.integer "user_id"
     t.integer "repeats"
     t.integer "approach"
     t.datetime "created_at", null: false
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 2018_08_13_104203) do
 
   create_table "kits", force: :cascade do |t|
     t.integer "training_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

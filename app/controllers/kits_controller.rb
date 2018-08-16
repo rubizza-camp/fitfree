@@ -3,55 +3,38 @@ class KitsController < ApplicationController
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
-  @@div_id = 1
 
   def index
-    @kit = Kit.all.map do |kit|
-      {
-          :client => (Client.find_by(id: kit.client_id)).first_name + ' ' + (Client.find_by(id: kit.client_id)).second_name,
-          :exercise => (ExerciseType.find_by(id: (Exercise.find_by(id: kit.exercise_id)).exercise_type_id)).name,
-          :kit => kit
-      }
-    end
+    @kit = Kit.all
   end
 
   def show
+    @exercises = Exercise.where(kit_id: @kit.id)
+    @exes = @exercises.map do |exe|
+      {
+          :name => (ExerciseType.find_by(id: exe.exercise_type_id)).name,
+          :exe => exe
+      }
+    end
   end
 
   def new
-    @kit = Kit.new
-    @exercise = []
-    @client = []
-    @exercises = Exercise.all.map do |exe|
-      {
-          :name => (ExerciseType.find_by(id: exe.exercise_type_id)).name,
-          :exercise => exe
-      }
-    end
-    @exercises.each do |exe|
-      mass = []
-      mass << exe[:name] + ' ' + exe[:exercise].repeats.to_s
-      mass << exe[:exercise].id
-      @exercise << mass
-    end
-    Client.all.each do |client|
-      mass = []
-      mass << client.first_name + ' ' + client.second_name
-      mass << client.id
-      @client << mass
-    end
+    create
   end
 
   def create
-    @kit = Kit.new(kit_params)
+    training_id = Training.order("created_at").where(user_id: current_user.id).last.id
+    @kit = Kit.new(:training_id => training_id)
     if @kit.save
-      redirect_to kits_path
+      redirect_to edit_kit_path(@kit)
     else
       render 'new'
     end
   end
 
   def edit
+    @id = @kit.id
+    render layout: false
   end
 
   def update
@@ -80,6 +63,6 @@ class KitsController < ApplicationController
   end
 
   def kit_params
-    params.require(:kit).permit(:title, :description, :client_id, :exercise_id, :repeats)
+    params.require(:kit).permit(:training_id)
   end
 end

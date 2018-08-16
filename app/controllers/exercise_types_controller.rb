@@ -20,8 +20,7 @@ class ExerciseTypesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @exercise_type.update(type_params)

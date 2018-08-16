@@ -1,18 +1,22 @@
+h1
+  | Trainings
 - unless @training.blank?
   table.table
     thead
       tr
+        th Title
         th Price
-        th |Time
-        th |Description
-        th |Created at
-        th |Updated at
-        th |Client id
+        th Time
+        th Description
+        th Created at
+        th Updated at
+        th Client id
         th.hidden
     tbody
       - @training.each do |training|
         tr
-          td.title= link_to training.price, training
+          td.title= link_to training.title, training
+          td= training.price
           td= training.time
           td= training.description
           td.date= time_ago_in_words(training.created_at)

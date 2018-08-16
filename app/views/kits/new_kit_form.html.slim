@@ -5,7 +5,7 @@
     | New kit
   = f.input :training_id
   - id = @id
-  div[id="exercise_#{id}" style="margin-left: 50px"]
+  div[id="kit_#{id}" style="margin-left: 50px"]
   input[type="button" onclick="newexercise(#{id})" value="Add new exercise"]
   br
   = f.submit 'Add kit'

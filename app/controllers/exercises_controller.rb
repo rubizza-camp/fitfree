@@ -1,11 +1,13 @@
 class ExercisesController < ApplicationController
-  before_action :find_exercise, only: [:edit, :update, :destroy]
+  include TypeListConcern
+  before_action :find_exercise, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
+  @@count = 1
 
   def index
-    @exercise = Exercise.all.map do |exe|
+    @exercises = Exercise.all.map do |exe|
       {
           :name => (ExerciseType.find_by(id: exe.exercise_type_id)).name,
           :exercise => exe
@@ -13,34 +15,44 @@ class ExercisesController < ApplicationController
     end
   end
 
-  def new
-    @exercise = Exercise.new
-    @types = []
-    ExerciseType.all.each do |type|
-      each = []
-      each << type.name
-      each << type.id
-      @types << each
-    end
+  def show
+    @name = (ExerciseType.find_by(id: @exercise.exercise_type_id)).name
+    render layout: false
   end
 
-  def create
-    @exercise = Exercise.new(exercise_params)
+  require 'pry'
+
+  def new
+    # binding.pry
+    create(params['id'])
+  end
+
+  def create(id)
+    puts 'ID HERE'
+    puts id
+    kit_id = id
+    @exercise = Exercise.new(:exercise_type_id => 1, :kit_id => kit_id, :repeats => 1, :approach => 1)
     if @exercise.save
-      redirect_to exercises_path
+      redirect_to edit_exercise_path(@exercise)
     else
       render 'new'
     end
   end
 
   def edit
+    @count = @@count
+    @ex_id = @exercise.id
+    @types = types_list
+    render layout: false
+    @@count += 1
   end
 
   def update
+    @name = (ExerciseType.find_by(id: @exercise.exercise_type_id)).name
     if @exercise.update(exercise_params)
-      redirect_to exercises_path
+      render plain: "#{@name}"+ " | " + "повторений: " + "#{@exercise.repeats}"+ "," + "подходов: " "#{@exercise.approach}"
     else
-      render 'edit'
+      render plain: "ahuet"
     end
   end
 
@@ -49,24 +61,12 @@ class ExercisesController < ApplicationController
     redirect_to exercises_path
   end
 
-  def new_exercise_form
-    @exercise = Exercise.new
-    @types = []
-    ExerciseType.all.each do |type|
-      each = []
-      each << type.name
-      each << type.id
-      @types << each
-    end
-    render layout: false
-  end
-
   private
   def find_exercise
     @exercise = Exercise.find(params[:id])
   end
 
   def exercise_params
-    params.require(:exercise).permit(:exercise_type_id, :repeats, :approach)
+    params.require(:exercise).permit(:exercise_type_id, :kit_id, :repeats, :approach)
   end
 end

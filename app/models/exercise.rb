@@ -1,4 +1,3 @@
 class Exercise < ApplicationRecord
-  has_many :exercise_types
-  belongs_to :kit
+  has_one :exercise_types
 end

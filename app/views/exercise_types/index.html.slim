@@ -1,23 +1,19 @@
+h1
+  | Exercise_Types
 - unless @exercise_type.blank?
-  table
+  table.table
     thead
       tr
         th Name
-        th
         th Description
-        th
         th Edit
-        th
         th Delete
         th.hidden
     tbody
       - @exercise_type.each do |exercise_type|
         tr
           td.title= exercise_type.name
-          td=
           td= link_to exercise_type.description, exercise_type.description
-          td=
           td= link_to 'Edit ', edit_exercise_type_path(exercise_type)
-          td=
           td= link_to 'Delete ', exercise_type_path(exercise_type), method: :delete, data: {confirm: 'Are you sure?'}
 li= link_to "Add a new Exercise_Type", new_exercise_type_path, class: "list-group-item"

@@ -1,5 +1,10 @@
-= simple_form_for @exercise do |f|
-  = f.input :exercise_type_id, collection: @types
-  = f.input :repeats
-  = f.input :approach
-  = f.submit
+== javascript_include_tag 'newexerciseform'
+
+div[id="exercise_#{@count}"]
+  = simple_form_for(@exercise, html: {novalidate: true}) do |f|
+    h5
+      | New exercise
+    = f.input :exercise_type_id, collection: @types
+    = f.input :repeats
+    = f.input :approach
+    input[type="button" onclick="save_and_show(#{@count}, #{@ex_id})" value="Add exersice"]

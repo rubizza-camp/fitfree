@@ -6,8 +6,7 @@ class ClientsController < ApplicationController
     @client = Client.where(user_id: current_user)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @client = current_user.clients.build
@@ -22,8 +21,7 @@ class ClientsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @client.update(client_params)

@@ -5,6 +5,7 @@ function newkit() {
             document.getElementById("newkit").innerHTML += this.responseText;
         }
     };
-    xhttp.open("POST", "/newkitform", true);
+    xhttp.open("GET", "/kits/new", true);
     xhttp.send(new FormData());
 }
+

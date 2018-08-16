@@ -1,7 +1,14 @@
-h1= @kit.title
-h1= @kit.description
+h5
+  | #{'Kit ' + @kit.id.to_s}
+- unless @exes.blank?
+  table.table
+    tbody
+      - @exes.each do |exe|
+        tr
+          td.title=  exe[:name]
+          td= exe[:exe].repeats
+          td= exe[:exe].approach
+- else
+  h6
+    | Нет добавленных упражнений
 
-.buttons
-  = link_to 'Edit ', edit_kit_path(@kit)
-  = link_to 'Delete ', kit_path(@kit), method: :delete, data: {confirm: 'Are you sure?'}
-  = link_to 'All kits', kits_path

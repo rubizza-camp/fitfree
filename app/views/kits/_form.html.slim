@@ -1,5 +1,7 @@
-= simple_form_for @kit do |f|
-  = f.input :exercise_id, collection: @exercise
-  = f.input :client_id, collection: @client
-  = f.input :repeats
-  = f.submit
+== javascript_include_tag 'newexerciseform'
+
+h5
+  | New kit
+div[id="kit_#{@id}" style="margin-left: 50px"]
+input[type="button" onclick="newexercise(#{@id})" value="Add new exercise"]
+h1

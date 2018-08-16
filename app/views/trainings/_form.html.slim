@@ -1,12 +1,7 @@
-== javascript_include_tag 'newkit'
-
-= simple_form_for @training do |f|
+= simple_form_for(@training, html: {novalidate: true}) do |f|
   = f.input :title
   = f.input :price
   = f.input :description
-  = f.input :time, as: :date, html5: true
+  = f.datetime_select :time
   = f.input :client_id, collection: @list
-  #newkit[style="margin-left: 50px"]
-  input[type="button" onclick="newkit()" value="Add new kit"]
-  h1
   = f.submit
