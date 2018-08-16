@@ -1,0 +1,7 @@
+= simple_form_for [@client,@metric] do |form|
+  = select_tag(:kind_id, options_for_select(@kinds), :prompt => 'Select a kind of metric' )
+  /= form.association :kind
+  = form.input :name
+  = form.input :units
+  = form.submit
+

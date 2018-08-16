@@ -1,0 +1,18 @@
+- if @metrics.count == 0
+  h1 There are no metrics!
+- else
+  h1 There are all metrics:
+  table.table
+    thead
+      tr
+        th Metric
+        th Units
+    tbody
+      - @metrics.each do |metric|
+        tr
+          td =link_to "#{metric.name}", metric
+          /td =link_to "#{metric.name}
+          td = "#{metric.units}"
+button.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-right type="button" =link_to new_metric_path
+  i.now-ui-icons.ui-1_simple-add
+

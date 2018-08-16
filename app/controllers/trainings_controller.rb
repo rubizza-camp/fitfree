@@ -6,8 +6,7 @@ class TrainingsController < ApplicationController
     @training = Training.where(user_id: current_user)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @training = current_user.trainings.build
@@ -22,8 +21,7 @@ class TrainingsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @training.update(training_params)

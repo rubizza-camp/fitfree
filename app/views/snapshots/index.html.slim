@@ -1,0 +1,15 @@
+h1 There are all snapshots:
+
+table.table
+  thead
+    tr
+      th Date
+      - @client.metrics.each do |metric|
+        th= metric_name_with_units(metric)
+  tbody
+    - @snapshots.each do |snapshot|
+      tr
+        td
+          = link_to l(snapshot.date), snapshot
+        - snapshot.measurements.each do |measurement|
+          td= measurement.value

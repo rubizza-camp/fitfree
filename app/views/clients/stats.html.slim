@@ -1,0 +1,54 @@
+ul.nav.nav-tabs.justify-content-center role="tablist"
+  li.nav-item
+    a.nav-link href="#{client_path(@client)}" role="tab"
+      i.now-ui-icons.users_single-02
+      | Client info
+  li.nav-item
+    a.nav-link.active href="#{client_stats_path(@client)}" role="tab"
+      i.now-ui-icons.sport_user-run
+      |Stats
+  li.nav-item
+    a.nav-link  role="tab" onclick="clicker(event)"
+      i.now-ui-icons.ui-1_email-85
+      | Messages
+  li.nav-item
+    a.nav-link  role="tab"
+      i.now-ui-icons.shopping_box
+      | Client diet
+  li.nav-item
+    a.nav-link  href="#{client_path(@client)}" role="tab"
+      i.now-ui-icons.business_bank
+      | Payments
+  li.nav-item
+    a.nav-link  role="tab"
+      i.now-ui-icons.sport_trophy
+      | Training diary
+h1
+  |Client stats
+
+  button.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-right type="button" =link_to new_client_snapshot_path(@client)
+    i.now-ui-icons.ui-1_settings-gear-63
+table.table
+  thead
+    tr
+      th Date
+      - @client.metrics.each do |metric|
+        th= metric_name_with_units(metric)
+  tbody
+    - @snapshots.each do |snapshot|
+      tr
+        td
+          = link_to l(snapshot.date), snapshot
+        - snapshot.measurements.each do |measurement|
+          td= measurement.value
+
+
+
+h2
+  |Client strength schedule:
+canvas#client_strength width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots, kind_id = 1)
+h2
+  |Client anthropometry schedule:
+canvas#client_anthropometry width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots, kind_id = 2)
+
+= link_to 'Back ', client_path(@client)

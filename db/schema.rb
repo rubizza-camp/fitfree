@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_06_152855) do
+ActiveRecord::Schema.define(version: 2018_08_16_121442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,27 @@ ActiveRecord::Schema.define(version: 2018_08_06_152855) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.datetime "birth"
+    t.string "email"
+    t.string "instagram_link"
+    t.string "facebook_link"
+    t.string "vk_link"
+    t.integer "status"
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.bigint "avatar_file_size"
+    t.datetime "avatar_updated_at"
+  end
+
+  create_table "clients_metrics", id: false, force: :cascade do |t|
+    t.bigint "metric_id", null: false
+    t.bigint "client_id", null: false
+  end
+
+  create_table "kinds", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "meals", force: :cascade do |t|
@@ -32,13 +53,28 @@ ActiveRecord::Schema.define(version: 2018_08_06_152855) do
     t.integer "client_id"
   end
 
-  create_table "meters", force: :cascade do |t|
-    t.datetime "date"
-    t.string "type"
-    t.float "value"
+  create_table "measurements", force: :cascade do |t|
+    t.bigint "snapshot_id"
+    t.bigint "metric_id"
+    t.decimal "value"
+    t.index ["metric_id"], name: "index_measurements_on_metric_id"
+    t.index ["snapshot_id"], name: "index_measurements_on_snapshot_id"
+  end
+
+  create_table "metrics", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "units", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "client_id"
+    t.integer "kind_id"
+  end
+
+  create_table "snapshots", force: :cascade do |t|
+    t.date "date", null: false
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_snapshots_on_client_id"
   end
 
   create_table "trainings", force: :cascade do |t|
@@ -78,4 +114,5 @@ ActiveRecord::Schema.define(version: 2018_08_06_152855) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
 end

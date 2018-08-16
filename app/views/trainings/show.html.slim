@@ -1,11 +1,19 @@
-h1= @training.price
-h1= @training.time
+h1
+  |Price:
+  = @training.price
+h1
+  |Time:
+  = @training.time
 /h1= @training.client_id
 = link_to @training.client.first_name, client_path(@training.client.id)
 h1
 = link_to @training.client.second_name, client_path(@training.client.id)
-h1= @training.status
-p= simple_format(@training.description)
+h1
+  |Status:
+  = @training.status
+p
+  |To do:
+  = simple_format(@training.description)
 
 .buttons
   = link_to 'Edit ', edit_training_path(@training)
