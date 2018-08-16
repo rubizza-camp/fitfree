@@ -32,8 +32,7 @@ class ClientsController < ApplicationController
     @snapshots = @client.snapshots.includes(measurements: :metric)
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @client.update(client_params)
