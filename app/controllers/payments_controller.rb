@@ -6,6 +6,7 @@ class PaymentsController < ApplicationController
 
   def index
     @payments_list = Transaction.where(client_id: params[:client_id])
+                         .sort_by(&:datetime).reverse!
   end
 
   def create; end
