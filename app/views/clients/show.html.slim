@@ -25,6 +25,10 @@ ul.nav.nav-tabs.justify-content-center role="tablist"
       | Training diary
 
 script src="https://use.fontawesome.com/d1341f9b7a.js"
+
+.photo-container style="border-radius:50%" 
+  = image_tag @client.avatar.url(:medium), class: 'rounded-circle img-raised'
+
 h3.form-centered
   |First name:
   = @client.first_name

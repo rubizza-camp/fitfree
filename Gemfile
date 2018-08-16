@@ -24,6 +24,7 @@ gem 'will_paginate-bootstrap'
 gem 'chart-js-rails'
 gem 'now-ui-kit-rails'
 gem 'enum_help'
+gem 'paperclip'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
