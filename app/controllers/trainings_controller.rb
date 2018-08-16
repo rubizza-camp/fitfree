@@ -1,4 +1,5 @@
 class TrainingsController < ApplicationController
+  include Sidekiq::Worker
   before_action :find_training, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
@@ -16,11 +17,18 @@ class TrainingsController < ApplicationController
   def create
     @training = current_user.trainings.build(training_params)
     if @training.save
+      tmp = WithdrawPaymentJob.set(wait_until: @training.time)
+                .perform_later({ :client_id => @training.client_id,
+                                 :user_id => @training.user_id,
+                                 :time => @training.time,
+                                 :price => @training.price }
+                                   .to_json)
+      puts params.inspect
+      # puts tmp.job_id
       redirect_to @training
     else
       render 'new'
     end
-
   end
 
   def edit
@@ -45,7 +53,9 @@ class TrainingsController < ApplicationController
   end
 
   def training_params
-    params[:training][:price] = Client.find(params[:training][:client_id]).price if params[:training][:price] == ""
-    params.require(:training).slice(:time, :price,  :description, :client_id, :status).permit!
+    params[:training][:price] = Client.find(params[:training][:client_id])
+                                    .price if params[:training][:price] == ""
+    params.require(:training).slice(:time, :price, :description, :client_id, :status, :cancel,
+                                    "time(1i)", "time(2i)", "time(3i)", "time(4i)", "time(5i)").permit!
   end
 end

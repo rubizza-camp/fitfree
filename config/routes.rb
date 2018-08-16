@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   resources :clients do
     get 'payments/', to: 'payments#index'
     get 'payments/create'
-    post 'payments/new', to: 'payments#add'
+    post 'payments/new', to: 'payments#new'
   end
 end
