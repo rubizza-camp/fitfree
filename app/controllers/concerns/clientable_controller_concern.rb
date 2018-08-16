@@ -8,6 +8,6 @@ module ClientableControllerConcern
   private
 
   def set_client
-    @client = Client.find(params[:client_id])
+    @client = Client.find_by(id: params[:client_id])
   end
 end

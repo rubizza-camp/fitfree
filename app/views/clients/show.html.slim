@@ -39,7 +39,7 @@ h3.form-centered
   = simple_format(@client.phone_number)
 h3.form-centered
   |Age:
-  = Time.zone.now.year - @client.birth.year
+  = ((Time.zone.now - @client.birth.to_time) / 1.year.seconds).floor
 h6.form-centered
   | Status:
   = @client.status_i18n

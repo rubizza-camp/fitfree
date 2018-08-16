@@ -3,7 +3,12 @@ class MetricsController < ApplicationController
   include ClientableControllerConcern
 
   def index
-    @metrics = @client.metrics.order('created_at DESC')
+    @metrics = if @client
+      @client.metrics
+    else
+      Metric.all
+    end
+    @metrics = @metrics.order(created_at: :desc)
   end
 
   def show; end
@@ -17,7 +22,7 @@ class MetricsController < ApplicationController
     @metric = Metric.new(metric_params)
     @metric.kind_id = params[:kind_id]
     if @metric.save
-      redirect_to client_metrics_path
+      redirect_to metrics_path
     else
       render 'new'
     end

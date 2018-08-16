@@ -11,12 +11,14 @@ module ClientsHelper
   end
 
   def client_data_sets(client, snapshots, kind_id)
-    tmp = {}
-    snapshots.map(&:measurements).flatten.group_by(&:metric)
-      .each { |key, value| tmp.merge!({key => value}) if key.kind_id == kind_id }
-      tmp.map do |metric, measurements|
+    snapshots.
+      map(&:measurements).
+      flatten.
+      group_by(&:metric).
+      select { |metric, _measurements| metric.kind_id == kind_id }.
+      map do |metric, measurements|
         client_data_set(metric, measurements)
-     end
+      end
   end
 
   def client_data_set(metric, measurements)

@@ -7,9 +7,10 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :trainings
+  resources :metrics
   resources :clients do
     get 'stats', to: 'clients#stats'
-    resources :metrics, shallow: true
+    resources :metrics, only: [:index]
     resources :snapshots, shallow: true
   end
 end
