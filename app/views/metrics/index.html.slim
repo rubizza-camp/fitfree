@@ -5,5 +5,6 @@
   - @metrics.each do |metric|
     h3
       = link_to metric_name_with_units(metric), metric
-= link_to 'Back to clients', clients_path
-= link_to 'Add metric', new_metric_path
+button.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-left type="button" =link_to new_metric_path
+  i.now-ui-icons.ui-1_simple-add
+

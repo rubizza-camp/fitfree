@@ -4,7 +4,7 @@ class SnapshotsController < ApplicationController
   before_action :find_snapshot, only: [:show]
 
   def index
-    @snapshots = @client.snapshots.paginate(page: params[:page], per_page: 10)
+    @snapshots = @client.snapshots
   end
 
   def show; end
@@ -19,7 +19,7 @@ class SnapshotsController < ApplicationController
   def create
     @snapshot = @client.snapshots.new(snapshot_params)
     if @snapshot.save
-      redirect_to client_snapshots_path(@client)
+      redirect_to client_stats_path(@client)
     else
       render :new
     end
