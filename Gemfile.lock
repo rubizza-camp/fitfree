@@ -136,6 +136,7 @@ GEM
       multi_json (>= 1.11.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    gravatar_image_tag (1.2.0)
     high_voltage (3.1.0)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
@@ -346,6 +347,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   gibbon
+  gravatar_image_tag
   high_voltage
   jbuilder (~> 2.5)
   jquery-rails

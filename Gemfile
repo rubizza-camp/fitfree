@@ -32,6 +32,7 @@ gem 'chart-js-rails'
 gem 'now-ui-kit-rails'
 gem 'enum_help'
 gem 'paperclip'
+gem 'gravatar_image_tag'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

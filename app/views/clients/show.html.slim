@@ -1,72 +1,47 @@
-ul.nav.nav-tabs.justify-content-center role="tablist"
-  li.nav-item
-    a.nav-link.active href="#{client_path(@client)}" role="tab"
-      i.now-ui-icons.users_single-02
-      | Client info
-  li.nav-item
-    a.nav-link href="#{client_stats_path(@client)}" role="tab"
-      i.now-ui-icons.sport_user-run
-      |Stats
-  li.nav-item
-    a.nav-link   role="tab"
-      i.now-ui-icons.ui-1_email-85
-      | Messages
-  li.nav-item
-    a.nav-link  role="tab"
-      i.now-ui-icons.shopping_box
-      | Client diet
-  li.nav-item
-    a.nav-link  href="#{client_path(@client)}" role="tab"
-      i.now-ui-icons.business_bank
-      | Payments
-  li.nav-item
-    a.nav-link   role="tab"
-      i.now-ui-icons.sport_trophy
-      | Training diary
+= render 'clients/navbar', active_section: :show
 
-script src="https://use.fontawesome.com/d1341f9b7a.js"
+.column
+  .photo-container.size-2
+    = gravatar_image_tag(@client.email, filetype: :png, rating: 'pg', size: 15, secure: false)
+  section.form-centered
+    |First name:
+    = @client.first_name
+  section.form-centered
+    |Last name:
+    = @client.second_name
+  section.form-centered
+    |Email:
+    = link_to  @client.email
+  section.form-centered
+    |Phone number:
+    = simple_format(@client.phone_number)
+  section.form-centered
+    |Age:
+    = ((Time.zone.now - @client.birth.to_time) / 1.year.seconds).floor
+  section.form-centered
+    | Status:
+    = @client.status_i18n
+  .prof-box.form-centered
+    ul
+      li
+        a href="#{@client.facebook_link}" target="_blank"
+          i.fa.fa-facebook-square aria-hidden="true"
+      li
+        a href="#{@client.instagram_link}" target="_blank"
+          i.fa.fa-instagram aria-hidden="true"
+      li
+        a href="#{@client.vk_link}" target="_blank"
+          i.fa.fa-vk aria-hidden="true"
+  
+  /.buttons
+    = link_to 'Edit ', edit_client_path(@client)
+    = link_to 'Delete ', client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
+    = link_to 'All clients', clients_path
+    = link_to ' Add training', new_training_path
+    = link_to ' Stats', client_stats_path(@client)
+  
+  div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-warning =link_to edit_client_path(@client)
+    i.now-ui-icons.ui-2_settings-90
+  div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-danger = link_to  client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
+    i.now-ui-icons.design_scissors
 
-/.photo-container style="border-radius:50%"
-  = image_tag @client.avatar.url(:medium), class: 'rounded-circle img-raised'
-
-h3.form-centered
-  |First name:
-  = @client.first_name
-h3.form-centered
-  |Last name:
-  = @client.second_name
-h3.form-centered
-  |Email:
-  = link_to  @client.email
-h3.form-centered
-  |Phone number:
-  = simple_format(@client.phone_number)
-h3.form-centered
-  |Age:
-  = ((Time.zone.now - @client.birth.to_time) / 1.year.seconds).floor
-h6.form-centered
-  | Status:
-  = @client.status_i18n
-.prof-box.form-centered
-  ul
-    li
-      a href="#{@client.facebook_link}" target="_blank"
-        i.fa.fa-facebook-square aria-hidden="true"
-    li
-      a href="#{@client.instagram_link}" target="_blank"
-        i.fa.fa-instagram aria-hidden="true"
-    li
-      a href="#{@client.vk_link}" target="_blank"
-        i.fa.fa-vk aria-hidden="true"
-
-/.buttons
-  = link_to 'Edit ', edit_client_path(@client)
-  = link_to 'Delete ', client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
-  = link_to 'All clients', clients_path
-  = link_to ' Add training', new_training_path
-  = link_to ' Stats', client_stats_path(@client)
-
-button.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-warning type="button" =link_to edit_client_path(@client)
-  i.now-ui-icons.ui-2_settings-90
-button.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-danger type="button" = link_to  client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
-  i.now-ui-icons.design_scissors
