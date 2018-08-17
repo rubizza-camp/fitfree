@@ -1,7 +1,6 @@
 window.onload = function () {
     if (document.getElementById('calendar') != null) {
-
-   var json = $.getJSON( "download", function(result){
+      var json = $.getJSON( "download", function(result){
        calendar(json)
    });
     }
