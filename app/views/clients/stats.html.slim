@@ -1,28 +1,4 @@
-ul.nav.nav-tabs.justify-content-center role="tablist"
-  li.nav-item
-    a.nav-link href="#{client_path(@client)}" role="tab"
-      i.now-ui-icons.users_single-02
-      | Client info
-  li.nav-item
-    a.nav-link.active href="#{client_stats_path(@client)}" role="tab"
-      i.now-ui-icons.sport_user-run
-      |Stats
-  li.nav-item
-    a.nav-link  role="tab" onclick="clicker(event)"
-      i.now-ui-icons.ui-1_email-85
-      | Messages
-  li.nav-item
-    a.nav-link  role="tab"
-      i.now-ui-icons.shopping_box
-      | Client diet
-  li.nav-item
-    a.nav-link  href="#{client_path(@client)}" role="tab"
-      i.now-ui-icons.business_bank
-      | Payments
-  li.nav-item
-    a.nav-link  role="tab"
-      i.now-ui-icons.sport_trophy
-      | Training diary
+= render 'clients/navbar', active_section: :stats
 h1
   |Client stats
 

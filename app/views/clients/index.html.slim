@@ -33,7 +33,7 @@ ul.nav.navbar-nav
           td.title= link_to client.first_name, client
           td= client.second_name
           td= client.phone_number
-          td= Time.zone.now.year - client.birth.year
+          td= ((Time.zone.now - client.birth.to_time) / 1.year.seconds).floor
           td.date= client.created_at.to_date.strftime("%d/%m/%Y")
           td.date= client.updated_at.to_date.strftime("%d/%m/%Y")
 
