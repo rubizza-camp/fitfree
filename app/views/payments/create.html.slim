@@ -5,6 +5,15 @@ html
     - csrf_meta_tags
     title Adding payment for client
   body
+    .alert.alert-success id='alert' role="alert" style="visibility: hidden"
+      .container
+        .alert-icon
+          i.now-ui-icons.ui-2_like
+        strong Payment added!
+        | You successfully add payment for this client.
+        button.close aria-label="Close" data-dismiss="alert" type="button"
+          span aria-hidden="true"
+            i.now-ui-icons.ui-1_simple-remove
     h1 Adding payments for client
 
   form action='new' method='post'
@@ -17,4 +26,5 @@ html
     label Notice
     input class='form-control string optional' name='notice' type='text'
     br
-    input class='btn btn-primary' type='submit' value='Add'
+    input class='btn btn-primary btn-round' type='submit' value='Add payment' onclick='document.getElementById("alert").style.visibility = "visible";'
+    input class="btn btn-primary btn-simple btn-round" value="Cancel" onclick="window.location='../payments';"
