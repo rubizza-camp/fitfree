@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "telegram_chat_id"
+    t.string "telegram_bind_id"
     t.datetime "birth"
     t.string "email"
     t.string "instagram_link"
@@ -61,6 +63,17 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.index ["snapshot_id"], name: "index_measurements_on_snapshot_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string "text", default: "", null: false
+    t.string "update_id", default: "", null: false
+    t.integer "status"
+    t.string "messagable_type"
+    t.bigint "messagable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["messagable_type", "messagable_id"], name: "index_messages_on_messagable_type_and_messagable_id"
+  end
+
   create_table "metrics", force: :cascade do |t|
     t.string "name", null: false
     t.string "units", null: false
@@ -75,6 +88,13 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_snapshots_on_client_id"
+  end
+
+  create_table "telegram_bots", force: :cascade do |t|
+    t.string "token", default: "", null: false
+    t.string "telegram_webhook_id", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "trainings", force: :cascade do |t|
@@ -111,6 +131,7 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "role"
+    t.integer "telegram_bot"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

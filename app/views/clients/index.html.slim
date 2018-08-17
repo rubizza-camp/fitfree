@@ -37,6 +37,6 @@ ul.nav.navbar-nav
           td.date= client.created_at.to_date.strftime("%d/%m/%Y")
           td.date= client.updated_at.to_date.strftime("%d/%m/%Y")
 
-button.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-right type="button" =link_to new_client_path
+div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-right =link_to new_client_path
   i.now-ui-icons.ui-1_simple-add
 /li= link_to 'Add a new client', new_client_path, class: 'list-group-item'
