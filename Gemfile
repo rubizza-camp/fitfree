@@ -8,6 +8,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'administrate'
 gem 'bootstrap', '~> 4.0.0'
@@ -18,6 +19,7 @@ gem 'high_voltage'
 gem 'pg'
 gem 'slim-rails'
 gem 'sucker_punch'
+
 gem 'simple_form'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
@@ -50,3 +52,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 end
+gem 'sidekiq'
+gem 'sidekiq-status'
