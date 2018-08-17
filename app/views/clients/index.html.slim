@@ -1,19 +1,42 @@
-- unless @client.blank?
-  table
+
+/.col-sm-6.col-lg-3.mb-4
+  p.category Statuses
+  ul.nav.navbar-nav
+    - Status.all.each do |status|
+      li class=("#{'active' if params[:status] == status.name}")
+      .form-check
+        label.form-check-label
+          input.form-check-input checked = "true" href = "#" type="checkbox" /
+          span.form-check-sign
+            li class=("#{'active' if params[:status] == status.name}")
+              = link_to status.name, clients_path(status: status.name), class: 'link'
+ul.nav.navbar-nav
+  li.dropdown
+    - Client.statuses_i18n.each do |status, status_i18n|
+      li class=("#{'active' if params[:status] == status}")
+        = link_to status_i18n, clients_path(status: status), class: 'link'
+
+- unless @clients.blank?
+  table.table
     thead
       tr
-        th First name
-        th |Second name
-        th |Phone number
-        th |Created at
-        th |Updated at
+        th First name:
+        th Last name:
+        th Phone number:
+        th Age:
+        th Created:
+        th Updated:
         th.hidden
     tbody
-      - @client.each do |client|
-        tr
+      - @clients.each do |client|
+        tr= link_to  client
           td.title= link_to client.first_name, client
           td= client.second_name
           td= client.phone_number
-          td.date= time_ago_in_words(client.created_at)
-          td.date= time_ago_in_words(client.updated_at)
-li= link_to "Add a new client", new_client_path, class: "list-group-item"
+          td= Time.zone.now.year - client.birth.year
+          td.date= client.created_at.to_date.strftime("%d/%m/%Y")
+          td.date= client.updated_at.to_date.strftime("%d/%m/%Y")
+
+button.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-right type="button" =link_to new_client_path
+  i.now-ui-icons.ui-1_simple-add
+/li= link_to 'Add a new client', new_client_path, class: 'list-group-item'

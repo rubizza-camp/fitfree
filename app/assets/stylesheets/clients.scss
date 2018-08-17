@@ -1,3 +1,19 @@
 // Place all the styles related to the Clients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.prof-box ul{
+  margin: 0;
+  padding: 0;
+}
+
+.prof-box li {
+  display: inline-block;
+  margin: 6px;
+  list-style: none;
+}
+
+.prof-box li a {
+  color: royalblue;
+  text-decoration: none;
+  font-size: 60px;
+}

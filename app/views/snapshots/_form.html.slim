@@ -1,0 +1,6 @@
+= simple_form_for [@client, @snapshot] do |f|
+  = f.input :date
+  = f.simple_fields_for :measurements do |mf|
+    = mf.input :value, label: metric_name_with_units(mf.object.metric)
+    = mf.input :metric_id, as: :hidden
+  = f.submit
