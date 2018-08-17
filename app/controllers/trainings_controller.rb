@@ -57,10 +57,10 @@ class TrainingsController < ApplicationController
   def create_background_proc(training_id)
   # TODO: + 2 hours
   training = Training.find(training_id)
-  tmp = WithdrawPaymentJob.perform_at(training.time.to_f,
+  tmp = WithdrawPaymentJob.perform_at((training.time + 1.minutes).to_f,
                                       { :client_id => training.client_id,
                                         :user_id => training.user_id,
-                                        :time => training.time, # + 2.hours,
+                                        :time => training.time + 1.minutes,
                                         :price => training.price,
                                         :training_id => training.id
                                       }.to_json)
