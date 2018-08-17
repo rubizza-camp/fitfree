@@ -15,6 +15,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find_by(id: params["id"])
+    unless @user.coach_info
+      @user.build_coach_info
+      @user.save
+    end
+  end
+j
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(secure_params)
@@ -28,10 +36,6 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     user.destroy
     redirect_to users_path, :notice => "User deleted."
-  end
-
-  def edit
-
   end
 
   private

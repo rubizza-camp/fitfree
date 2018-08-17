@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_16_121442) do
+ActiveRecord::Schema.define(version: 2018_08_17_084044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,20 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
   create_table "clients_metrics", id: false, force: :cascade do |t|
     t.bigint "metric_id", null: false
     t.bigint "client_id", null: false
+  end
+
+  create_table "coach_infos", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "birthdate"
+    t.string "region", default: "", null: false
+    t.string "town", default: "", null: false
+    t.string "phone", default: "", null: false
+    t.string "facebook_sn", default: "", null: false
+    t.string "instagram_sn", default: "", null: false
+    t.string "vk_sn", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_coach_infos_on_user_id"
   end
 
   create_table "kinds", force: :cascade do |t|
