@@ -20,18 +20,13 @@ class ExercisesController < ApplicationController
     render layout: false
   end
 
-  require 'pry'
-
   def new
-    # binding.pry
     create(params['id'])
   end
 
   def create(id)
-    puts 'ID HERE'
-    puts id
     kit_id = id
-    @exercise = Exercise.new(:exercise_type_id => 1, :kit_id => kit_id, :repeats => 1, :approach => 1)
+    @exercise = Exercise.new(:exercise_type_id => 1, :kit_id => kit_id, :user_id => current_user.id, :repeats => 1, :approach => 1)
     if @exercise.save
       redirect_to edit_exercise_path(@exercise)
     else
@@ -48,11 +43,11 @@ class ExercisesController < ApplicationController
   end
 
   def update
-    @name = (ExerciseType.find_by(id: @exercise.exercise_type_id)).name
     if @exercise.update(exercise_params)
+      @name = (ExerciseType.find_by(id: @exercise.exercise_type_id)).name
       render plain: "#{@name}"+ " | " + "повторений: " + "#{@exercise.repeats}"+ "," + "подходов: " "#{@exercise.approach}"
     else
-      render plain: "ahuet"
+      render plain: "ahuet project"
     end
   end
 

@@ -6,7 +6,7 @@ $(function () {
 
 function calendar(json) {
     var resp_json = $.parseJSON(json.responseText);
-    $('.calendar').fullCalendar({
+    $('#calendar').fullCalendar({
         header: {
             left: 'prev,next, today',
             center: 'title',

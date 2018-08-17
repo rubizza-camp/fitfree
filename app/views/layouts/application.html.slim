@@ -7,15 +7,10 @@ html
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Fit Free'}"
     == stylesheet_link_tag "application", :media => 'all'
     == javascript_include_tag 'application'
+    script src="https://use.fontawesome.com/d1341f9b7a.js"
     == csrf_meta_tags
   body
     header
-      - if user_signed_in?
-        = link_to 'Sign Out', destroy_user_session_path, method: :delete
-        h1
-        = link_to 'Main', root_path
-      - else
-        = link_to 'Log In', new_user_session_path
       == render 'layouts/navigation'
     main[role="main"]
       == render 'layouts/messages'

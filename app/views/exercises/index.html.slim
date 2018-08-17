@@ -7,6 +7,7 @@ h1
         th Name
         th Repeats
         th Approachs
+        th Kit ID
         th Edit
         th Delete
         th.hidden
@@ -16,6 +17,6 @@ h1
           td.title= exe[:name]
           td= exe[:exercise].repeats
           td= exe[:exercise].approach
+          td= exe[:exercise].kit_id
           td= link_to 'Edit ', edit_exercise_path(exe[:exercise])
           td= link_to 'Delete ', exercise_path(exe[:exercise]), method: :delete, data: {confirm: 'Are you sure?'}
-li= link_to "Add a new Exercise", new_exercise_path, class: "list-group-item"

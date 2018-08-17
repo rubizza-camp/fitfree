@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require rails-ujs
-//= require turbolinks
 //= require bootstrap-sprockets
 //= require moment
 //= require fullcalendar
+//= require now-ui-kit
 //= require popper
 //= require_tree .

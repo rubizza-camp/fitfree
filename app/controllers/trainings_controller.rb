@@ -3,11 +3,21 @@ class TrainingsController < ApplicationController
   before_action :find_training, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-  def index
-    @training = Training.where(user_id: current_user)
+  def show
+    @name = Client.find_by(id: @training.client_id).first_name + ' ' + Client.find_by(id: @training.client_id).second_name
+    @sets = Kit.where(training_id: @training.id, user_id: current_user.id).map do |kit|
+      {
+          :exercises => Exercise.where(kit_id: kit.id, user_id: current_user.id),
+          :kit => kit
+      }
+    end
+    @sets.each do |kit|
+     kit1 = kit[:exercises].map do |exe|
+        { name: ExerciseType.find_by(id: exe.exercise_type_id).name, exe: exe }
+     end
+      kit[:exercises] = kit1
+    end
   end
-
-  def show; end
 
   def new
     @training = current_user.trainings.build
@@ -25,11 +35,24 @@ class TrainingsController < ApplicationController
 
   def edit
     @list = client_list(current_user)
+    @name = Client.find_by(id: @training.client_id).first_name + ' ' + Client.find_by(id: @training.client_id).second_name
+    @sets = Kit.where(training_id: @training.id, user_id: current_user.id).map do |kit|
+      {
+          :exercises => Exercise.where(kit_id: kit.id, user_id: current_user.id),
+          :kit => kit
+      }
+    end
+    @sets.each do |kit|
+      kit1 = kit[:exercises].map do |exe|
+        { name: ExerciseType.find_by(id: exe.exercise_type_id).name, exe: exe }
+      end
+      kit[:exercises] = kit1
+    end
   end
 
   def update
     if @training.update(training_params)
-      redirect_to calendar_index_path
+      redirect_to training_path
     else
       render 'edit'
     end
@@ -46,6 +69,6 @@ class TrainingsController < ApplicationController
   end
 
   def training_params
-    params.require(:training).permit(:title, :time, :price,  :description, :client_id, :status)
+    params.require(:training).permit(:time, :price,  :description, :client_id, :status)
   end
 end

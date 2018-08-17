@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(version: 2018_08_13_104203) do
   end
 
   create_table "trainings", force: :cascade do |t|
-    t.text "title"
     t.datetime "time"
     t.integer "price"
     t.text "description"

@@ -24,7 +24,7 @@ class KitsController < ApplicationController
 
   def create
     training_id = Training.order("created_at").where(user_id: current_user.id).last.id
-    @kit = Kit.new(:training_id => training_id)
+    @kit = Kit.new(:training_id => training_id, :user_id => current_user.id)
     if @kit.save
       redirect_to edit_kit_path(@kit)
     else
