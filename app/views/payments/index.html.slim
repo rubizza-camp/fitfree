@@ -1,17 +1,9 @@
-doctype html
-html
-  head
-    title Payments for client
-  body
-    h1 Payments for client
-    #content
-      br
-          table
-            tr
-              th.name = 'Date'
-              th.name = 'Price'
-            - @payments_list.each_with_index do |payment, id|
-              tr
-                td.Date = payment.datetime.strftime("%B %d, %Y")
-                td.Price = payment.price
+table.table
+  tr
+    th.name = 'Date'
+    th.name = 'Price'
+  - @payments_list.each_with_index do |payment, id|
+    tr
+      td.Date = payment.datetime.strftime("%B %d, %Y")
+      td.Price = payment.price
 = link_to 'Add', 'create'

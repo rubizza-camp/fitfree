@@ -6,7 +6,7 @@ class CreateTrainings < ActiveRecord::Migration[5.2]
       t.text :description
       t.integer :user_id
       t.integer :client_id
-      t.string :status
+      t.integer :status, default: 0, null: false
 
       t.timestamps
     end
