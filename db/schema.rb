@@ -38,6 +38,11 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "clients_metrics", id: false, force: :cascade do |t|
+    t.bigint "metric_id", null: false
+    t.bigint "client_id", null: false
+  end
+
   create_table "exercise_types", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -55,11 +60,6 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "kits", force: :cascade do |t|
-    t.integer "training_id"
-    t.integer "user_id"
-  end
-
   create_table "jobs", force: :cascade do |t|
     t.string "GUID"
     t.bigint "training_id"
@@ -68,15 +68,15 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.index ["training_id"], name: "index_jobs_on_training_id"
   end
 
-  create_table "clients_metrics", id: false, force: :cascade do |t|
-    t.bigint "metric_id", null: false
-    t.bigint "client_id", null: false
-  end
-
   create_table "kinds", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "kits", force: :cascade do |t|
+    t.integer "training_id"
+    t.integer "user_id"
   end
 
   create_table "meals", force: :cascade do |t|
@@ -129,7 +129,6 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-
   end
 
   create_table "users", force: :cascade do |t|
@@ -150,4 +149,5 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
 end

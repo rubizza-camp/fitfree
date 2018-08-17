@@ -9,6 +9,7 @@ class CreateSnapshotsAndMetrics < ActiveRecord::Migration[5.2]
     create_table :metrics do |t|
       t.string :name, null: false
       t.string :units, null: false
+      t.integer :kind_id
       t.timestamps
     end
 

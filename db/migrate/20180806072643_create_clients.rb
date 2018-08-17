@@ -10,7 +10,8 @@ class CreateClients < ActiveRecord::Migration[5.2]
       t.string :instagram_link
       t.string :facebook_link
       t.string :vk_link
-      t.integer :status_id
+      t.integer :status
+      t.integer :price
 
       t.timestamps
     end
