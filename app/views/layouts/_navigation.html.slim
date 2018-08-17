@@ -5,6 +5,7 @@
       - if current_user.admin?
         .container
           a.navbar-brand href="#{users_path}" Users
+          = link_to 'Sign Out', destroy_user_session_path, method: :delete
       - else
         .container
           a.navbar-brand href="#{clients_path}" Clients

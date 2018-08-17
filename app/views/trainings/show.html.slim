@@ -1,5 +1,5 @@
 .container
-  h1= 'Trainng'
+  h1= 'Training'
   h2= 'Client: ' + @name.to_s
   h3= 'Price: ' + @training.price.to_s
   h3= 'Date: ' + ((@training.time).to_s.delete ' UTC')[0...10] + ",at " + ((@training.time).to_s.delete ' UTC')[10...15]
