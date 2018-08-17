@@ -26,8 +26,6 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.string "first_name"
     t.string "second_name"
     t.string "phone_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "price"
     t.datetime "birth"
@@ -36,10 +34,30 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.string "facebook_link"
     t.string "vk_link"
     t.integer "status"
-    t.string "avatar_file_name"
-    t.string "avatar_content_type"
-    t.bigint "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "exercise_types", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "exercises", force: :cascade do |t|
+    t.integer "exercise_type_id"
+    t.integer "kit_id"
+    t.integer "user_id"
+    t.integer "repeats"
+    t.integer "approach"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kits", force: :cascade do |t|
+    t.integer "training_id"
+    t.integer "user_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -64,9 +82,9 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
   create_table "meals", force: :cascade do |t|
     t.datetime "datetime"
     t.text "description"
+    t.integer "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "client_id"
   end
 
   create_table "measurements", force: :cascade do |t|
@@ -97,20 +115,21 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.datetime "time"
     t.integer "price"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "client_id"
-    t.integer "status"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transactions", force: :cascade do |t|
     t.datetime "datetime"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "client_id"
     t.integer "user_id"
     t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+
   end
 
   create_table "users", force: :cascade do |t|

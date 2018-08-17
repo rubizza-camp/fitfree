@@ -10,12 +10,15 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery3
-//= require popper
+//= require jquery
+//= require jquery_ujs
 //= require rails-ujs
 //= require bootstrap-sprockets
+//= require moment
+//= require fullcalendar
 //= require select2/dist/js/select2.full.js
 //= require select2
 //= require chart.js/dist/Chart.js
 //= require now-ui-kit
+//= require popper
 //= require_tree .
