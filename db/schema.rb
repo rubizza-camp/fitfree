@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.string "second_name"
     t.string "phone_number"
     t.integer "user_id"
+    t.integer "price"
     t.datetime "birth"
     t.string "email"
     t.string "instagram_link"
@@ -57,6 +58,14 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
   create_table "kits", force: :cascade do |t|
     t.integer "training_id"
     t.integer "user_id"
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "GUID"
+    t.bigint "training_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_id"], name: "index_jobs_on_training_id"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -120,6 +129,7 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+
   end
 
   create_table "users", force: :cascade do |t|
@@ -140,5 +150,4 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
 end
