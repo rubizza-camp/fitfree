@@ -7,7 +7,7 @@ function metricsGraph(canvasId) {
     });
 }
 
-$(function () {
+window.onload = function() {
     metricsGraph('client_strength');
     metricsGraph('client_anthropometry');
-});
+};

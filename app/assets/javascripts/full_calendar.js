@@ -1,8 +1,8 @@
-$(function () {
+window.onload = function () {
    var json = $.getJSON( "download", function(result){
        calendar(json)
    });
-});
+};
 
 function calendar(json) {
     var resp_json = $.parseJSON(json.responseText);
