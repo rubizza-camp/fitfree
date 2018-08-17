@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :trainings
-  resources :clients
   resources :calendar, only: [:index, :download]
   get 'download', to: 'calendar#download'
   resources :exercise_types, only: [:index, :new, :create, :edit, :update, :destroy]
@@ -16,4 +15,10 @@ Rails.application.routes.draw do
   resources :kits
   post 'newkitform', to: 'kits#new_kit_form'
   post 'newexerciseform', to: 'exercises#new_exercise_form'
+  resources :metrics
+  resources :clients do
+    get 'stats', to: 'clients#stats'
+    resources :metrics, only: [:index]
+    resources :snapshots, shallow: true
+  end
 end
