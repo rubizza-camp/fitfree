@@ -8,17 +8,23 @@
 
     <%= c.input :birthdate %>
 
-    <%= c.input :region %>
+    <%= c.input :region, label: 'Country' %>
 
     <%= c.input :town %>
 
     <%= c.input :phone %>
 
-    <%= c.input :facebook_sn %>
+    <%= c.input :facebook_sn, label: 'Facebook link' %>
 
-    <%= c.input :vk_sn %>
+    <%= c.input :vk_sn, label: 'VK link' %>
 
-    <%= c.input :instagram_sn %>cle
+    <%= c.input :instagram_sn, label: 'Instagram link' %>
+
+  <% end %>
+
+  <%= f.simple_fields_for :telegram_bot do |t| %>
+
+    <%= t.input :token, label: 'Telegram bot toke' %>
 
   <% end %>
 

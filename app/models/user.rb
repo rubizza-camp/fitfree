@@ -22,6 +22,7 @@
 class User < ApplicationRecord
   enum role: [:user, :vip, :admin]
   has_one :coach_info
+  has_one :telegram_bot
   has_many :trainings
   has_many :clients
   has_many :transactions

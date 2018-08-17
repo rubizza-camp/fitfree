@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_17_084044) do
+ActiveRecord::Schema.define(version: 2018_08_17_123706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,10 +105,12 @@ ActiveRecord::Schema.define(version: 2018_08_17_084044) do
   end
 
   create_table "telegram_bots", force: :cascade do |t|
+    t.bigint "user_id"
     t.string "token", default: "", null: false
     t.string "telegram_webhook_id", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_telegram_bots_on_user_id"
   end
 
   create_table "trainings", force: :cascade do |t|

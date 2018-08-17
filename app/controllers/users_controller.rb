@@ -19,10 +19,14 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params["id"])
     unless @user.coach_info
       @user.build_coach_info
+      @user.sav
+    end
+    unless @user.telegram_bot
+      @user.build_telegram_bot
       @user.save
     end
   end
-j
+
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(secure_params)
