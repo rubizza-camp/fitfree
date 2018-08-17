@@ -40,7 +40,7 @@
     = link_to ' Add training', new_training_path
     = link_to ' Stats', client_stats_path(@client)
   
-  button.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-warning type="button" =link_to edit_client_path(@client)
+  div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-warning =link_to edit_client_path(@client)
     i.now-ui-icons.ui-2_settings-90
-  button.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-danger type="button" = link_to  client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
+  div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-danger = link_to  client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
     i.now-ui-icons.design_scissors
