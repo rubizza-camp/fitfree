@@ -50,13 +50,6 @@ class KitsController < ApplicationController
     redirect_to kits_path
   end
 
-  def new_kit_form
-    @kit = Kit.new
-    @id = @@div_id
-    render layout: false
-    @@div_id += 1
-  end
-
   private
   def find_kit
     @kit = Kit.find(params[:id])

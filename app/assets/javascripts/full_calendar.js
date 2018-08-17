@@ -1,9 +1,8 @@
 window.onload = function () {
     if (document.getElementById('calendar') != null) {
-
-        var json = $.getJSON( "download", function(result){
-            calendar(json)
-        });
+      var json = $.getJSON( "download", function(result){
+       calendar(json)
+   });
     }
     else {
         metricsGraph('client_strength');
