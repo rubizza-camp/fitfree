@@ -85,7 +85,7 @@ pickle-email-*.html
 *~
 
 
-/db/schema.rb
+
 # bundler state
 /.bundle
 /vendor/bundle/
