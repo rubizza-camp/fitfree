@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_17_123706) do
+ActiveRecord::Schema.define(version: 2018_08_18_053719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(version: 2018_08_17_123706) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.string "telegram_chat_id"
-    t.string "telegram_bind_id"
     t.datetime "birth"
     t.string "email"
     t.string "instagram_link"
@@ -34,6 +32,8 @@ ActiveRecord::Schema.define(version: 2018_08_17_123706) do
     t.string "avatar_content_type"
     t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string "telegram_chat_id"
+    t.string "telegram_bind_id"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
