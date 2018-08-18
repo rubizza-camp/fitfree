@@ -4,11 +4,8 @@
   .photo-container.size-2
     = gravatar_image_tag(@client.email, filetype: :png, rating: 'pg', size: 15, secure: false)
   section.form-centered
-    |First name:
-    = @client.first_name
-  section.form-centered
-    |Last name:
-    = @client.second_name
+    | Client:
+    = @client.first_name + ' ' + @client.second_name
   section.form-centered
     |Email:
     = link_to  @client.email
