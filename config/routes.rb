@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   #post '/users/:id', to: 'users#create'
+  post 'webhooks/:id', to: 'webhooks#callback'
 
   resources :users
   resources :trainings

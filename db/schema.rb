@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string "telegram_chat_id"
-    t.string "telegram_bind_id"
+    t.string "telegram_bind_id", default: "831ccf1c-57b8-445c-806e-1cc695ceb250"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
   create_table "messages", force: :cascade do |t|
     t.string "text", default: "", null: false
     t.string "update_id", default: "", null: false
-    t.integer "status"
+    t.integer "status", default: 0
     t.string "messagable_type"
     t.bigint "messagable_id"
     t.datetime "created_at", null: false
