@@ -15,6 +15,14 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "amounts", force: :cascade do |t|
+    t.float "quantity"
+    t.integer "client_id"
+    t.integer "meter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "attachments", force: :cascade do |t|
     t.integer "message_id"
     t.text "path"
@@ -27,15 +35,19 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.string "second_name"
     t.string "phone_number"
     t.integer "user_id"
-    t.integer "price"
     t.datetime "birth"
     t.string "email"
     t.string "instagram_link"
     t.string "facebook_link"
     t.string "vk_link"
     t.integer "status"
+    t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.bigint "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -77,6 +89,8 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
   create_table "kits", force: :cascade do |t|
     t.integer "training_id"
     t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "meals", force: :cascade do |t|
@@ -95,12 +109,21 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.index ["snapshot_id"], name: "index_measurements_on_snapshot_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "client_id"
+    t.text "text"
+    t.integer "attachment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "metrics", force: :cascade do |t|
     t.string "name", null: false
     t.string "units", null: false
+    t.integer "kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "kind_id"
   end
 
   create_table "snapshots", force: :cascade do |t|
@@ -109,6 +132,12 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_snapshots_on_client_id"
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "trainings", force: :cascade do |t|
@@ -150,4 +179,5 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "jobs", "trainings"
 end
