@@ -28,7 +28,7 @@ class TrainingsController < ApplicationController
   def create
     @training = current_user.trainings.build(training_params)
     if @training.save
-      create_background_proc(@training.id)
+      create_background_proc(@training.id) unless @training.status == :complete
       redirect_to edit_training_path(@training)
     else
       render 'new'
@@ -54,8 +54,10 @@ class TrainingsController < ApplicationController
 
   def update
     if @training.update(training_params)
-      delete_background_proc(@training.id)
-      create_background_proc(@training.id) unless training_params[:status] == :cancel
+      if @training.status == :planned
+        delete_background_proc(@training.id)
+        create_background_proc(@training.id)
+      end
       redirect_to training_path
     else
       render 'edit'
@@ -82,18 +84,19 @@ class TrainingsController < ApplicationController
   def create_background_proc(training_id)
   training = Training.find(training_id)
   tmp = WithdrawPaymentJob.perform_at((training.time + 2.hours).to_f,
-                                      { :client_id => training.client_id,
-                                        :user_id => training.user_id,
-                                        :time => training.time + 2.hours,
-                                        :price => training.price,
-                                        :training_id => training.id
-                                      }.to_json)
-  Job.new(GUID: tmp, training_id: training.id).save!
+                                        { :client_id => training.client_id,
+                                          :user_id => training.user_id,
+                                          :time => training.time + 2.hours,
+                                          :price => training.price,
+                                          :training_id => training.id
+                                        }.to_json)
+  job = Job.new(GUID: tmp, training_id: training.id)
+  job.save!
   end
 
   def delete_background_proc(training_id)
-    job = Job.where(training_id: training_id)[0]
-    Sidekiq::Status.cancel job.GUID
-    job.delete
+      job = Job.where(training_id: training_id)[0]
+      Sidekiq::Status.cancel job.GUID
+      job.delete
   end
 end
