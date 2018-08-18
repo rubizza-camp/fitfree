@@ -2,8 +2,8 @@
   h1= 'Training ' + @training.id.to_s
   h2= 'Client: ' + @name.to_s
   h3= 'Price: ' + @training.price.to_s
-  h3= 'Date: ' + ((@training.time).to_s.delete ' UTC')[0...10] + ',at ' + ((@training.time).to_s.delete ' UTC')[10...15]
-  h3= 'Status: ' + @training.status
+  h3= 'Date: ' + ((@training.time).to_s.delete ' UTC')[0...10] + ",at " + ((@training.time).to_s.delete ' UTC')[10...15]
+  h3= 'Status: ' + @training.status.to_s
   h4= 'Description: ' + @training.description
   h4
     | Plan:

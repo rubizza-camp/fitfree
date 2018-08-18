@@ -24,4 +24,10 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :metrics
 
   enum status: [:online, :offline]
+
+  def result_balance
+    result = 0
+    Transaction.where(client_id: self.id).each { |transaction| result += transaction.price }
+    result
+  end
 end

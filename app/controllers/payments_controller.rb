@@ -3,8 +3,8 @@ class PaymentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @payments_list = Transaction.where(client_id: params[:client_id])
-                         .sort_by(&:datetime).reverse!
+    @payments_list = Transaction.where(client_id: params[:client_id]).sort_by(&:datetime).reverse!
+    @result_balance = Client.find(params[:client_id]).result_balance
   end
 
   def create; end
