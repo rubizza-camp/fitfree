@@ -9,3 +9,10 @@ function newkit() {
     xhttp.send(new FormData());
 }
 
+function cancel(id) {
+    var xhttp = new XMLHttpRequest();
+    document.getElementById('edit_training_' + id).submit();
+    xhttp.open("PUT", "/trainings/cancel/" + id, true);
+    xhttp.send(new FormData());
+
+}

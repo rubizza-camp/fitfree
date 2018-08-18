@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :trainings
+  put '/trainings/cancel/:id', to: 'trainings#cancel'
   resources :calendar, only: [:index, :download]
   get 'download', to: 'calendar#download'
   resources :exercise_types, only: [:index, :new, :create, :edit, :update, :destroy]

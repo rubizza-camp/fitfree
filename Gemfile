@@ -6,14 +6,15 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
+gem 'sprockets'
+gem 'jquery-ui-rails', '~> 4.2.1'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'simple_form'
-
+gem 'simple-form-datepicker'
 gem 'pry'
 gem 'now-ui-kit-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
-
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'administrate'
 gem 'bootstrap', '~> 4.0.0'

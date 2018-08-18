@@ -11,7 +11,7 @@ class CalendarController < ApplicationController
     @training.each do |training|
       date = training.time.to_s.delete " UTC"
       info = {
-          title: Client.where(id: training.client_id).name,
+          title: Client.find_by(id: training.client_id).first_name + ' ' + Client.find_by(id: training.client_id).second_name,
           start: date[0...10].to_s + ' ' + date[10...15],
           price: training.price,
           description: training.description,

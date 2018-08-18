@@ -1,8 +1,19 @@
 class TrainingsController < ApplicationController
   require 'sidekiq/api'
   include ClientListConcern
-  before_action :find_training, only: [:show, :edit, :update, :destroy]
+  before_action :find_training, only: [:show, :edit, :update, :cancel, :destroy]
   before_action :authenticate_user!
+  protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token
+
+  def index
+    @training = Training.where(user_id: current_user.id).map do |training|
+      {
+          :name => Client.find_by(id: training.client_id).first_name + ' ' + Client.find_by(id: training.client_id).second_name,
+          :training => training
+      }
+    end
+  end
 
   def show
     @name = Client.find_by(id: @training.client_id).first_name + ' ' + Client.find_by(id: @training.client_id).second_name
@@ -53,6 +64,7 @@ class TrainingsController < ApplicationController
   end
 
   def update
+    @training.update(status: :planned)
     if @training.update(training_params)
       if @training.status == :planned
         delete_background_proc(@training.id)
@@ -62,6 +74,10 @@ class TrainingsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def cancel
+    @training.update(status: :canceled)
   end
 
   def destroy
