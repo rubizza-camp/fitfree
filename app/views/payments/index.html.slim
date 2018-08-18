@@ -1,7 +1,7 @@
 /= render 'clients/navbar', active_section: :payments
 ul.nav.nav-tabs.justify-content-center role="tablist"
   li.nav-item
-    a.nav-link href="#" role="tab"
+    a.nav-link href="./" role="tab"
       i.now-ui-icons.users_single-02
       | Client info
   li.nav-item
@@ -9,19 +9,19 @@ ul.nav.nav-tabs.justify-content-center role="tablist"
       i.now-ui-icons.sport_user-run
       |Stats
   li.nav-item
-    a.nav-link   role="tab"
+    a.nav-link role="tab"
       i.now-ui-icons.ui-1_email-85
       | Messages
   li.nav-item
-    a.nav-link  role="tab"
+    a.nav-link role="tab"
       i.now-ui-icons.shopping_box
       | Client diet
   li.nav-item
-    a.nav-link.active  href="#{client_payments_path(@payments_list)}" role="tab"
+    a.nav-link.active href="#{client_payments_path}" role="tab"
       i.now-ui-icons.business_bank
       | Payments
   li.nav-item
-    a.nav-link   role="tab"
+    a.nav-link role="tab"
       i.now-ui-icons.sport_trophy
       | Training diary
 doctype html
@@ -32,6 +32,7 @@ html
     h1 Payments for client
     #content
       br
+        h2 Current balance #{@result_balance}
         table.table
           tr
             th.name = 'Date'
@@ -40,4 +41,4 @@ html
             tr
               td.Date = payment.datetime.strftime("%B %d, %Y")
               td.Price = payment.price
-= link_to 'Add', client_payments_create_path
+    input class="btn btn-primary" type="submit" value="Add" onclick="window.location='#{client_payments_create_path}';"
