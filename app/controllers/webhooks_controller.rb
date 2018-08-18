@@ -33,10 +33,4 @@ class WebhooksController < ApplicationController
       @client.update(telegram_chat_id: from[:id]) if @client
     end
   end
-
-  # def register_client
-  #   @user = User.find_or_initialize_by(telegram_chat_id: from[:id])
-  #   @user.update_attributes!(first_name: from[:first_name], last_name: from[:last_name])
-  #   @user
-  # end
 end

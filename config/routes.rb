@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   resources :users
   resources :trainings
   resources :metrics
+  resources :messages
 
 end
