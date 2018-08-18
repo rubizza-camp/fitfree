@@ -14,6 +14,7 @@ ul.nav.navbar-nav
         th Age:
         th Created:
         th Updated:
+        th Current balance:
         th.hidden
     tbody
       - @clients.each do |client|
@@ -24,6 +25,7 @@ ul.nav.navbar-nav
           td= ((Time.zone.now - client.birth.to_time) / 1.year.seconds).floor
           td.date= client.created_at.to_date.strftime("%d/%m/%Y")
           td.date= client.updated_at.to_date.strftime("%d/%m/%Y")
+          td= client.result_balance
 
 div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-right type="button" =link_to new_client_path
   i.now-ui-icons.ui-1_simple-add
