@@ -7,7 +7,12 @@ class TrainingsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @training = Training.where(user_id: current_user.id)
+    @training = Training.where(user_id: current_user.id).map do |training|
+      {
+          :name => Client.find_by(id: training.client_id).first_name + ' ' + Client.find_by(id: training.client_id).second_name,
+          :training => training
+      }
+    end
   end
 
   def show
@@ -59,6 +64,7 @@ class TrainingsController < ApplicationController
   end
 
   def update
+    @training.update(status: :planned)
     if @training.update(training_params)
       delete_background_proc(@training.id)
       create_background_proc(@training.id) unless training_params[:status] == :canceled

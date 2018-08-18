@@ -2,7 +2,7 @@
 
 = simple_form_for(@training, html: {novalidate: true}) do |f|
   = f.input :client_id, collection: @list
-  = f.input :time, as: :date, html5: true
+  = f.datetime_select :time
   = f.input :price
   = f.input :description
   - unless @sets.blank?

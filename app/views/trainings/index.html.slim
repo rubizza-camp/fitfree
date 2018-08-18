@@ -1,23 +1,19 @@
 - unless @training.blank?
-  table
+  table.table
     thead
       tr
+        th Client:
         th Price:
-        th Time:
+        th Date:
         th Description:
         th Status:
-        th Created at:
-        th Updated at:
-        th Client id:
         th.hidden
     tbody
       - @training.each do |training|
         tr
-          td.title= link_to training.price, training
-          td= training.time
-          td= training.description
-          td= training.status
-          td.date= time_ago_in_words(training.created_at)
-          td.date= time_ago_in_words(training.updated_at)
-          td= training.client_id
+          td.title= link_to training[:name], training
+          td= training[:training].price
+          td= training[:training].time.to_s.delete(' UTC')[0...10]
+          td= training[:training].description
+          td= training[:training].status
 li= link_to 'Add a new Training', new_training_path, class: "list-group-item"
