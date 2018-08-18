@@ -29,6 +29,8 @@ class User < ApplicationRecord
   after_initialize :set_default_role, :if => :new_record?
   after_create :sign_up_for_mailing_list
 
+  has_many :messages, as: :messagable
+
   def set_default_role
     self.role ||= :user
   end
