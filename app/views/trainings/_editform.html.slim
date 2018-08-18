@@ -1,7 +1,6 @@
 == javascript_include_tag 'newkit'
 
 = simple_form_for(@training, html: {novalidate: true}) do |f|
-
   = f.input :client_id, collection: @list
   = f.input :time, as: :date, html5: true
   = f.input :price
@@ -22,7 +21,7 @@
     h5
       | There are no exercises
 #newkit[style="margin-left: 50px"]
-input[type="button" onclick="newkit()" value="Add new kit"]
+input[type="button" class="btn btn-info" onclick="newkit()" value="Add new kit"]
 h1
-input[type="button" onclick="document.getElementById('edit_training_' + #{@training.id}).submit()" value="Submit"]
-input[type="button" onclick="cancel(#{@training.id})" value="Cancel training"]
+input[type="button" class="btn btn-success" onclick="document.getElementById('edit_training_' + #{@training.id}).submit()" value="Submit"]
+input[type="button" class="btn btn-danger" onclick="cancel(#{@training.id})" value="Cancel training"]
