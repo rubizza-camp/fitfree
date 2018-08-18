@@ -15,11 +15,34 @@ class UsersController < ApplicationController
     end
   end
 
+  def create
+    response = regist_webhooks_for_bot
+    if response.status == 200 && JSON.parse(response.body)['result']
+      telegram_bot = TelegramBot.find(user_id:params[:id])
+      telegram_bot.token = token
+      telegram_bot.telegram_webhook_id = webhook_id
+    end
+    redirect_to :index
+  end
+
+  def token
+    params['token']
+  end
+
+  def regist_webhooks_for_bot
+    Excon.get("https://api.telegram.org/bot#{token}/setWebhook?url=#{params['url']}/webhooks/#{webhook_id}")
+  end
+
+
+  def webhook_id
+    @telegram_webhook_id ||= SecureRandom.uuid
+  end
+
   def edit
     @user = User.find_by(id: params["id"])
     unless @user.coach_info
       @user.build_coach_info
-      @user.sav
+      @user.save
     end
     unless @user.telegram_bot
       @user.build_telegram_bot

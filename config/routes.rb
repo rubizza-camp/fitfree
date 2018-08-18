@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resources :snapshots, shallow: true
   end
 
+  #post '/users/:id', to: 'users#create'
+
   resources :users
   resources :trainings
   resources :metrics
