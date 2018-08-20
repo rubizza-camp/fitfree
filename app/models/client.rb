@@ -23,7 +23,7 @@ class Client < ApplicationRecord
 
   accepts_nested_attributes_for :metrics
 
-  enum status: [:online, :offline]
+  enum status: %i[online offline]
 
   def result_balance
     result = 0

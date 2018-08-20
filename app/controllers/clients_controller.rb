@@ -1,13 +1,12 @@
+# for clients
 class ClientsController < ApplicationController
-  before_action :find_client, only: [:show, :edit, :update, :destroy]
-  before_action :set_metrics, only: [:new, :edit]
+  before_action :find_client, only: %i[show edit update destroy]
+  before_action :set_metrics, only: %i[new edit]
   before_action :authenticate_user!
 
   def index
     @clients = current_user.clients
-    if params[:status].present?
-      @clients = @clients.where(status: params[:status])
-    end
+    @clients = @clients.where(status: params[:status]) if params[:status].present?
   end
 
   def show
@@ -32,7 +31,6 @@ class ClientsController < ApplicationController
     @snapshots = @client.snapshots.includes(measurements: :metric)
   end
 
-
   def edit; end
 
   def update
@@ -49,14 +47,17 @@ class ClientsController < ApplicationController
   end
 
   private
+
   def find_client
     @client = Client.find(params[:id])
   end
 
   def client_params
-    params.require(:client).slice(:metric_ids, :first_name, :second_name, :phone_number, :status,
-                                  :birth, :email, :instagram_link, :facebook_link, :vk_link, :avatar, :price,
-                                  "birth(1i)", "birth(2i)", "birth(3i)").permit!
+    params.require(:client).slice(:metric_ids, :first_name, :second_name,
+                                  :phone_number, :status, :birth, :email,
+                                  :instagram_link, :facebook_link, :vk_link,
+                                  :avatar, :price,
+                                  'birth(1i)', 'birth(2i)', 'birth(3i)').permit!
   end
 
   def set_metrics

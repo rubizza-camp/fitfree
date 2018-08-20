@@ -1,4 +1,3 @@
-
 = render 'clients/navbar', active_section: :stats
 h1
   |Client stats
@@ -18,8 +17,6 @@ table.table
           = link_to l(snapshot.date), snapshot
         - snapshot.measurements.each do |measurement|
           td= measurement.value
-
-
 
 h2
   |Client strength schedule:

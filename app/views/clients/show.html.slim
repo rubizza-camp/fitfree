@@ -29,14 +29,7 @@
       li
         a href="#{@client.vk_link}" target="_blank"
           i.fa.fa-vk aria-hidden="true"
-  
-  /.buttons
-    = link_to 'Edit ', edit_client_path(@client)
-    = link_to 'Delete ', client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
-    = link_to 'All clients', clients_path
-    = link_to ' Add training', new_training_path
-    = link_to ' Stats', client_stats_path(@client)
-  
+
   div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-warning =link_to edit_client_path(@client)
     i.now-ui-icons.ui-2_settings-90
   div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-danger = link_to  client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
