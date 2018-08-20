@@ -30,8 +30,10 @@
         a href="#{@client.vk_link}" target="_blank"
           i.fa.fa-vk aria-hidden="true"
 
-  div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-warning =link_to edit_client_path(@client)
+  div.btn.btn-primary.btn-info.btn-round.btn-warning =link_to edit_client_path(@client)
     i.now-ui-icons.ui-2_settings-90
-  div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-danger = link_to  client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
+      | Edit
+  div.btn.btn-primary.btn-info.btn-round.btn-danger = link_to  client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
     i.now-ui-icons.design_scissors
+      | Delete
 

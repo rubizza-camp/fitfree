@@ -2,8 +2,8 @@
 h1
   |Client stats
 
-  div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-right type="button" =link_to new_client_snapshot_path(@client)
-    i.now-ui-icons.ui-1_settings-gear-63
+  =link_to 'Add new snapshot',new_client_snapshot_path(@client), class: 'btn btn-primary float-right float-top'
+
 table.table
   thead
     tr

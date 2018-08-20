@@ -11,7 +11,27 @@ html
     == csrf_meta_tags
   body
     header
-      == render 'layouts/navigation'
-    main[role="main"]
+    link#bootstrap-css href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" /
+    script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
+    /script src="//code.jquery.com/jquery-1.11.1.min.js"
+    /! ---- Include the above in your HEAD tag --------
+    link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /
+    .col-sm-3
+    == render 'layouts/navigation'
+    .col-sm-9
+      - if user_signed_in?
+        - if current_user.admin?
+          .container
+            a.navbar-brand href="#{users_path}" Users
+            = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-primary float-right float-top'
+        - else
+          = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-primary float-right float-top'
+
+      main[role="main"]
+        == render 'layouts/messages'
+        == yield
+    /main[role="main"]
       == render 'layouts/messages'
       == yield
+
+

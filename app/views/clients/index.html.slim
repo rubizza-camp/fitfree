@@ -1,8 +1,17 @@
-ul.nav.navbar-nav
+
+/ul.nav.navbar-nav
   li.dropdown
     - Client.statuses_i18n.each do |status, status_i18n|
       li class=("#{'active' if params[:status] == status}")
         = link_to status_i18n, clients_path(status: status), class: 'btn btn-primary btn-simple btn-round btn-small'
+
+
+- Client.statuses_i18n.each do |status, status_i18n|
+  label.btn.btn-secondary.active
+    li class=("#{'active' if params[:status] == status}")
+      = link_to status_i18n, clients_path(status: status), class:'online-offline'
+label.btn.btn-secondary.active
+  = link_to 'All', clients_path, class:'online-offline'
 
 - unless @clients.blank?
   table.table
@@ -27,5 +36,6 @@ ul.nav.navbar-nav
           td.date= client.updated_at.to_date.strftime("%d/%m/%Y")
           td= client.result_balance
 
-div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-right type="button" =link_to new_client_path
-  i.now-ui-icons.ui-1_simple-add
+=link_to'New client', new_client_path, class: 'btn btn-primary float-right float-top'
+
+
