@@ -70,6 +70,8 @@ class TrainingsController < ApplicationController
         delete_background_proc(@training.id)
         create_background_proc(@training.id)
       end
+      @training.status = :complete if @training.time.to_f < DateTime.now.to_f
+      @training.save!
       redirect_to training_path
     else
       render 'edit'
