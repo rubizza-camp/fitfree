@@ -25,7 +25,7 @@ gem 'chart-js-rails'
 gem 'now-ui-kit-rails'
 gem 'enum_help'
 gem 'paperclip'
-
+gem 'excon'
 group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'

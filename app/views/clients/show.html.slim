@@ -8,7 +8,7 @@ ul.nav.nav-tabs.justify-content-center role="tablist"
       i.now-ui-icons.sport_user-run
       |Stats
   li.nav-item
-    a.nav-link   role="tab"
+    a.nav-link href='#{client_messages_path(@client)}'  role="tab"
       i.now-ui-icons.ui-1_email-85
       | Messages
   li.nav-item
@@ -47,6 +47,11 @@ h3.form-centered
 h6.form-centered
   | Status:
   = @client.status_i18n
+
+h3.form-centered
+  |Telegram link:
+  = simple_format("http://t.me/fitfree_bot?start=" + @client.telegram_bind_id)
+
 .prof-box.form-centered
   ul
     li

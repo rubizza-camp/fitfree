@@ -3,10 +3,9 @@ class WebhooksController < ApplicationController
 
   def callback
     puts message[:text]
-    if client && !client.messages.find_by(update_id: webhook[:update_id])
+    if client && client.messages.find_by(update_id: webhook[:update_id]).nil?
       client.messages.create(text: message[:text], update_id: webhook[:update_id])
     end
-    puts 'a' unless client.nil?
     render nothing: true, head: :ok
   end
 
@@ -19,7 +18,7 @@ class WebhooksController < ApplicationController
   end
 
   def from
-    webhook[:message][:from]
+    message[:from]
   end
 
   def client

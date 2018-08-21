@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     get 'stats', to: 'clients#stats'
     resources :metrics, only: [:index]
     resources :snapshots, shallow: true
+    resources :messages
+    post 'message/send', to: 'messages#send'
   end
 
   #post '/users/:id', to: 'users#create'
@@ -19,6 +21,5 @@ Rails.application.routes.draw do
   resources :users
   resources :trainings
   resources :metrics
-  resources :messages
 
 end

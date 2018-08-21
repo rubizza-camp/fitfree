@@ -2,7 +2,37 @@ class MessagesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @messages = Message.where("messagable_id = 4 or messagable_id = 2 or messagable_type='User' or messagable_type='Client'")
+    @messages = Message.all
+    @client = client
   end
 
+  def create
+    response = send_message
+    if response.status == 200 && JSON.parse(response.body)['result']
+      current_user.messages.create(text: message)
+      render plain: message
+    else
+      render plain: 'image doesnt send'
+    end
+  end
+
+  def message
+    params[:message]
+  end
+
+  def client
+    @client ||= Client.find_by(id: params[:client_id])
+  end
+
+  def chat_id
+    client.telegram_chat_id if client
+  end
+
+  def token
+    current_user.telegram_bot.token
+  end
+
+  def send_message
+    Excon.get("https://api.telegram.org/bot#{token}/sendMessage?chat_id=#{chat_id}&text=#{message}")
+  end
 end

@@ -1,14 +1,19 @@
-<% @messages.each do |msg| %>
-  <p style="<%= 'float: right;'if msg.messagable_type.eql?('User')  %>">
-    <%= msg.messagable_type %>: <%= msg.text %>
-  </p>
-<% end %>
-
-<nav class="navbar fixed-bottom navbar-dark bg-dark">
+<div id="container_msg" style="margin-bottom: 20%">
+  <% @messages.each do |msg| %>
+    <p style="<%= 'float: right;'if msg.messagable_type.eql?('User')  %>">
+      <%= msg.messagable_type %>: <%= msg.text %>
+    </p>
+  <% end %>
+</div>
+<nav class="navbar fixed-bottom navbar-dark bg-dark" style="margin-bottom: 0px">
   <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-    </div>
+    <form action="post" method="">
+      <input type="text" class="form-control" id="message" placeholder="Write your message" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="send_message(<%= @client.id %>)">Send</button>
+      </div>
+    </form>
   </div>
 </nav>
+
+<%= javascript_include_tag('message_sender.js') %>

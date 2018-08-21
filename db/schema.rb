@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "831ccf1c-57b8-445c-806e-1cc695ceb250"
+    t.string "telegram_bind_id", default: "7b360b0f-e695-4c21-a7d5-24105a6da9da"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", default: "", null: false
-    t.string "telegram_webhook_id", default: "", null: false
+    t.string "telegram_webhook_id", default: "a4f87201-1b19-4c03-9cb8-c8a27ceec04e", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_telegram_bots_on_user_id"
@@ -147,7 +147,6 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "role"
-    t.integer "telegram_bot"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
