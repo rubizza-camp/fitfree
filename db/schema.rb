@@ -10,16 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_18_054243) do
+ActiveRecord::Schema.define(version: 2018_08_21_122415) do
+
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
   create_table "amounts", force: :cascade do |t|
     t.float "quantity"
     t.integer "client_id"
     t.integer "meter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "attachments", force: :cascade do |t|
@@ -49,11 +48,14 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.string "avatar_content_type"
     t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "cash", default: 0, null: false
   end
 
-  create_table 'clients_metrics', id: false, force: :cascade do |t|
-    t.bigint 'metric_id', null: false
-    t.bigint 'client_id', null: false
+  create_table "clients_metrics", id: false, force: :cascade do |t|
+    t.bigint "metric_id", null: false
+    t.bigint "client_id", null: false
   end
 
   create_table "coach_infos", force: :cascade do |t|
@@ -77,28 +79,28 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.datetime "updated_at", null: false
   end
 
-  create_table 'exercises', force: :cascade do |t|
-    t.integer 'exercise_type_id'
-    t.integer 'kit_id'
-    t.integer 'user_id'
-    t.integer 'repeats'
-    t.integer 'approach'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "exercises", force: :cascade do |t|
+    t.integer "exercise_type_id"
+    t.integer "kit_id"
+    t.integer "user_id"
+    t.integer "repeats"
+    t.integer "approach"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'jobs', force: :cascade do |t|
-    t.string 'GUID'
-    t.bigint 'training_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index %w[training_id], name: 'index_jobs_on_training_id'
+  create_table "jobs", force: :cascade do |t|
+    t.string "GUID"
+    t.bigint "training_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_id"], name: "index_jobs_on_training_id"
   end
 
-  create_table 'kinds', force: :cascade do |t|
-    t.string 'name'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "kinds", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "kits", force: :cascade do |t|
@@ -108,22 +110,23 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.datetime "updated_at", null: false
   end
 
-  create_table 'meals', force: :cascade do |t|
-    t.datetime 'datetime'
-    t.text 'description'
-    t.integer 'client_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "meals", force: :cascade do |t|
+    t.datetime "datetime"
+    t.text "description"
+    t.integer "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'measurements', force: :cascade do |t|
-    t.bigint 'snapshot_id'
-    t.bigint 'metric_id'
-    t.decimal 'value'
-    t.index %w[metric_id], name: 'index_measurements_on_metric_id'
-    t.index %w[snapshot_id], name: 'index_measurements_on_snapshot_id'
+  create_table "measurements", force: :cascade do |t|
+    t.bigint "snapshot_id"
+    t.bigint "metric_id"
+    t.decimal "value"
+    t.index ["metric_id"], name: "index_measurements_on_metric_id"
+    t.index ["snapshot_id"], name: "index_measurements_on_snapshot_id"
   end
 
+<<<<<<< HEAD
   create_table "messages", force: :cascade do |t|
     t.string "text", default: "", null: false
     t.string "update_id", default: "", null: false
@@ -143,12 +146,12 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.datetime "updated_at", null: false
   end
 
-  create_table 'snapshots', force: :cascade do |t|
-    t.date 'date', null: false
-    t.bigint 'client_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index %w[client_id], name: 'index_snapshots_on_client_id'
+  create_table "snapshots", force: :cascade do |t|
+    t.date "date", null: false
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_snapshots_on_client_id"
   end
 
   create_table "telegram_bots", force: :cascade do |t|
@@ -171,32 +174,32 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.datetime "updated_at", null: false
   end
 
-  create_table 'transactions', force: :cascade do |t|
-    t.datetime 'datetime'
-    t.integer 'client_id'
-    t.integer 'user_id'
-    t.integer 'price'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "transactions", force: :cascade do |t|
+    t.datetime "datetime"
+    t.integer "client_id"
+    t.integer "user_id"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'email', default: '', null: false
-    t.string 'encrypted_password', default: '', null: false
-    t.string 'reset_password_token'
-    t.datetime 'reset_password_sent_at'
-    t.datetime 'remember_created_at'
-    t.integer 'sign_in_count', default: 0, null: false
-    t.datetime 'current_sign_in_at'
-    t.datetime 'last_sign_in_at'
-    t.inet 'current_sign_in_ip'
-    t.inet 'last_sign_in_ip'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'name'
-    t.integer 'role'
-    t.index %w[email], name: 'index_users_on_email', unique: true
-    t.index %w[reset_password_token], name: 'index_users_on_reset_password_token', unique: true
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.integer "role"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
   add_foreign_key "jobs", "trainings"
 end
