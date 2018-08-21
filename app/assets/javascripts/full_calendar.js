@@ -25,8 +25,17 @@ function calendar(json) {
         header: {
             left: 'prev,next, today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            right: 'month,agendaWeek,agendaThreeDay,agendaDay'
         },
+        views: {
+            agendaThreeDay: {
+                type: 'agenda',
+                duration: { days: 3 },
+                buttonText: '3 day'
+            }
+        },
+        defaultView: 'agendaThreeDay',
+        firstDay: 1,
         selectable: true,
         selectHelper: true,
         editable: true,
