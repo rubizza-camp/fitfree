@@ -11,12 +11,12 @@ module ClientsHelper
   end
 
   def client_data_sets(client, snapshots, kind)
-    snapshots.
-      map(&:measurements).
-      flatten.
-      group_by(&:metric).
-      select { |metric, _measurements| metric.kind_id == kind.id }.
-      map { |metric, measurements| client_data_set(metric, measurements) }
+    snapshots
+      .map(&:measurements)
+      .flatten
+      .group_by(&:metric)
+      .select { |metric, _measurements| metric.kind_id == kind.id }
+      .map { |metric, measurements| client_data_set(metric, measurements) }
   end
 
   def client_data_set(metric, measurements)
@@ -30,6 +30,6 @@ module ClientsHelper
   end
 
   def color
-    [:red, :yellow, :blue, :green, :pink, :orange, :violet, :blood, :gold].sample
+    %i[red yellow blue green pink orange violet blood gold].sample
   end
 end
