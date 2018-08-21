@@ -1,6 +1,7 @@
 class TrainingsController < ApplicationController
   require 'sidekiq/api'
   include ClientListConcern
+  include TrainingPlanConcern
   before_action :find_training, only: [:show, :edit, :update, :cancel, :destroy]
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
@@ -16,19 +17,8 @@ class TrainingsController < ApplicationController
   end
 
   def show
-    @name = Client.find_by(id: @training.client_id).first_name + ' ' + Client.find_by(id: @training.client_id).second_name
-    @sets = Kit.where(training_id: @training.id, user_id: current_user.id).map do |kit|
-      {
-          :exercises => Exercise.where(kit_id: kit.id, user_id: current_user.id),
-          :kit => kit
-      }
-    end
-    @sets.each do |kit|
-     kit1 = kit[:exercises].map do |exe|
-        { name: ExerciseType.find_by(id: exe.exercise_type_id).name, exe: exe }
-     end
-      kit[:exercises] = kit1
-    end
+    @name = name(@training)
+    @sets = sets(@training, current_user)
   end
 
   def new
@@ -48,19 +38,8 @@ class TrainingsController < ApplicationController
 
   def edit
     @list = client_list(current_user)
-    @name = Client.find_by(id: @training.client_id).first_name + ' ' + Client.find_by(id: @training.client_id).second_name
-    @sets = Kit.where(training_id: @training.id, user_id: current_user.id).map do |kit|
-      {
-          :exercises => Exercise.where(kit_id: kit.id, user_id: current_user.id),
-          :kit => kit
-      }
-    end
-    @sets.each do |kit|
-      kit1 = kit[:exercises].map do |exe|
-        { name: ExerciseType.find_by(id: exe.exercise_type_id).name, exe: exe }
-      end
-      kit[:exercises] = kit1
-    end
+    @name = name(@training)
+    @sets = sets(@training, current_user)
   end
 
   def update

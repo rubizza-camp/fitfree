@@ -11,7 +11,7 @@
     tbody
       - @training.each do |training|
         tr
-          td.title= link_to training[:name], training
+          td.title= link_to training[:name], training[:training]
           td= training[:training].price
           td= training[:training].time.to_s.delete(' UTC')[0...10]
           td= training[:training].description
