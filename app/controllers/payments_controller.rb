@@ -5,7 +5,7 @@ class PaymentsController < ApplicationController
   def index
     client_id = params[:client_id]
     @payments_list = Transaction.where(client_id: client_id).sort_by(&:datetime).reverse!
-    @result_balance = Client.find(client_id).result_balance
+    @result_balance = Client.find(client_id).cash
   end
 
   def create; end
@@ -17,6 +17,7 @@ class PaymentsController < ApplicationController
       transaction.price = params[:price]
       transaction.user_id = current_user.id
     end
+    Client.find(params[:client_id]).add_to_cash(params[:price])
     @transaction.save
   end
 end

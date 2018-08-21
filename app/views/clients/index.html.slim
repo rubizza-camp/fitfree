@@ -26,7 +26,7 @@ label.btn.btn-secondary.active
           td= ((Time.zone.now - client.birth.to_time) / 1.year.seconds).floor
           td.date= client.created_at.to_date.strftime("%d/%m/%Y")
           td.date= client.updated_at.to_date.strftime("%d/%m/%Y")
-          td= client.result_balance
+          td= client.cash
 
 
 

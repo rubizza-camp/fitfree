@@ -30,13 +30,12 @@ class Client < ApplicationRecord
 
   enum status: %i[online offline]
 
-  def result_balance
-    result = 0
-    Transaction.where(client_id: id).each { |transaction| result += transaction.price }
-    result
-  end
-
   def full_name
     "#{first_name} #{second_name}"
+  end
+
+  def add_to_cash(pay)
+    self.cash += pay.to_i
+    self.save!
   end
 end
