@@ -3,8 +3,12 @@ class WebhooksController < ApplicationController
 
   def callback
     puts message[:text]
-    if client && client.messages.find_by(update_id: webhook[:update_id]).nil?
+    if client && client.messages.find_by(update_id: webhook[:update_id]).nil? && message[:text]
       client.messages.create(text: message[:text], update_id: webhook[:update_id])
+      ActionCable.server.broadcast 'messages',
+                                   message: message[:text],
+                                   user: client.first_name
+      head :ok
     end
     render nothing: true, head: :ok
   end

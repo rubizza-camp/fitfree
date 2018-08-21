@@ -12,3 +12,14 @@ function send_message(id) {
     xhttp.open("POST", url, true);
     xhttp.send(form_data);
 }
+
+App.messages = App.cable.subscriptions.create('MessagesChannel', {
+    received: function(data) {
+        // $("#messages").removeClass('hidden')
+        return document.getElementById("container_msg").innerHTML += this.renderMessage(data);
+    },
+
+    renderMessage: function(data) {
+        return `<p><b>${data.user}:</b> ${data.message}</p>`;
+    }
+});
