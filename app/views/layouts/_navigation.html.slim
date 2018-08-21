@@ -1,28 +1,6 @@
-
-
-/.container
-  nav.navbar.navbar-expand-lg.bg-primary
-    - if user_signed_in?
-      - if current_user.admin?
-        .container
-          a.navbar-brand href="#{users_path}" Users
-          = link_to 'Sign Out', destroy_user_session_path, method: :delete
-      - else
-
-        .container
-          a.navbar-brand.col-sm-3.col-md-2.mr-0 href="#{calendar_index_path}" Calendar
-          a.navbar-brand.col-sm-3.col-md-2.mr-0 href="#{clients_path}" Clients
-          a.navbar-brand.col-sm-3.col-md-2.mr-0 href="#{metrics_path}" Metrics
-          a.navbar-brand.col-sm-3.col-md-2.mr-0 href="#{exercise_types_path}" Exercise types
-          = link_to 'Sign Out', destroy_user_session_path, method: :delete
-    - else
-      = link_to 'Log In', new_user_session_path
-
-
 - if user_signed_in?
   - if current_user.admin?
     .container
-     / a.navbar-brand href="#{users_path}" Users
   - else
     .nav-side-menu
       .brand Fit Free
@@ -50,7 +28,6 @@
             a href="#{exercise_types_path}"
 
               | Exercise types
-
 
 - else
   = link_to 'Log In', new_user_session_path, class: 'btn btn-primary float-right float-top'

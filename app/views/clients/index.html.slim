@@ -1,11 +1,3 @@
-
-/ul.nav.navbar-nav
-  li.dropdown
-    - Client.statuses_i18n.each do |status, status_i18n|
-      li class=("#{'active' if params[:status] == status}")
-        = link_to status_i18n, clients_path(status: status), class: 'btn btn-primary btn-simple btn-round btn-small'
-
-
 - Client.statuses_i18n.each do |status, status_i18n|
   label.btn.btn-secondary.active
     li class=("#{'active' if params[:status] == status}")

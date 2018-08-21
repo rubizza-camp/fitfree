@@ -13,8 +13,6 @@ html
     header
     link#bootstrap-css href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" /
     script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
-    /script src="//code.jquery.com/jquery-1.11.1.min.js"
-    /! ---- Include the above in your HEAD tag --------
     link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /
     .col-sm-3
     == render 'layouts/navigation'
@@ -30,8 +28,3 @@ html
       main[role="main"]
         == render 'layouts/messages'
         == yield
-    /main[role="main"]
-      == render 'layouts/messages'
-      == yield
-
-

@@ -13,6 +13,8 @@
           td =link_to "#{metric.name}", metric
           /td =link_to "#{metric.name}
           td = "#{metric.units}"
-div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-right type="button" =link_to new_metric_path
-  i.now-ui-icons.ui-1_simple-add
+=link_to 'New metric',new_metric_path, class: 'btn btn-primary float-right float-top'
 
+.pagniation-wrapper align="center"
+  = will_paginate @metrics, renderer: BootstrapPagination::Rails,
+          previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0

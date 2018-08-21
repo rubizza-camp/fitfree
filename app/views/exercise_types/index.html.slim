@@ -1,5 +1,5 @@
 h1
-  | Exercise_Types
+  | Exercise types
 - unless @exercise_type.blank?
   table.table
     thead
@@ -16,5 +16,8 @@ h1
           td= link_to exercise_type.description, exercise_type.description
           td= link_to 'Edit ', edit_exercise_type_path(exercise_type)
           td= link_to 'Delete ', exercise_type_path(exercise_type), method: :delete, data: {confirm: 'Are you sure?'}
-div.btn.btn-primary.btn-lg.btn-icon.btn-round.btn-success.float-right type="button" =link_to new_exercise_type_path
-  i.now-ui-icons.ui-1_simple-add
+=link_to 'New exercise type', new_exercise_type_path, class: 'btn btn-primary float-right float-top'
+
+.pagniation-wrapper align="center"
+  = will_paginate @exercise_type, renderer: BootstrapPagination::Rails,
+          previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
