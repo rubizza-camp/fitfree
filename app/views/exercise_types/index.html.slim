@@ -1,6 +1,6 @@
 h1
   | Exercise types
-- unless @exercise_type.blank?
+- unless @exercise_types.blank?
   table.table
     thead
       tr
@@ -10,7 +10,7 @@ h1
         th Delete
         th.hidden
     tbody
-      - @exercise_type.each do |exercise_type|
+      - @exercise_types.each do |exercise_type|
         tr
           td.title= exercise_type.name
           td= link_to exercise_type.description, exercise_type.description
@@ -19,5 +19,5 @@ h1
 =link_to 'New exercise type', new_exercise_type_path, class: 'btn btn-primary float-right float-top'
 
 .pagniation-wrapper align="center"
-  = will_paginate @exercise_type, renderer: BootstrapPagination::Rails,
+  = will_paginate @exercise_types, renderer: BootstrapPagination::Rails,
           previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
