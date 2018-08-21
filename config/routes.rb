@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   root to: 'visitors#index'
   devise_for :users
   resources :users
-  resources :trainings
+  resources :trainings, except: :new
+  get 'trainings/new/:date', to: 'trainings#new'
   put '/trainings/cancel/:id', to: 'trainings#cancel'
   resources :calendar, only: [:index, :download]
   get 'download', to: 'calendar#download'

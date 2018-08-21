@@ -13,9 +13,7 @@ class CalendarController < ApplicationController
       info = {
           title: Client.find_by(id: training.client_id).first_name + ' ' + Client.find_by(id: training.client_id).second_name,
           start: date[0...10].to_s + ' ' + date[10...15],
-          price: training.price,
-          description: training.description,
-          status: training.status
+          id: training.id
       }
       @data << info
     end

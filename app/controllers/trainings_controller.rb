@@ -24,6 +24,10 @@ class TrainingsController < ApplicationController
   def new
     @training = current_user.trainings.build
     @list = client_list(current_user)
+    date = params[:date][0...10]
+    @day = date[8].to_i == 0 ? date[9] : date[8..9]
+    @month = date[5].to_i == 0 ? date[6] : date[5..6]
+    @year = date[0..3]
   end
 
   def create
@@ -63,7 +67,7 @@ class TrainingsController < ApplicationController
 
   def destroy
     @training.destroy
-    redirect_to trainings_path
+    redirect_to calendar_index_path
   end
 
   private
