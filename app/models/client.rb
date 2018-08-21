@@ -20,7 +20,11 @@ class Client < ApplicationRecord
   has_many :transactions
   has_and_belongs_to_many :metrics
   has_many :snapshots
-
+  validates :first_name, :second_name,
+            :phone_number, :birth, :status,
+            :price, presence: true
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
   accepts_nested_attributes_for :metrics
 
   enum status: %i[online offline]
