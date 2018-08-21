@@ -1,6 +1,6 @@
 # for metrics
 class MetricsController < ApplicationController
-  before_action :find_metric, only: [:show]
+  before_action :find_metric, only: %i[show]
   include ClientableControllerConcern
 
   def index
@@ -16,7 +16,7 @@ class MetricsController < ApplicationController
 
   def new
     @metric = Metric.new
-    @kinds = Kind.all.map { |k| [k.name, k.id] }
+    @kinds = Kind.all.map { |kind| [kind.name, kind.id] }
   end
 
   def create

@@ -32,7 +32,11 @@ class Client < ApplicationRecord
 
   def result_balance
     result = 0
-    Transaction.where(client_id: self.id).each { |transaction| result += transaction.price }
+    Transaction.where(client_id: id).each { |transaction| result += transaction.price }
     result
+  end
+
+  def full_name
+    "#{first_name} #{second_name}"
   end
 end
