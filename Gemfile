@@ -34,6 +34,7 @@ gem 'chart-js-rails'
 gem 'now-ui-kit-rails'
 gem 'enum_help'
 gem 'paperclip'
+gem 'excon'
 gem 'gravatar_image_tag'
 
 group :development do

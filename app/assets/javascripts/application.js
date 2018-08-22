@@ -23,3 +23,7 @@
 //= require now-ui-kit
 //= require popper
 //= require_tree .
+//= require_tree ./channels
+
+
+config.action_cable.mount_path = '/messages';

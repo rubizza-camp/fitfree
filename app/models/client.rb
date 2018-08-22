@@ -21,6 +21,8 @@ class Client < ApplicationRecord
   has_and_belongs_to_many :metrics
   has_many :snapshots
 
+  has_many :messages, as: :messagable
+
   accepts_nested_attributes_for :metrics
 
   enum status: [:online, :offline]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_16_121442) do
+ActiveRecord::Schema.define(version: 2018_08_18_054243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.string "vk_link"
     t.integer "status"
     t.integer "price"
+    t.string "telegram_chat_id"
+    t.string "telegram_bind_id", default: "7b360b0f-e695-4c21-a7d5-24105a6da9da"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "avatar_file_name"
@@ -53,6 +55,20 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
   create_table "clients_metrics", id: false, force: :cascade do |t|
     t.bigint "metric_id", null: false
     t.bigint "client_id", null: false
+  end
+
+  create_table "coach_infos", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "birthdate"
+    t.string "region", default: "", null: false
+    t.string "town", default: "", null: false
+    t.string "phone", default: "", null: false
+    t.string "facebook_sn", default: "", null: false
+    t.string "instagram_sn", default: "", null: false
+    t.string "vk_sn", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_coach_infos_on_user_id"
   end
 
   create_table "exercise_types", force: :cascade do |t|
@@ -110,12 +126,14 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "client_id"
-    t.text "text"
-    t.integer "attachment_id"
+    t.string "text", default: "", null: false
+    t.string "update_id", default: "", null: false
+    t.integer "status", default: 0
+    t.string "messagable_type"
+    t.bigint "messagable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["messagable_type", "messagable_id"], name: "index_messages_on_messagable_type_and_messagable_id"
   end
 
   create_table "metrics", force: :cascade do |t|
@@ -134,10 +152,13 @@ ActiveRecord::Schema.define(version: 2018_08_16_121442) do
     t.index ["client_id"], name: "index_snapshots_on_client_id"
   end
 
-  create_table "statuses", force: :cascade do |t|
-    t.string "name"
+  create_table "telegram_bots", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "token", default: "", null: false
+    t.string "telegram_webhook_id", default: "a4f87201-1b19-4c03-9cb8-c8a27ceec04e", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_telegram_bots_on_user_id"
   end
 
   create_table "trainings", force: :cascade do |t|
