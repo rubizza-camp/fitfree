@@ -1,25 +1,33 @@
-/ navigation styled for Bootstrap 4.0
-.container
-  nav.navbar.navbar-expand-lg.bg-primary
-    - if user_signed_in?
-      - if current_user.admin?
-        .container
-          a.navbar-brand href="#{users_path}" Users
-          = link_to 'Sign Out', destroy_user_session_path, method: :delete
-      - else
-        .container
-          a.navbar-brand href="#{calendar_index_path}" Calendar
-          a.navbar-brand href="#{clients_path}" Clients
-          a.navbar-brand href="#{metrics_path}" Metrics
-          a.navbar-brand href="#{exercise_types_path}" Exercise types
-          = link_to 'Sign Out', destroy_user_session_path, method: :delete
-    - else
-      = link_to 'Log In', new_user_session_path
-    ul.nav.navbar-nav.clearfix
-      li.nav-item
-        button.navbar-toggler.hidden-sm-up.nav-link aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label=("Toggle navigation") data-target="#exCollapsingNavbar2" data-toggle="collapse" type="button"
-          | &#9776;
-    #exCollapsingNavbar2.collapse.navbar-toggleable-xs
-      = link_to "Rails bootstrap", root_path, class: 'navbar-brand'
-      ul.nav.navbar-nav
-        = render 'layouts/navigation_links'
+- if user_signed_in?
+  - if current_user.admin?
+    .container
+  - else
+    .nav-side-menu
+      .brand Fit Free
+      i.fa.fa-bars.fa-2x.toggle-btn data-target="#menu-content" data-toggle="collapse"
+      .menu-list
+        li
+          a href="#{calendar_index_path}"
+            i.fa.fa-calendar.fa-lg
+            | Calendar
+        li
+          a href="#{clients_path}"
+            i.fa.fa-users.fa-lg
+            | Clients
+        li.collapsed data-target="#settings" data-toggle="collapse"
+          a href="#"
+            i.fa.fa-globe.fa-lg
+            | Settings
+            span.arrow
+        ul#settings.sub-menu.collapse
+          li
+            a href="#{metrics_path}"
+
+              | Metrics
+          li
+            a href="#{exercise_types_path}"
+
+              | Exercise types
+
+- else
+  = link_to 'Log In', new_user_session_path, class: 'btn btn-primary float-right float-top'

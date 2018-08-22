@@ -1,3 +1,4 @@
+# This class is needed to store a snapshot for a certain date
 class SnapshotsController < ApplicationController
   include ClientableControllerConcern
 
@@ -28,7 +29,8 @@ class SnapshotsController < ApplicationController
   private
 
   def snapshot_params
-    params.require(:snapshot).permit(:date, measurements_attributes: [:value, :metric_id])
+    params.require(:snapshot).permit(:date, measurements_attributes:
+      %i[value metric_id])
   end
 
   def find_snapshot

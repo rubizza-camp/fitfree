@@ -29,7 +29,7 @@ gem 'sucker_punch'
 
 gem 'simple_form'
 gem 'will_paginate'
-gem 'will_paginate-bootstrap'
+gem 'will_paginate-bootstrap4'
 gem 'chart-js-rails'
 gem 'now-ui-kit-rails'
 gem 'enum_help'
