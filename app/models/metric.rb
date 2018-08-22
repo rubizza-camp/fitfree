@@ -14,4 +14,5 @@ class Metric < ApplicationRecord
   has_many :measurements
   has_many :snapshots, through: :measurements
   belongs_to :kind
+  validates :name, :units, presence: true
 end
