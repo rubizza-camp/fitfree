@@ -56,7 +56,7 @@ class ClientsController < ApplicationController
     params.require(:client).slice(:metric_ids, :first_name, :second_name,
                                   :phone_number, :status, :birth, :email,
                                   :instagram_link, :facebook_link, :vk_link,
-                                  :avatar, :price,
+                                  :avatar, :price, :gender,
                                   'birth(1i)', 'birth(2i)', 'birth(3i)').permit!
   end
 

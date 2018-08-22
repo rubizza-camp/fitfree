@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_18_054243) do
+ActiveRecord::Schema.define(version: 2018_08_22_133814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.datetime "updated_at", null: false
     t.string "telegram_chat_id"
     t.string "telegram_bind_id", default: "13a4cefa-016e-434b-a25d-1ae406d74abb"
+    t.integer "gender"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
