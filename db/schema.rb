@@ -10,18 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_18_054243) do
+ActiveRecord::Schema.define(version: 2018_08_22_173909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "amounts", force: :cascade do |t|
-    t.float "quantity"
-    t.integer "client_id"
-    t.integer "meter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "attachments", force: :cascade do |t|
     t.integer "message_id"
@@ -35,21 +27,18 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.string "second_name"
     t.string "phone_number"
     t.integer "user_id"
+    t.integer "price"
     t.datetime "birth"
     t.string "email"
     t.string "instagram_link"
     t.string "facebook_link"
     t.string "vk_link"
     t.integer "status"
-    t.integer "price"
-    t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "7b360b0f-e695-4c21-a7d5-24105a6da9da"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "avatar_file_name"
-    t.string "avatar_content_type"
-    t.bigint "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.string "telegram_chat_id"
+    t.string "telegram_bind_id", default: "13a4cefa-016e-434b-a25d-1ae406d74abb"
+    t.integer "gender"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -105,8 +94,6 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
   create_table "kits", force: :cascade do |t|
     t.integer "training_id"
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "meals", force: :cascade do |t|
@@ -139,9 +126,9 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
   create_table "metrics", force: :cascade do |t|
     t.string "name", null: false
     t.string "units", null: false
-    t.integer "kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind_id"
   end
 
   create_table "snapshots", force: :cascade do |t|
@@ -155,7 +142,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", default: "", null: false
-    t.string "telegram_webhook_id", default: "a4f87201-1b19-4c03-9cb8-c8a27ceec04e", null: false
+    t.string "telegram_webhook_id", default: "11d6d037-15d1-4394-9485-5c3bb7b470d3", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_telegram_bots_on_user_id"
@@ -195,10 +182,8 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.integer "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "jobs", "trainings"
 end
