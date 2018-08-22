@@ -1,8 +1,8 @@
 module ClientsHelper
-  def client_metrics_data(client, snapshots, kind_id)
+  def client_metrics_data(client, snapshots, kind)
     {
       labels: client_labels(snapshots),
-      datasets: client_data_sets(client, snapshots,kind_id)
+      datasets: client_data_sets(client, snapshots, kind)
     }.to_json
   end
 
@@ -10,15 +10,13 @@ module ClientsHelper
     snapshots.map(&:date)
   end
 
-  def client_data_sets(client, snapshots, kind_id)
-    snapshots.
-      map(&:measurements).
-      flatten.
-      group_by(&:metric).
-      select { |metric, _measurements| metric.kind_id == kind_id }.
-      map do |metric, measurements|
-        client_data_set(metric, measurements)
-      end
+  def client_data_sets(client, snapshots, kind)
+    snapshots
+      .map(&:measurements)
+      .flatten
+      .group_by(&:metric)
+      .select { |metric, _measurements| metric.kind_id == kind.id }
+      .map { |metric, measurements| client_data_set(metric, measurements) }
   end
 
   def client_data_set(metric, measurements)
@@ -32,6 +30,6 @@ module ClientsHelper
   end
 
   def color
-    [:red, :yellow, :blue, :green, :pink, :orange, :violet, :blood, :gold].sample
+    %i[red yellow blue green pink orange violet blood gold].sample
   end
 end

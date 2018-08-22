@@ -16,4 +16,3 @@ h1
           td= kit.training_id
           td= link_to 'Edit ', edit_kit_path(kit)
           td= link_to 'Delete ', kit_path(kit), method: :delete, data: {confirm: 'Are you sure?'}
-li= link_to "Add a new Kit", new_kit_path, class: "list-group-item"

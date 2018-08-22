@@ -15,6 +15,14 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "amounts", force: :cascade do |t|
+    t.float "quantity"
+    t.integer "client_id"
+    t.integer "meter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "attachments", force: :cascade do |t|
     t.integer "message_id"
     t.text "path"
@@ -27,17 +35,21 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.string "second_name"
     t.string "phone_number"
     t.integer "user_id"
-    t.integer "price"
     t.datetime "birth"
     t.string "email"
     t.string "instagram_link"
     t.string "facebook_link"
     t.string "vk_link"
     t.integer "status"
+    t.integer "price"
     t.string "telegram_chat_id"
     t.string "telegram_bind_id", default: "7b360b0f-e695-4c21-a7d5-24105a6da9da"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.bigint "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -93,6 +105,8 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
   create_table "kits", force: :cascade do |t|
     t.integer "training_id"
     t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "meals", force: :cascade do |t|
@@ -125,9 +139,9 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
   create_table "metrics", force: :cascade do |t|
     t.string "name", null: false
     t.string "units", null: false
+    t.integer "kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "kind_id"
   end
 
   create_table "snapshots", force: :cascade do |t|
@@ -153,7 +167,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.text "description"
     t.integer "user_id"
     t.integer "client_id"
-    t.integer "status", default: 0, null: false
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -186,4 +200,5 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "jobs", "trainings"
 end

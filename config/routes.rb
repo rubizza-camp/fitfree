@@ -6,14 +6,16 @@ Rails.application.routes.draw do
   root to: 'visitors#index'
   devise_for :users
   resources :users
-  resources :trainings
+  resources :trainings, except: :new
+  get 'trainings/new/:date', to: 'trainings#new'
   put '/trainings/cancel/:id', to: 'trainings#cancel'
   resources :calendar, only: [:index, :download]
   get 'download', to: 'calendar#download'
   resources :exercise_types, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :exercises, except: :new
   get 'exercise/new/:id', to: 'exercises#new'
-  resources :kits
+  resources :kits, except: :new
+  get 'kits/new/:id', to: 'kits#new'
   post 'newkitform', to: 'kits#new_kit_form'
   post 'newexerciseform', to: 'exercises#new_exercise_form'
   resources :metrics

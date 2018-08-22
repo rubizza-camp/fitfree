@@ -1,8 +1,9 @@
+# Set client
 module ClientableControllerConcern
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_client, only: [:new, :create, :index]
+    before_action :set_client, only: %i[new create index]
   end
 
   private

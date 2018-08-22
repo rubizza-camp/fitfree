@@ -15,11 +15,6 @@ class ExercisesController < ApplicationController
     end
   end
 
-  def show
-    @name = (ExerciseType.find_by(id: @exercise.exercise_type_id)).name
-    render layout: false
-  end
-
   def new
     create(params['id'])
   end
@@ -47,7 +42,11 @@ class ExercisesController < ApplicationController
       @name = (ExerciseType.find_by(id: @exercise.exercise_type_id)).name
       render plain: "#{@name}"+ " | " + "повторений: " + "#{@exercise.repeats}"+ "," + "подходов: " "#{@exercise.approach}"
     else
-      render plain: "ahuet project"
+      @count = @@count
+      @ex_id = @exercise.id
+      @types = types_list
+      render 'edit', layout: false
+      @@count += 1
     end
   end
 

@@ -13,14 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require rails-ujs
+//= require popper
 //= require bootstrap-sprockets
 //= require moment
 //= require fullcalendar
+//= require fullcalendar/gcal
 //= require select2/dist/js/select2.full.js
 //= require select2
 //= require chart.js/dist/Chart.js
 //= require now-ui-kit
-//= require popper
+//= require clients
 //= require_tree .
 //= require_tree ./channels
 

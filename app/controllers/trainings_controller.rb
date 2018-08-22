@@ -1,6 +1,7 @@
 class TrainingsController < ApplicationController
   require 'sidekiq/api'
   include ClientListConcern
+  include TrainingPlanConcern
   before_action :find_training, only: [:show, :edit, :update, :cancel, :destroy]
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
@@ -16,24 +17,17 @@ class TrainingsController < ApplicationController
   end
 
   def show
-    @name = Client.find_by(id: @training.client_id).first_name + ' ' + Client.find_by(id: @training.client_id).second_name
-    @sets = Kit.where(training_id: @training.id, user_id: current_user.id).map do |kit|
-      {
-          :exercises => Exercise.where(kit_id: kit.id, user_id: current_user.id),
-          :kit => kit
-      }
-    end
-    @sets.each do |kit|
-     kit1 = kit[:exercises].map do |exe|
-        { name: ExerciseType.find_by(id: exe.exercise_type_id).name, exe: exe }
-     end
-      kit[:exercises] = kit1
-    end
+    @name = name(@training)
+    @sets = sets(@training, current_user)
   end
 
   def new
     @training = current_user.trainings.build
     @list = client_list(current_user)
+    date = params[:date][0...10]
+    @day = date[8].to_i == 0 ? date[9] : date[8..9]
+    @month = date[5].to_i == 0 ? date[6] : date[5..6]
+    @year = date[0..3]
   end
 
   def create
@@ -48,19 +42,8 @@ class TrainingsController < ApplicationController
 
   def edit
     @list = client_list(current_user)
-    @name = Client.find_by(id: @training.client_id).first_name + ' ' + Client.find_by(id: @training.client_id).second_name
-    @sets = Kit.where(training_id: @training.id, user_id: current_user.id).map do |kit|
-      {
-          :exercises => Exercise.where(kit_id: kit.id, user_id: current_user.id),
-          :kit => kit
-      }
-    end
-    @sets.each do |kit|
-      kit1 = kit[:exercises].map do |exe|
-        { name: ExerciseType.find_by(id: exe.exercise_type_id).name, exe: exe }
-      end
-      kit[:exercises] = kit1
-    end
+    @name = name(@training)
+    @sets = sets(@training, current_user)
   end
 
   def update
@@ -84,7 +67,7 @@ class TrainingsController < ApplicationController
 
   def destroy
     @training.destroy
-    redirect_to trainings_path
+    redirect_to calendar_index_path
   end
 
   private
