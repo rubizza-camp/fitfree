@@ -17,6 +17,12 @@ class CalendarController < ApplicationController
       }
       @data << info
     end
+    google = {
+        googleCalendarId: 'k9qatn9fshgu56rhtccrec0dao@group.calendar.google.com',
+        color: 'yellow',
+        textColor: 'black'
+    }
+    @data << google
     render json: @data.to_json
   end
 end

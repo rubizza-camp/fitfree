@@ -1,8 +1,6 @@
 window.onload = function () {
     if (document.getElementById('calendar') != null) {
-      var json = $.getJSON( "download", function(result){
-       calendar(json)
-   });
+       calendar()
     }
     else {
         metricsGraph('client_strength');
@@ -19,10 +17,11 @@ function metricsGraph(canvasId) {
     });
 }
 
-function calendar(json) {
-    var resp_json = $.parseJSON(json.responseText);
+function calendar() {
     $('#calendar').fullCalendar({
         /*themeSystem: 'bootstrap4',*/
+        googleCalendarApiKey: 'AIzaSyARi2pFx9KVgBME1ioZtTO8R0f2_LVV07Y',
+        /*events: { googleCalendarId: 'k9qatn9fshgu56rhtccrec0dao@group.calendar.google.com' },*/
         header: {
             left: 'prev,next, today',
             center: 'title',
@@ -42,7 +41,8 @@ function calendar(json) {
         selectHelper: true,
         editable: false,
         eventLimit: true,
-        events: resp_json,
+        events: 'k9qatn9fshgu56rhtccrec0dao@group.calendar.google.com',
+        eventSources: ['/download'],
         timeFormat: 'HH:mm',
         aspectRatio: 1.8,
         dayClick: function (date) {
