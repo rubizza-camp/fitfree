@@ -1,0 +1,37 @@
+<%= simple_form_for @user do |f| %>
+
+  <%= f.input :name %>
+
+  <%= f.input :email, input_html: { autocomplete: 'email' } %>
+
+  <%#= f.simple_fields_for :coach_info do |c| %>
+
+    <%#= c.input :birthdate %>
+
+    <%#= c.input :region, label: 'Country' %>
+
+    <%#= c.input :town %>
+
+    <%#= c.input :phone %>
+
+    <%#= c.input :facebook_sn, label: 'Facebook link' %>
+
+    <%#= c.input :vk_sn, label: 'VK link' %>
+
+    <%#= c.input :instagram_sn, label: 'Instagram link' %>
+
+  <%# end %>
+
+  <%= f.simple_fields_for :telegram_bot do |t| %>
+
+    <%= t.input :token, label: 'Telegram bot toke' %>
+
+  <% end %>
+
+  <%#= f.input :url, label: 'Domain Url' %>
+
+  <%= f.button :submit, class: "btn-primary" %>
+
+  <%= f.button :button, "Cancel", type: "reset", class: "btn-outline-secondary" %>
+
+<% end %>

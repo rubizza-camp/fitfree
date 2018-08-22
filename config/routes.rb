@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # namespace :admin do
   #     resources :users
   #     root to: "users#index"
@@ -18,6 +17,8 @@ Rails.application.routes.draw do
   post 'newkitform', to: 'kits#new_kit_form'
   post 'newexerciseform', to: 'exercises#new_exercise_form'
   resources :metrics
+
+  mount ActionCable.server => '/cable'
   resources :clients do
     get 'payments/', to: 'payments#index'
     get 'payments/create'
@@ -25,5 +26,10 @@ Rails.application.routes.draw do
     get 'stats', to: 'clients#stats'
     resources :metrics, only: [:index]
     resources :snapshots, shallow: true
+    resources :messages
+    post 'message/send', to: 'messages#send'
   end
+
+  post 'webhooks/:id', to: 'webhooks#callback'
+
 end

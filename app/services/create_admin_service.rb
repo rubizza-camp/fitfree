@@ -5,5 +5,6 @@ class CreateAdminService
         user.password_confirmation = Rails.application.secrets.admin_password
         user.admin!
       end
+
   end
 end
