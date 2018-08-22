@@ -1,8 +1,5 @@
 $(function () {
-    document.getElementById('calendar') != null
-    {
-        calendar()
-    }
+    calendar()
 });
 
 function calendar() {
