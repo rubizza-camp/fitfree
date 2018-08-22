@@ -10,7 +10,7 @@ class TrainingsController < ApplicationController
   def index
     @training = Training.where(user_id: current_user.id).map do |training|
       {
-        name:     Client.find_by(id: @training.client_id).full_name,
+        name:     Client.find_by(id: training.client_id).full_name,
         training: training
       }
     end

@@ -11,13 +11,10 @@ class PaymentsController < ApplicationController
   def create; end
 
   def add
-    @transaction = Transaction.new do |transaction|
-      transaction.datetime = params[:date]
-      transaction.client_id = params[:client_id]
-      transaction.price = params[:price]
-      transaction.user_id = current_user.id
-    end
+    current_user.transactions.create(datetime: params[:date],
+                                     client_id: params[:client_id],
+                                     price: params[:price],
+                                     user_id: current_user.id)
     Client.find(params[:client_id]).add_to_cash(params[:price])
-    @transaction.save
   end
 end
