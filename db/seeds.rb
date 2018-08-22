@@ -12,8 +12,8 @@ puts 'Created two kinds of metrics'
 %w[Chest Basin Waist Neck Biceps Shin Hip].each do |name|
   Metric.find_or_create_by(name: name, units: 'sm', kind_id: 2)
 end
-puts 'Created strength metrics'
+puts 'Created anthropometry metrics'
 %w[Sit-ups Pull-ups Push-ups].each do |name|
   Metric.find_or_create_by(name: name, units: 'repeats', kind_id: 1)
 end
-puts 'Created anthropometry metrics'
+puts 'Created strength metrics'
