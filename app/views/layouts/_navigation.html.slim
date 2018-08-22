@@ -5,11 +5,13 @@
       - if current_user.admin?
         .container
           a.navbar-brand href="#{users_path}" Users
+          = link_to 'Sign Out', destroy_user_session_path, method: :delete
       - else
         .container
+          a.navbar-brand href="#{calendar_index_path}" Calendar
           a.navbar-brand href="#{clients_path}" Clients
           a.navbar-brand href="#{metrics_path}" Metrics
-          a.navbar-brand href="#" Calendar
+          a.navbar-brand href="#{exercise_types_path}" Exercise types
           = link_to 'Sign Out', destroy_user_session_path, method: :delete
     - else
       = link_to 'Log In', new_user_session_path
@@ -21,4 +23,3 @@
       = link_to "Rails bootstrap", root_path, class: 'navbar-brand'
       ul.nav.navbar-nav
         = render 'layouts/navigation_links'
-

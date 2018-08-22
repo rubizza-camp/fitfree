@@ -20,7 +20,6 @@ class MetricsController < ApplicationController
 
   def create
     @metric = Metric.new(metric_params)
-    @metric.kind_id = params[:kind_id]
     if @metric.save
       redirect_to metrics_path
     else

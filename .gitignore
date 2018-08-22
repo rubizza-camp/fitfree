@@ -85,7 +85,7 @@ pickle-email-*.html
 *~
 
 
-/db/schema.rb
+
 # bundler state
 /.bundle
 /vendor/bundle/
@@ -157,4 +157,5 @@ pickle-email-*.html
 .powenv
 
 # tilde files are usually backup files from a text editor
+
 *~

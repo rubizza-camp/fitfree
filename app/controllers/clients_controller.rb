@@ -32,6 +32,7 @@ class ClientsController < ApplicationController
     @snapshots = @client.snapshots.includes(measurements: :metric)
   end
 
+
   def edit; end
 
   def update
@@ -54,7 +55,7 @@ class ClientsController < ApplicationController
 
   def client_params
     params.require(:client).slice(:metric_ids, :first_name, :second_name, :phone_number, :status,
-                                  :birth, :email, :instagram_link, :facebook_link, :vk_link, :avatar,
+                                  :birth, :email, :instagram_link, :facebook_link, :vk_link, :avatar, :price,
                                   "birth(1i)", "birth(2i)", "birth(3i)").permit!
   end
 

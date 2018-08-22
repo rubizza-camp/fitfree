@@ -15,25 +15,29 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "attachments", force: :cascade do |t|
+    t.integer "message_id"
+    t.text "path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "first_name"
     t.string "second_name"
     t.string "phone_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "price"
     t.datetime "birth"
     t.string "email"
     t.string "instagram_link"
     t.string "facebook_link"
     t.string "vk_link"
     t.integer "status"
-    t.string "avatar_file_name"
-    t.string "avatar_content_type"
-    t.bigint "avatar_file_size"
-    t.datetime "avatar_updated_at"
     t.string "telegram_chat_id"
     t.string "telegram_bind_id", default: "7b360b0f-e695-4c21-a7d5-24105a6da9da"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -55,18 +59,48 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.index ["user_id"], name: "index_coach_infos_on_user_id"
   end
 
+  create_table "exercise_types", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "exercises", force: :cascade do |t|
+    t.integer "exercise_type_id"
+    t.integer "kit_id"
+    t.integer "user_id"
+    t.integer "repeats"
+    t.integer "approach"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "GUID"
+    t.bigint "training_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_id"], name: "index_jobs_on_training_id"
+  end
+
   create_table "kinds", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "kits", force: :cascade do |t|
+    t.integer "training_id"
+    t.integer "user_id"
+  end
+
   create_table "meals", force: :cascade do |t|
     t.datetime "datetime"
     t.text "description"
+    t.integer "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "client_id"
   end
 
   create_table "measurements", force: :cascade do |t|
@@ -117,19 +151,20 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.datetime "time"
     t.integer "price"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "client_id"
-    t.integer "status"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transactions", force: :cascade do |t|
     t.datetime "datetime"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "client_id"
     t.integer "user_id"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -6,7 +6,14 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
+gem 'sprockets'
+gem 'jquery-ui-rails', '~> 4.2.1'
 gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
+gem 'simple_form'
+gem 'simple-form-datepicker'
+gem 'pry'
+gem 'now-ui-kit-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'administrate'
@@ -18,6 +25,7 @@ gem 'high_voltage'
 gem 'pg'
 gem 'slim-rails'
 gem 'sucker_punch'
+
 gem 'simple_form'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
@@ -26,6 +34,8 @@ gem 'now-ui-kit-rails'
 gem 'enum_help'
 gem 'paperclip'
 gem 'excon'
+gem 'gravatar_image_tag'
+
 group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -50,3 +60,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 end
+gem 'sidekiq'
+gem 'sidekiq-status'

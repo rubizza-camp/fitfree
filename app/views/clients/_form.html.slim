@@ -1,5 +1,4 @@
-= simple_form_for @client, html: { multipart: true }  do |f|
-  = f.file_field :avatar
+= simple_form_for @client do |f|
   = f.input :status
   = f.input :first_name
   = f.input :second_name
@@ -8,6 +7,8 @@
   = f.input :instagram_link
   = f.input :facebook_link
   = f.input :vk_link
+  = f.input :price
   = f.association :metrics, collection: @metrics, input_html: { class: 'select2' }
   = f.date_select :birth, start_year:1900,end_year:2018, label:'Date of Birth'
+  h3
   = f.submit

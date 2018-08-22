@@ -5,7 +5,7 @@ class VisitorsController < ApplicationController
     if current_user.admin?
       redirect_to users_path
     else
-      redirect_to clients_path
+      redirect_to calendar_index_path
     end
   end
 end

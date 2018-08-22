@@ -1,9 +1,3 @@
-h1 Edit Training
-= simple_form_for @training do |f|
-  = f.input :price
-  = f.input :description
-  = f.datetime_select :time, label:'Time'
-  = f.input :client_id
-  = f.input :status
-  = f.submit
-= link_to 'Cancel', training_path
+h3 Add training plan
+= render 'editform'
+

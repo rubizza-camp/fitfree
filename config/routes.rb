@@ -1,15 +1,28 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # namespace :admin do
+  #     resources :users
+  #     root to: "users#index"
+  #   end
   root to: 'visitors#index'
+  devise_for :users
+  resources :users
+  resources :trainings
+  put '/trainings/cancel/:id', to: 'trainings#cancel'
+  resources :calendar, only: [:index, :download]
+  get 'download', to: 'calendar#download'
+  resources :exercise_types, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :exercises, except: :new
+  get 'exercise/new/:id', to: 'exercises#new'
+  resources :kits
+  post 'newkitform', to: 'kits#new_kit_form'
+  post 'newexerciseform', to: 'exercises#new_exercise_form'
+  resources :metrics
 
   mount ActionCable.server => '/cable'
-
-  namespace :admin do
-    resources :users
-    root to: 'users#index'
-  end
-
   resources :clients do
+    get 'payments/', to: 'payments#index'
+    get 'payments/create'
+    post 'payments/new', to: 'payments#add'
     get 'stats', to: 'clients#stats'
     resources :metrics, only: [:index]
     resources :snapshots, shallow: true
@@ -17,11 +30,6 @@ Rails.application.routes.draw do
     post 'message/send', to: 'messages#send'
   end
 
-  #post '/users/:id', to: 'users#create'
   post 'webhooks/:id', to: 'webhooks#callback'
-
-  resources :users
-  resources :trainings
-  resources :metrics
 
 end

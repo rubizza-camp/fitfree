@@ -1,0 +1,13 @@
+h3 Welcome
+- if user_signed_in?
+  - if current_user.admin?
+    h3 Admin
+    p
+      = link_to 'User count:', users_path
+      = User.count
+  - else
+    h3 You've signed up.
+    h3 Coach
+- else
+  h3 Sign up please.
+  = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary btn-large'

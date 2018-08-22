@@ -27,7 +27,9 @@ class Client < ApplicationRecord
 
   enum status: [:online, :offline]
 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }
-
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+  def result_balance
+    result = 0
+    Transaction.where(client_id: self.id).each { |transaction| result += transaction.price }
+    result
+  end
 end
