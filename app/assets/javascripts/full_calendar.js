@@ -3,13 +3,13 @@ window.onload = function () {
        calendar()
     }
     else {
-        metricsGraph('client_strength');
-        metricsGraph('client_anthropometry');
+        $('canvas[data-chart]').each(function (index, canvas) {
+            metricsGraph(canvas)
+        });
     }
 };
 
-function metricsGraph(canvasId) {
-    var canvas = document.getElementById(canvasId);
+function metricsGraph(canvas) {
     var ctx = canvas.getContext('2d');
     new Chart(ctx, {
         type: 'line',

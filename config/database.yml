@@ -18,8 +18,8 @@ development:
   encoding: unicode
   database: FitFree_development
   pool:     5
-  username: fit_free
-  password: fitfree1234567
+  username: FitFree
+  password: 12345
   template: template0
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -46,8 +46,8 @@ test:
   encoding: unicode
   database: FitFree_test
   pool:     5
-  username: fit_free
-  password: fitfree1234567
+  username: FitFree
+  password: 12345
   template: template0
 
 production:
@@ -57,5 +57,5 @@ production:
   database: FitFree_production
   pool:     5
   username: FitFree
-  password:
+  password: 12345
   template: template0

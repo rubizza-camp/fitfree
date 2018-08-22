@@ -42,14 +42,14 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.string "vk_link"
     t.integer "status"
     t.integer "price"
-    t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "7b360b0f-e695-4c21-a7d5-24105a6da9da"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "avatar_file_name"
     t.string "avatar_content_type"
     t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string "telegram_chat_id"
+    t.string "telegram_bind_id", default: "99680670-9553-413c-811c-8baf2669d7b0"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -152,10 +152,16 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.index ["client_id"], name: "index_snapshots_on_client_id"
   end
 
+  create_table "statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", default: "", null: false
-    t.string "telegram_webhook_id", default: "a4f87201-1b19-4c03-9cb8-c8a27ceec04e", null: false
+    t.string "telegram_webhook_id", default: "684193ba-7f63-4dba-a0f4-6f72c5a6de3c", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_telegram_bots_on_user_id"
@@ -167,7 +173,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.text "description"
     t.integer "user_id"
     t.integer "client_id"
-    t.string "status"
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
