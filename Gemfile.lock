@@ -118,6 +118,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    dotenv (2.5.0)
     enum_help (0.0.17)
       activesupport (>= 3.0.0)
     erubi (1.7.1)
@@ -360,6 +361,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   database_cleaner
   devise
+  dotenv
   enum_help
   excon
   factory_bot_rails
