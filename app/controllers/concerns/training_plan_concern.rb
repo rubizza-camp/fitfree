@@ -2,8 +2,7 @@ module TrainingPlanConcern
   extend ActiveSupport::Concern
 
   def name(training)
-    name = Client.find_by(id: training.client_id).first_name + ' ' + Client.find_by(id: training.client_id).second_name
-    name
+    Client.find_by(id: training.client_id).first_name + ' ' + Client.find_by(id: training.client_id).second_name
   end
 
   def sets(training, current_user)

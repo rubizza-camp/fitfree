@@ -19,8 +19,8 @@ function metricsGraph(canvasId) {
 
 function calendar() {
     $('#calendar').fullCalendar({
-        /*themeSystem: 'bootstrap4',*/
-        googleCalendarApiKey: 'AIzaSyARi2pFx9KVgBME1ioZtTO8R0f2_LVV07Y',
+        themeSystem: 'bootstrap4',
+        googleCalendarApiKey: 'AIzaSyD_EW8Jfd7NQWpF7QCQbNXdxViQOv1vTRo',
         /*events: { googleCalendarId: 'k9qatn9fshgu56rhtccrec0dao@group.calendar.google.com' },*/
         header: {
             left: 'prev,next, today',
