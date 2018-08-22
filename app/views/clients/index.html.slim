@@ -13,8 +13,6 @@ label.btn.btn-secondary.active
         th Last name:
         th Phone number:
         th Age:
-        th Created:
-        th Updated:
         th Current balance:
         th.hidden
     tbody
@@ -24,8 +22,6 @@ label.btn.btn-secondary.active
           td= client.second_name
           td= client.phone_number
           td= ((Time.zone.now - client.birth.to_time) / 1.year.seconds).floor
-          td.date= client.created_at.to_date.strftime("%d/%m/%Y")
-          td.date= client.updated_at.to_date.strftime("%d/%m/%Y")
           td= client.result_balance
 
 

@@ -9,7 +9,7 @@ class MetricsController < ApplicationController
                else
                  Metric.all
                end
-    @metrics = @metrics.order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+    @metrics = @metrics.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
   end
 
   def show; end
