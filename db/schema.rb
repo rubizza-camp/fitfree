@@ -31,17 +31,17 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string "first_name"
-    t.string "second_name"
-    t.string "phone_number"
+    t.string "first_name", default: "", null: false
+    t.string "second_name", default: "", null: false
+    t.string "phone_number", default: "", null: false
     t.integer "user_id"
-    t.datetime "birth"
-    t.string "email"
-    t.string "instagram_link"
-    t.string "facebook_link"
-    t.string "vk_link"
-    t.integer "status"
-    t.integer "price"
+    t.datetime "birth", default: "2018-08-23 16:43:22", null: false
+    t.string "email", default: "", null: false
+    t.string "instagram_link", default: "", null: false
+    t.string "facebook_link", default: "", null: false
+    t.string "vk_link", default: "", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "price", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "avatar_file_name"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
     t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "b5195845-449b-4b5e-b214-8a8762baa289"
+    t.string "telegram_bind_id", default: "665ca944-9a03-4346-9fd6-b96bca7ea92d"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
   end
 
   create_table "clients_trainings", id: false, force: :cascade do |t|
-    t.bigint "trainigs_id"
-    t.bigint "clients_id"
-    t.index ["clients_id"], name: "index_clients_trainings_on_clients_id"
-    t.index ["trainigs_id"], name: "index_clients_trainings_on_trainigs_id"
+    t.bigint "training_id"
+    t.bigint "client_id"
+    t.index ["client_id"], name: "index_clients_trainings_on_client_id"
+    t.index ["training_id"], name: "index_clients_trainings_on_training_id"
   end
 
   create_table "coach_infos", force: :cascade do |t|
@@ -162,21 +162,21 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", default: "", null: false
-    t.string "telegram_webhook_id", default: "68abd2d2-a558-4886-86b6-69a487fce26c", null: false
+    t.string "telegram_webhook_id", default: "e60ba976-1d23-4936-91eb-75479902035f", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_telegram_bots_on_user_id"
   end
 
   create_table "trainings", force: :cascade do |t|
-    t.bigint "users_id"
+    t.bigint "user_id"
     t.datetime "time"
     t.integer "price"
     t.text "description"
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_trainings_on_users_id"
+    t.index ["user_id"], name: "index_trainings_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|

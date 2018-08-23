@@ -1,5 +1,5 @@
 = simple_form_for(@training, html: {novalidate: true}) do |f|
-  = f.input :client_id, collection: @list
+  = f.association :clients, collection: @clients
   = f.datetime_select :time, default: { :day => @day, :month => @month, :year => @year }
   = f.input :price
   = f.input :description

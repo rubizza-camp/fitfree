@@ -1,20 +1,11 @@
 class TrainingsController < ApplicationController
   require 'sidekiq/api'
-  include ClientListConcern
+  # include ClientListConcern
   include TrainingPlanConcern
   before_action :find_training, only: [:show, :edit, :update, :cancel, :destroy]
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
-
-  def index
-    @training = Training.where(user_id: current_user.id).map do |training|
-      {
-          :name => Client.find_by(id: training.client_id).first_name + ' ' + Client.find_by(id: training.client_id).second_name,
-          :training => training
-      }
-    end
-  end
 
   def show
     @name = name(@training)
@@ -23,11 +14,18 @@ class TrainingsController < ApplicationController
 
   def new
     @training = current_user.trainings.build
-    @list = client_list(current_user)
+    @clients = current_user.clients
     date = params[:date][0...10]
     @day = date[8].to_i == 0 ? date[9] : date[8..9]
     @month = date[5].to_i == 0 ? date[6] : date[5..6]
     @year = date[0..3]
+  end
+
+  def client_list
+    current_user.clients.map do |client|
+    # Client.where(user_id: user).map do |client|
+      [client.first_name + ' ' + client.second_name, client.id]
+    end
   end
 
   def create
@@ -41,7 +39,7 @@ class TrainingsController < ApplicationController
   end
 
   def edit
-    @list = client_list(current_user)
+    @list = client_list
     @name = name(@training)
     @sets = sets(@training, current_user)
   end
@@ -85,12 +83,12 @@ class TrainingsController < ApplicationController
   def create_background_proc(training_id)
   training = Training.find(training_id)
   tmp = WithdrawPaymentJob.perform_at((training.time + 2.hours).to_f,
-                                        { :client_id => training.client_id,
-                                          :user_id => training.user_id,
-                                          :time => training.time + 2.hours,
-                                          :price => training.price,
-                                          :training_id => training.id
-                                        }.to_json)
+                                      { :client_id => training.client_id,
+                                        :user_id => training.user_id,
+                                        :time => training.time + 2.hours,
+                                        :price => training.price,
+                                        :training_id => training.id
+                                      }.to_json)
   job = Job.new(GUID: tmp, training_id: training.id)
   job.save!
   end
