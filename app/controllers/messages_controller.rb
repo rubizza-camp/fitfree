@@ -35,4 +35,10 @@ class MessagesController < ApplicationController
   def send_message
     Excon.get("https://api.telegram.org/bot#{token}/sendMessage?chat_id=#{chat_id}&text=#{message}")
   end
+
+  private
+
+  def message_params
+    params.require(:message).permit(:user_id, :client_id)
+  end
 end

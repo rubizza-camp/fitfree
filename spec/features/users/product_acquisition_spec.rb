@@ -6,7 +6,6 @@ Warden.test_mode!
 #   I want to download the product
 #   So I can complete my acquisition
 feature 'Product acquisition' do
-
   after(:each) do
     Warden.test_reset!
   end
@@ -23,5 +22,4 @@ feature 'Product acquisition' do
     click_link_or_button 'Download PDF'
     expect(page.response_headers['Content-Type']).to have_content 'application/pdf'
   end
-
 end

@@ -27,9 +27,12 @@ class Client < ApplicationRecord
   enum status: %i[online offline]
   enum gender: %i[М Ж]
 
-  def result_balance
-    result = 0
-    Transaction.where(client_id: self.id).each { |transaction| result += transaction.price }
-    result
+  def full_name
+    "#{first_name} #{second_name}"
+  end
+
+  def add_to_cash(pay)
+    self.cash += pay.to_i
+    self.save!
   end
 end

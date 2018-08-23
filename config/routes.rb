@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   resources :trainings, except: :new
   get 'trainings/new/:date', to: 'trainings#new'
   put '/trainings/cancel/:id', to: 'trainings#cancel'
-  resources :calendar, only: [:index, :download]
+  resources :calendar, only: %i[index download]
   get 'download', to: 'calendar#download'
-  resources :exercise_types, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :exercise_types, only: %i[index new create edit update destroy]
   resources :exercises, except: :new
   get 'exercise/new/:id', to: 'exercises#new'
   resources :kits, except: :new
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     get 'payments/create'
     post 'payments/new', to: 'payments#add'
     get 'stats', to: 'clients#stats'
-    resources :metrics, only: [:index]
+    resources :metrics, only: %i[index]
     resources :snapshots, shallow: true
     resources :messages
     post 'message/send', to: 'messages#send'
