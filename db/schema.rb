@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_18_054243) do
+ActiveRecord::Schema.define(version: 2018_08_21_122415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,6 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.float "quantity"
     t.integer "client_id"
     t.integer "meter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "attachments", force: :cascade do |t|
@@ -50,6 +48,9 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.string "avatar_content_type"
     t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "cash", default: 0, null: false
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -167,7 +168,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.text "description"
     t.integer "user_id"
     t.integer "client_id"
-    t.string "status"
+    t.integer 'status', default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -199,6 +200,5 @@ ActiveRecord::Schema.define(version: 2018_08_18_054243) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
   add_foreign_key "jobs", "trainings"
 end
