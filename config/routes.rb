@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   resources :trainings, except: :new
   get 'trainings/new/:date', to: 'trainings#new'
   put '/trainings/cancel/:id', to: 'trainings#cancel'
-  resources :calendar, only: [:index, :download]
+  resources :calendar
   get 'download', to: 'calendar#download'
+  get 'calendar_id', to: 'calendar#calendar_id'
+  get 'google', to: 'calendar#show'
   resources :exercise_types, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :exercises, except: :new
   get 'exercise/new/:id', to: 'exercises#new'

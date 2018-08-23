@@ -1,6 +1,13 @@
 window.onload = function () {
     if (document.getElementById('calendar') != null) {
-       calendar()
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                calendar(this.responseText);
+            }
+        };
+        xhttp.open("GET", "/calendar_id", true);
+        xhttp.send(new FormData());
     }
     else {
         $('canvas[data-chart]').each(function (index, canvas) {
@@ -17,10 +24,10 @@ function metricsGraph(canvas) {
     });
 }
 
-function calendar() {
+function calendar(id) {
     $('#calendar').fullCalendar({
         themeSystem: 'bootstrap4',
-        googleCalendarApiKey: 'AIzaSyD_EW8Jfd7NQWpF7QCQbNXdxViQOv1vTRo',
+        googleCalendarApiKey: 'AIzaSyBg-nLVg7YOcMlr6cte3RH3U2c-t1G2m3A',
         header: {
             left: 'prev,next, today',
             center: 'title',
@@ -40,7 +47,7 @@ function calendar() {
         selectHelper: true,
         editable: false,
         eventLimit: true,
-        events: 'k9qatn9fshgu56rhtccrec0dao@group.calendar.google.com',
+        events: id,
         eventSources: ['/download'],
         timeFormat: 'HH:mm',
         aspectRatio: 1.8,
