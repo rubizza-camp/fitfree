@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @clients = current_user.clients.paginate(page: params[:page], per_page: 5)
+    @clients = current_user.clients.paginate(page: params[:page], per_page: 10)
     @clients = @clients.where(status: params[:status]) if params[:status].present?
   end
 
@@ -56,7 +56,7 @@ class ClientsController < ApplicationController
     params.require(:client).slice(:metric_ids, :first_name, :second_name,
                                   :phone_number, :status, :birth, :email,
                                   :instagram_link, :facebook_link, :vk_link,
-                                  :avatar, :price,
+                                  :avatar, :price, :gender,
                                   'birth(1i)', 'birth(2i)', 'birth(3i)').permit!
   end
 
