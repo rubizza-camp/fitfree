@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @clients = current_user.clients
+    @clients = current_user.clients.paginate(page: params[:page], per_page: 10)
     status = params[:status]
     @clients = @clients.where(status: status) if status.present?
   end

@@ -126,7 +126,6 @@ ActiveRecord::Schema.define(version: 2018_08_21_122415) do
     t.index ["snapshot_id"], name: "index_measurements_on_snapshot_id"
   end
 
-<<<<<<< HEAD
   create_table "messages", force: :cascade do |t|
     t.string "text", default: "", null: false
     t.string "update_id", default: "", null: false

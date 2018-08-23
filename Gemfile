@@ -39,7 +39,7 @@ gem 'excon'
 gem 'gravatar_image_tag'
 gem 'paperclip'
 gem 'will_paginate'
-gem 'will_paginate-bootstrap'
+gem 'will_paginate-bootstrap4'
 
 group :development do
   gem 'annotate'

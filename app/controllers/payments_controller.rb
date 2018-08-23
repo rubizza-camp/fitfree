@@ -5,6 +5,7 @@ class PaymentsController < ApplicationController
   def index
     client_id = params[:client_id]
     @payments_list = Transaction.where(client_id: client_id).sort_by(&:datetime).reverse!
+                         .paginate(page: params[:page], per_page: 10)
     @result_balance = Client.find(client_id).cash
   end
 
