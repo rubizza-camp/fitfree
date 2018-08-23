@@ -15,7 +15,7 @@
 
 class Client < ApplicationRecord
   belongs_to :user
-  has_many :trainings
+  has_and_belongs_to_many :trainings
   has_many :meals
   has_many :transactions
   has_and_belongs_to_many :metrics

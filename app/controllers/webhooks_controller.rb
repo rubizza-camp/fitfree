@@ -3,6 +3,9 @@ class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def callback
+    puts
+    puts message[:text]
+    puts
     if client && message_exist.nil? && message[:text]
       client.messages.create(text: message[:text], update_id: web_hook[:update_id])
       send_broadcast
@@ -33,8 +36,7 @@ class WebhooksController < ApplicationController
   end
 
   def binding_id
-    @binding_id ||= message[:text]
-    [/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/]
+    @binding_id ||= message[:text][/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/]
   end
 
   def web_hook

@@ -15,8 +15,9 @@
 
 class Training < ApplicationRecord
   belongs_to :user
+  has_and_belongs_to_many :clients
   belongs_to :client
-  has_many :kits
+  has_many :exercises
 
   validates :client_id, :time, presence: true
   validates :price, :numericality => { :greater_than => 0 }

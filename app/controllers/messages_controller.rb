@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @messages = Message.all
+    @messages = Message.where("messagable_id = #{current_user.id} or messagable_id = #{params[:client_id]} or messagable_type='User' or messagable_type='Client'")
     @client = client
   end
 
@@ -33,6 +33,6 @@ class MessagesController < ApplicationController
   end
 
   def send_message
-    Excon.get("https://api.telegram.org/bot#{token}/sendMessage?chat_id=#{chat_id}&text=#{message}")
+    Excon.get(URI.encode("https://api.telegram.org/bot#{token}/sendMessage?chat_id=#{chat_id}&text=#{message}"))
   end
 end

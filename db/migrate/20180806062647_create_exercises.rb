@@ -1,12 +1,10 @@
 class CreateExercises < ActiveRecord::Migration[5.2]
   def change
     create_table :exercises do |t|
-      t.integer :exercise_type_id
-      t.integer :kit_id
-      t.integer :user_id
+      t.belongs_to :trainings, index: true
+      t.belongs_to :exercise_types, index: true
       t.integer :repeats
-      t.integer :approach
-
+      t.integer :approaches
       t.timestamps
     end
   end

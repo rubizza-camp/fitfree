@@ -1,23 +1,27 @@
 = render 'clients/navbar', active_section: :show
 
-.column
+.container
   .photo-container.size-2
     = gravatar_image_tag(@client.email, filetype: :png, rating: 'pg', size: 15, secure: false)
-  section.form-centered
+  div.rowcol-md-6.mb-3
     | Client:
     = @client.first_name + ' ' + @client.second_name
-  section.form-centered
+  div.rowcol-md-6.mb-3
     |Email:
     = link_to  @client.email
-  section.form-centered
+  div.rowcol-md-6.mb-3
     |Phone number:
     = simple_format(@client.phone_number)
-  section.form-centered
+  div.rowcol-md-6.mb-3
     |Age:
     = ((Time.zone.now - @client.birth.to_time) / 1.year.seconds).floor
-  section.form-centered
+  div.rowcol-md-6.mb-3
     | Status:
     = @client.status_i18n
+
+  div.rowcol-md-6.mb-3
+    |Telegram url:
+    = simple_format('http://t.me/fitfree_bot?start=' + @client.telegram_bind_id)
   .prof-box.form-centered
     ul
       li

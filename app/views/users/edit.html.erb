@@ -4,23 +4,23 @@
 
   <%= f.input :email, input_html: { autocomplete: 'email' } %>
 
-  <%#= f.simple_fields_for :coach_info do |c| %>
+  <%= f.simple_fields_for :coach_info do |c| %>
 
-    <%#= c.input :birthdate %>
+    <%= c.input :birthdate %>
 
-    <%#= c.input :region, label: 'Country' %>
+    <%= c.input :region, label: 'Country' %>
 
-    <%#= c.input :town %>
+    <%= c.input :town %>
 
-    <%#= c.input :phone %>
+    <%= c.input :phone %>
 
-    <%#= c.input :facebook_sn, label: 'Facebook link' %>
+    <%= c.input :facebook_sn, label: 'Facebook link' %>
 
-    <%#= c.input :vk_sn, label: 'VK link' %>
+    <%= c.input :vk_sn, label: 'VK link' %>
 
-    <%#= c.input :instagram_sn, label: 'Instagram link' %>
+    <%= c.input :instagram_sn, label: 'Instagram link' %>
 
-  <%# end %>
+  <% end %>
 
   <%= f.simple_fields_for :telegram_bot do |t| %>
 

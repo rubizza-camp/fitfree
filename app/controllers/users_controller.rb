@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 
   def regist_webhooks_for_bot
     bot = user_telegram_bot
-    Excon.get("https://api.telegram.org/bot#{bot[:token]}/setWebhook?url=https://1eeb308b.ngrok.io/webhooks/#{bot[:telegram_webhook_id]}")
+    Excon.get("https://api.telegram.org/bot#{bot[:token]}/setWebhook?url=https://830515e5.ngrok.io/webhooks/#{bot[:telegram_webhook_id]}")
   end
 
   def admin_only
