@@ -36,6 +36,7 @@ gem 'enum_help'
 gem 'paperclip'
 gem 'excon'
 gem 'gravatar_image_tag'
+gem 'pundit'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

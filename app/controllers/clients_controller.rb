@@ -7,18 +7,22 @@ class ClientsController < ApplicationController
   def index
     @clients = current_user.clients.paginate(page: params[:page], per_page: 5)
     @clients = @clients.where(status: params[:status]) if params[:status].present?
+    authorize @clients
   end
 
   def show
+    authorize @client
     @snapshots = @client.snapshots.includes(measurements: :metric)
   end
 
   def new
     @client = current_user.clients.build
+    authorize @client
   end
 
   def create
     @client = current_user.clients.build(client_params)
+    authorize @client
     if @client.save
       redirect_to @client
     else
@@ -28,12 +32,14 @@ class ClientsController < ApplicationController
 
   def stats
     @client = Client.find(params[:client_id])
+    authorize @client
     @snapshots = @client.snapshots.includes(measurements: :metric)
   end
 
   def edit; end
 
   def update
+    authorize @client
     if @client.update(client_params)
       redirect_to @client
     else
@@ -42,6 +48,7 @@ class ClientsController < ApplicationController
   end
 
   def destroy
+    authorize @client
     @client.destroy
     redirect_to clients_path
   end

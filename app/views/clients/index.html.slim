@@ -29,8 +29,8 @@ label.btn.btn-secondary.active
           td= client.result_balance
 
 
-
-=link_to'New client', new_client_path, class: 'btn btn-primary float-right float-top'
+- if policy(Client).new?
+  =link_to'New client', new_client_path, class: 'btn btn-primary float-right float-top'
 
 .pagniation-wrapper align="center"
   = will_paginate @clients,

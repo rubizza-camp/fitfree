@@ -71,7 +71,9 @@ class UsersController < ApplicationController
   end
 
   def coach_info
-    user_require_params.require(:coach_info).permit(:birthdate, :region, :town, :phone, :facebook_sn, :vk_sn, :instagram_sn)
+    user_require_params.require(:coach_info).permit(:birthdate, :region,
+                                                    :town, :phone, :facebook_sn,
+                                                    :vk_sn, :instagram_sn)
   end
 
   def telegram_bot
