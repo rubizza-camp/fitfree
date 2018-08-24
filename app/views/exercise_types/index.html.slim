@@ -16,7 +16,8 @@ h1
           td= link_to exercise_type.description, exercise_type.description
           td= link_to 'Edit ', edit_exercise_type_path(exercise_type)
           td= link_to 'Delete ', exercise_type_path(exercise_type), method: :delete, data: {confirm: 'Are you sure?'}
-=link_to 'New exercise type', new_exercise_type_path, class: 'btn btn-primary float-right float-top'
+- if policy(ExerciseType).new?
+  =link_to 'New exercise type', new_exercise_type_path, class: 'btn btn-primary float-right float-top'
 
 .pagniation-wrapper align="center"
   = will_paginate @exercise_types,
