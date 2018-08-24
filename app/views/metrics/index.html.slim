@@ -19,5 +19,5 @@
   =link_to 'New metric',new_metric_path, class: 'btn btn-primary float-right float-top'
 
 .pagniation-wrapper align="center"
-  = will_paginate @metrics,
+  = paginate @metrics,
           previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0

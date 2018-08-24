@@ -29,6 +29,7 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :metrics
 
   enum status: %i[online offline]
+  paginates_per 10
 
   def result_balance
     result = 0

@@ -15,4 +15,5 @@ class Metric < ApplicationRecord
   has_many :snapshots, through: :measurements
   belongs_to :kind
   validates :name, :units, presence: true
+  paginates_per 10
 end
