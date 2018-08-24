@@ -1,13 +1,6 @@
 window.onload = function () {
     if (document.getElementById('calendar') != null) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                calendar(this.responseText);
-            }
-        };
-        xhttp.open("GET", "/calendar_id", true);
-        xhttp.send(new FormData());
+        calendar()
     }
     else {
         $('canvas[data-chart]').each(function (index, canvas) {
@@ -24,10 +17,9 @@ function metricsGraph(canvas) {
     });
 }
 
-function calendar(id) {
+function calendar() {
     $('#calendar').fullCalendar({
         themeSystem: 'bootstrap4',
-        googleCalendarApiKey: 'AIzaSyBg-nLVg7YOcMlr6cte3RH3U2c-t1G2m3A',
         header: {
             left: 'prev,next, today',
             center: 'title',
@@ -41,13 +33,14 @@ function calendar(id) {
             }
         },
         defaultView: 'agendaThreeDay',
+        nowIndicator: true,
+        slotDuration: "00:15",
         firstDay: 1,
         slotLabelFormat: 'HH:mm',
         selectable: true,
         selectHelper: true,
         editable: false,
         eventLimit: true,
-        events: id,
         eventSources: ['/download'],
         timeFormat: 'HH:mm',
         aspectRatio: 1.8,

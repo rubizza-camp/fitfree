@@ -35,4 +35,8 @@ class Client < ApplicationRecord
     Transaction.where(client_id: self.id).each { |transaction| result += transaction.price }
     result
   end
+
+  def full_name
+    "#{first_name} #{second_name}"
+  end
 end

@@ -1,30 +1,29 @@
 require 'json'
 require 'google/apis/calendar_v3'
 require 'googleauth'
-require 'googleauth/stores/file_token_store'
-require 'fileutils'
 
 class CalendarController < ApplicationController
   before_action :authenticate_user!
 
-  OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
-  APPLICATION_NAME = 'Fit Free'.freeze
-  CREDENTIALS_PATH = 'credentials.json'.freeze
-  TOKEN_PATH = 'token.yaml'.freeze
-  SCOPE = Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY
-
   def index; end
 
   def new
+    client = Signet::OAuth2::Client.new(client_options)
+    client.update!(session[:authorization])
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
     @calendar = Calendar.new
-    google
     @calendars = []
-    @service.list_calendar_lists.items.each do |item|
+    service.list_calendar_lists.items.each do |item|
       calendar = []
       calendar[1] = item.id
       calendar[2] = item.summary
       @calendars << calendar
     end
+  rescue Google::Apis::AuthorizationError
+    response = client.refresh!
+    session[:authorization] = session[:authorization].merge(response)
+    retry
   end
 
   def create
@@ -35,18 +34,7 @@ class CalendarController < ApplicationController
     else
       @calendar.update(calendar_id: params[:calendar_id])
     end
-
     redirect_to calendar_index_path
-  end
-
-  def calendar_id
-    #binding.pry
-    @calendar = Calendar.order("created_at").where(user_id: current_user.id).last
-    if @calendar == nil
-      render plain: 'default'
-    else
-      render plain: @calendar.calendar_id.to_s
-    end
   end
 
   def download
@@ -64,38 +52,29 @@ class CalendarController < ApplicationController
     render json: @data.to_json
   end
 
-  def authorize
-    client_id = Google::Auth::ClientId.from_file(CREDENTIALS_PATH)
-    token_store = Google::Auth::Stores::FileTokenStore.new(file: TOKEN_PATH)
-    authorizer = Google::Auth::UserAuthorizer.new(client_id, SCOPE, token_store)
-    user_id = current_user.id
-    credentials = authorizer.get_credentials(user_id)
-    if credentials.nil?
-      url = authorizer.get_authorization_url(base_url: OOB_URI)
-      puts 'Open the following URL in the browser and enter the ' \
-         "resulting code after authorization:\n" + url
-      code = gets
-      credentials = authorizer.get_and_store_credentials_from_code(
-          user_id: user_id, code: code, base_url: OOB_URI
-      )
-    end
-    credentials
+  def callback
+    client = Signet::OAuth2::Client.new(client_options)
+    client.code = params[:code]
+    response = client.fetch_access_token!
+    session[:authorization] = response
+    redirect_to new_calendar_path
   end
 
-  def google
-    @service = Google::Apis::CalendarV3::CalendarService.new
-    @service.client_options.application_name = APPLICATION_NAME
-    @service.authorization = authorize
+  def redirect
+    client = Signet::OAuth2::Client.new(client_options)
+    redirect_to client.authorization_uri.to_s
   end
 
-  def show
-    google
-    @calendars = []
-    @service.list_calendar_lists.items.each do |item|
-      calendar = {}
-      calendar[:id] = item.id
-      calendar[:summary] = item.summary
-      @calendars << calendar
-    end
+  private
+  def client_options
+    {
+        client_id: Rails.application.secrets.google_client_id,
+        client_secret: Rails.application.secrets.google_client_secret,
+        authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
+        token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+        user_id: current_user.id,
+        scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
+        redirect_uri: callback_url
+    }
   end
 end

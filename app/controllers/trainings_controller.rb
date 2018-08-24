@@ -1,5 +1,7 @@
 class TrainingsController < ApplicationController
   require 'sidekiq/api'
+  require 'google/apis/calendar_v3'
+  require 'googleauth'
   include ClientListConcern
   include TrainingPlanConcern
   before_action :find_training, only: [:show, :edit, :update, :cancel, :destroy]
@@ -34,10 +36,29 @@ class TrainingsController < ApplicationController
     @training = current_user.trainings.build(training_params)
     if @training.save
       create_background_proc(@training.id) unless @training.status == :complete
+      client = Signet::OAuth2::Client.new(client_options)
+      client.update!(session[:authorization])
+      calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = client
+      start_time = @training.time
+      end_time = start_time + 2.hours
+      summary = Client.find_by(id: @training.client_id).full_name
+      event = Google::Apis::CalendarV3::Event.new({
+                                                      start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+                                                      end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+                                                      summary: summary
+                                                  })
+
+      service.insert_event(calendar_id, event)
       redirect_to edit_training_path(@training)
     else
       render 'new'
     end
+  rescue Google::Apis::AuthorizationError
+    response = client.refresh!
+    session[:authorization] = session[:authorization].merge(response)
+    retry
   end
 
   def edit
@@ -99,5 +120,17 @@ class TrainingsController < ApplicationController
       job = Job.where(training_id: training_id)[0]
       Sidekiq::Status.cancel job.GUID
       job.delete
+  end
+
+  def client_options
+    {
+        client_id: Rails.application.secrets.google_client_id,
+        client_secret: Rails.application.secrets.google_client_secret,
+        authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
+        token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+        user_id: current_user.id,
+        scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
+        redirect_uri: callback_url
+    }
   end
 end

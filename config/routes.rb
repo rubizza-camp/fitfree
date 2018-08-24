@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'trainings/new/:date', to: 'trainings#new'
   put '/trainings/cancel/:id', to: 'trainings#cancel'
   resources :calendar
+  get '/redirect', to: 'calendar#redirect', as: 'redirect'
+  get '/callback', to: 'calendar#callback', as: 'callback'
   get 'download', to: 'calendar#download'
   get 'calendar_id', to: 'calendar#calendar_id'
   get 'google', to: 'calendar#show'
