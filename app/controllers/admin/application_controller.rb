@@ -7,16 +7,17 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     include Administrate::Punditize
-    before_action :authenticate_admin
-
-    def authenticate_admin
-      # TODO Add authentication logic here.
-    end
-
+    before_action :authenticate_administrator!
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
     # def records_per_page
     #   params[:per_page] || 20
     # end
+
+    private
+
+    def pundit_user
+      current_administrator
+    end
   end
 end

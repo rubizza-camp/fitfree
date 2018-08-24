@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   end
   root to: 'visitors#index'
   devise_for :users, path: 'users', controllers: { sessions: 'users/sessions', confirmations: 'users/confirmations' }
-  devise_for :admins, path: 'admins', controllers: { sessions: 'admins/sessions', confirmations: 'admins/confirmations' }
+  devise_for :administrators,
+             path: 'administrators',
+             controllers: {sessions: 'administrators/sessions', confirmations: 'administrators/confirmations' }
   resources :users
   resources :trainings, except: :new
   get 'trainings/new/:date', to: 'trainings#new'

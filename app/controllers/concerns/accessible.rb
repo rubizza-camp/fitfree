@@ -4,9 +4,9 @@ module Accessible
     before_action :check_user
   end
 
-  protected
+  private
   def check_user
-    if current_admin
+    if current_administrator
       flash.clear
       redirect_to(admin_root_path) && return
     elsif current_user

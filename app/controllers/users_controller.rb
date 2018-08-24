@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
-  before_action :admin_only, except: :show
 
   def index
     @users = User.all
@@ -57,10 +56,6 @@ class UsersController < ApplicationController
   def regist_webhooks_for_bot
     bot = user_telegram_bot
     Excon.get("https://api.telegram.org/bot#{bot[:token]}/setWebhook?url=https://1eeb308b.ngrok.io/webhooks/#{bot[:telegram_webhook_id]}")
-  end
-
-  def admin_only
-    redirect_to root_path, alert: 'Access denied.'
   end
 
   def user_require_params

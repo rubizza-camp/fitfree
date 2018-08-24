@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admins::SessionsController < Devise::SessionsController
+class Administrators::SessionsController < Devise::SessionsController
   include Accessible
   skip_before_action :check_user, except: [:new, :create]
   # before_action :configure_sign_in_params, only: [:create]
