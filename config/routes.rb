@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :trainings, except: :new
   get 'trainings/new/:date', to: 'trainings#new'
   put '/trainings/cancel/:id', to: 'trainings#cancel'
-  resources :calendar
+  resources :calendar, only: [:index, :new, :create]
   get '/redirect', to: 'calendar#redirect', as: 'redirect'
   get '/callback', to: 'calendar#callback', as: 'callback'
   get 'download', to: 'calendar#download'
