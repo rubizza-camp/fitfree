@@ -47,6 +47,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'annotate'
   gem 'pry'
+  gem 'letter_opener'
 end
 group :development, :test do
   gem 'factory_bot_rails'
