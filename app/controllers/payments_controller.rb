@@ -21,11 +21,11 @@ class PaymentsController < ApplicationController
   end
 
   def add
-    current_user.transactions.create(datetime: params[:date],
+    transaction = current_user.transactions.create(datetime: params[:date],
                                      client_id: params[:client_id],
                                      price: params[:price],
                                      user_id: current_user.id)
-    Client.find(params[:client_id]).add_to_cash(params[:price])
+    Client.find(params[:client_id]).add_to_cash(params[:price]) if transaction.valid?
     redirect_to "/clients/#{params[:client_id]}/payments"
   end
 end
