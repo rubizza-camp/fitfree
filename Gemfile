@@ -10,8 +10,6 @@ gem 'sprockets'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'simple_form'
-gem 'pry'
-gem 'now-ui-kit-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'administrate'
@@ -24,15 +22,15 @@ gem 'pg'
 gem 'slim-rails'
 gem 'sucker_punch'
 
-gem 'simple_form'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap4'
 gem 'chart-js-rails'
-gem 'now-ui-kit-rails'
 gem 'enum_help'
 gem 'paperclip'
 gem 'excon'
 gem 'gravatar_image_tag'
+
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

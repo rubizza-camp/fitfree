@@ -21,6 +21,15 @@ class TrainingsController < ApplicationController
     @year = date[0..3]
   end
 
+  def join_clients
+    if params[:clients] && params[:clients].present?
+      @clients = current_user.clients.select do|client|
+        JSON.parse(params[:clients]).include?(client.id.to_s)
+      end
+    end
+    render layout: false
+  end
+
   def client_list
     current_user.clients.map do |client|
     # Client.where(user_id: user).map do |client|

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   post 'newexerciseform', to: 'exercises#new_exercise_form'
   resources :metrics
 
+  post 'trainings/clients', to: 'trainings#join_clients'
+
   mount ActionCable.server => '/cable'
   resources :clients do
     get 'payments/', to: 'payments#index'

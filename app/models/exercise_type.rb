@@ -1,3 +1,3 @@
 class ExerciseType < ApplicationRecord
-  has_one :exercise
+  has_one :exercises
 end

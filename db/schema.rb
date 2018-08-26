@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
     t.string "second_name", default: "", null: false
     t.string "phone_number", default: "", null: false
     t.integer "user_id"
-    t.datetime "birth", default: "2018-08-23 16:43:22", null: false
+    t.datetime "birth", default: "2018-08-26 14:09:32", null: false
     t.string "email", default: "", null: false
     t.string "instagram_link", default: "", null: false
     t.string "facebook_link", default: "", null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
     t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "665ca944-9a03-4346-9fd6-b96bca7ea92d"
+    t.string "telegram_bind_id", default: "077d709a-cca0-465a-8224-0d76a88b9d58"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -86,14 +86,14 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
   end
 
   create_table "exercises", force: :cascade do |t|
-    t.bigint "trainings_id"
-    t.bigint "exercise_types_id"
+    t.bigint "training_id"
+    t.bigint "exercise_type_id"
     t.integer "repeats"
     t.integer "approaches"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exercise_types_id"], name: "index_exercises_on_exercise_types_id"
-    t.index ["trainings_id"], name: "index_exercises_on_trainings_id"
+    t.index ["exercise_type_id"], name: "index_exercises_on_exercise_type_id"
+    t.index ["training_id"], name: "index_exercises_on_training_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", default: "", null: false
-    t.string "telegram_webhook_id", default: "e60ba976-1d23-4936-91eb-75479902035f", null: false
+    t.string "telegram_webhook_id", default: "0ac787e0-3872-4ad5-a028-d7746b929306", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_telegram_bots_on_user_id"
