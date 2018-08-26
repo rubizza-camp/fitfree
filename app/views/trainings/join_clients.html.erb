@@ -1,14 +1,13 @@
 <% if @clients.any? %>
   <% @clients.each do |client| %>
-    <div class="card">
-      <div class="col-lg-12">
-        <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-        <p><%= client.first_name + " " + client.second_name %></p>
-        <div class="ui input">
-          <label>Price</label>
-          <input type="text" name="price" placeholder="<%= client.price %>">
-        </div>
+<!--        <div class="ui form raised very padded text containe" >-->
+    <label><%= client.first_name + " " + client.second_name %></label>
+    <div class="field" style="margin-bottom: 10px">
+      <div class="ui labeled input">
+        <div class="ui label">$</div>
+        <input type="text" placeholder="<%= client.price %>">
       </div>
     </div>
+<!--    </div>-->
   <% end %>
 <% end %>

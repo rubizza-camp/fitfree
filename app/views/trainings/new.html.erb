@@ -1,52 +1,47 @@
 <div class="ui raised very padded text container segment">
   <h2 class="ui header">New Training</h2>
-  <% if @clients.any? %>
 
-    <div class="ui form">
+  <div class="ui form">
+    <div class="field">
+      <label>Start Date</label>
+      <div class="ui calendar" id="training_date">
+        <div class="ui input left icon">
+          <i class="calendar icon"></i>
+          <input type="text" placeholder="Date">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui form">
+    <div class="two fields">
       <div class="field">
-        <label>Start Date</label>
-        <div class="ui calendar" id="training_date">
+        <label>Start time</label>
+        <div class="ui calendar" id="start_time">
           <div class="ui input left icon">
-            <i class="calendar icon"></i>
-            <input type="text" placeholder="Date">
+            <i class="time icon"></i>
+            <input type="text" placeholder="Time">
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="ui form">
-      <div class="two fields">
-        <div class="field">
-          <label>Start time</label>
-          <div class="ui calendar" id="start_time">
-            <div class="ui input left icon">
-              <i class="time icon"></i>
-              <input type="text" placeholder="Time">
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <label>Finish time</label>
-          <div class="ui calendar" id="finish_time">
-            <div class="ui input left icon">
-              <i class="time icon"></i>
-              <input type="text" placeholder="Time">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ui form">
       <div class="field">
-        <label>Notes</label>
-        <textarea rows="2"></textarea>
+        <label>Finish time</label>
+        <div class="ui calendar" id="finish_time">
+          <div class="ui input left icon">
+            <i class="time icon"></i>
+            <input type="text" placeholder="Time">
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 
-<!--    <div class="scrolling-wrapper" id="clients_continer"></div>-->
-
-  <% end %>
+  <div class="ui form">
+    <div class="field">
+      <label>Notes</label>
+      <textarea rows="2"></textarea>
+    </div>
+  </div>
 </div>
 
 
@@ -72,19 +67,21 @@
 <!--todo: hide, when empty, show when clients exist, price drop when add new client-->
 <div class="ui raised very padded text container segment">
   <h3 class="ui header">Clients</h3>
-  <div class="ui form">
-    <div class="field">
-      <label>Join clients</label>
-      <select id="clients_select" class="ui fluid search dropdown" multiple="">
-        <option value="">Clinets...</option>
-        <% @clients.each do |client| %>
-          <option value="<%= client.id %>"><%= client.first_name + " " + client.second_name %></option>
-        <%end %>
-      </select>
+    <div class="field" style="margin-bottom: 20px">
+      <% if @clients.present? %>
+        <select id="clients_select" class="ui fluid search dropdown" multiple="">
+          <option value="">Clinets...</option>
+          <% @clients.each do |client| %>
+            <option value="<%= client.id %>"><%= client.first_name + " " + client.second_name %></option>
+          <%end %>
+        </select>
+      <% else %>
+        <a class="ui green button" href="<%= new_client_path %>">Create client</a>
+      <% end %>
     </div>
-  </div>
   <div class="scrolling-wrapper" id="clients_continer"></div>
 </div>
+
 
 <div class="ui raised very padded text container segment ">
   <h3 class="ui header">Exercise</h3>
@@ -141,36 +138,6 @@
     <%#end %>
 <!--  </div>-->
 <!--</div>-->
-
-<div class="tiny modal">
-  <div class="header">
-    Create exercise
-  </div>
-  <div class="content">
-
-    <label>Join clients</label>
-    <select id="clients_select" class="ui fluid search dropdown" multiple="">
-      <option value="">Clinets...</option>
-      <% @clients.each do |client| %>
-        <option value="<%= client.id %>"><%= client.first_name + " " + client.second_name %></option>
-      <%end %>
-    </select>
-
-    <div class="ui input">
-      <label>Exercise</label>
-      <input type="text" placeholder="Search...">
-    </div>
-  </div>
-  <div class="actions">
-    <div class="ui black deny button">
-      Cancel
-    </div>
-    <div class="ui positive right labeled icon button">
-      Create
-      <i class="checkmark icon"></i>
-    </div>
-  </div>
-</div>
 
 
 <%= javascript_include_tag('trainings.js') %>

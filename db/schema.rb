@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_105811) do
+ActiveRecord::Schema.define(version: 2018_08_26_141902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
     t.string "second_name", default: "", null: false
     t.string "phone_number", default: "", null: false
     t.integer "user_id"
-    t.datetime "birth", default: "2018-08-26 14:09:32", null: false
+    t.datetime "birth", default: "2018-08-26 17:10:26", null: false
     t.string "email", default: "", null: false
     t.string "instagram_link", default: "", null: false
     t.string "facebook_link", default: "", null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
     t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "077d709a-cca0-465a-8224-0d76a88b9d58"
+    t.string "telegram_bind_id", default: "22353667-752a-4581-95a0-84ec0df77c98"
   end
 
   create_table "clients_metrics", id: false, force: :cascade do |t|
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_105811) do
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", default: "", null: false
-    t.string "telegram_webhook_id", default: "0ac787e0-3872-4ad5-a028-d7746b929306", null: false
+    t.string "telegram_webhook_id", default: "002fbb55-8d49-4661-ad18-4d6959104a2c", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_telegram_bots_on_user_id"
