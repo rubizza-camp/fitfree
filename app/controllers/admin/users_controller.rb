@@ -1,5 +1,16 @@
 module Admin
   class UsersController < Admin::ApplicationController
+    def reset_password
+
+    end
+
+    def block
+
+    end
+
+    def unblock
+
+    end
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
     #
