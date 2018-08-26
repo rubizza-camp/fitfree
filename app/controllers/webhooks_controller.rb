@@ -1,6 +1,5 @@
 # The WebhooksController response for handling relegram bot webhook messages
 class WebhooksController < ApplicationController
-  skip_before_action :verify_authenticity_token
 
   def callback
     if client && message_exist.nil? && message[:text]

@@ -5,7 +5,6 @@ class TrainingsController < ApplicationController
   before_action :find_training, only: [:show, :edit, :update, :cancel, :destroy]
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
-  skip_before_action :verify_authenticity_token
 
   def index
     @training = Training.where(user_id: current_user.id).map do |training|

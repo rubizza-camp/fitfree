@@ -2,15 +2,23 @@
 #
 # Table name: clients
 #
-#  id           :bigint(8)        not null, primary key
-#  first_name   :string
-#  second_name  :string
-#  phone_number :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  user_id      :integer
-#  birth        :datetime
-#  email        :string
+#  id               :bigint(8)        not null, primary key
+#  first_name       :string
+#  second_name      :string
+#  phone_number     :string
+#  user_id          :integer
+#  price            :integer
+#  birth            :datetime
+#  email            :string
+#  instagram_link   :string
+#  facebook_link    :string
+#  vk_link          :string
+#  status           :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  telegram_chat_id :string
+#  telegram_bind_id :string           default("13a4cefa-016e-434b-a25d-1ae406d74abb")
+#  gender           :integer
 #
 
 class Client < ApplicationRecord

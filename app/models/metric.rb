@@ -7,6 +7,7 @@
 #  units      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  kind_id    :integer
 #
 
 class Metric < ApplicationRecord
