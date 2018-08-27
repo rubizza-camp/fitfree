@@ -13,4 +13,11 @@
 class Transaction < ApplicationRecord
   belongs_to :user
   belongs_to :client
+  validate :date_set
+  validates :price, presence: true, numericality: true
+
+  def date_set
+    errors.add(:expiration_date, "Date is not set") unless datetime.present?
+  end
 end
+
