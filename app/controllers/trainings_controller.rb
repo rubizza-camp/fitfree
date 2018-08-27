@@ -19,7 +19,7 @@ class TrainingsController < ApplicationController
     @training = current_user.trainings.build
     authorize @training
     @list = client_list(current_user)
-    # todo: parse and set to calendar input
+    redirect_to new_client_path if @list.empty?
     date = params[:date][0...10]
     @day = date[8].to_i == 0 ? date[9] : date[8..9]
     @month = date[5].to_i == 0 ? date[6] : date[5..6]
