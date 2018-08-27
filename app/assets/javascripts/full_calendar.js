@@ -1,8 +1,4 @@
 $(function () {
-    calendar()
-});
-
-function calendar() {
     $('#calendar').fullCalendar({
         themeSystem: 'bootstrap4',
         header: {
@@ -38,4 +34,5 @@ function calendar() {
             $(this).fullCalendar('unselect');
         },
     });
-}
+});
+
