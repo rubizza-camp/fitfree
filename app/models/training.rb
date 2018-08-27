@@ -22,5 +22,5 @@ class Training < ApplicationRecord
   validates :price, :numericality => { :greater_than => 0 }
   validates :description, presence: false
 
-  enum status: [:planned, :complete, :canceled]
+  enum status: %i[planned complete canceled]
 end

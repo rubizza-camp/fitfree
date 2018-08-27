@@ -1,5 +1,5 @@
 class KitsController < ApplicationController
-  before_action :find_kit, only: [:show, :edit, :update, :destroy]
+  before_action :find_kit, only: %i[show edit update destroy]
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
 
@@ -11,18 +11,18 @@ class KitsController < ApplicationController
     @exercises = Exercise.where(kit_id: @kit.id)
     @exes = @exercises.map do |exe|
       {
-          :name => (ExerciseType.find_by(id: exe.exercise_type_id)).name,
-          :exe => exe
+        name: ExerciseType.find_by(id: exe.exercise_type_id).name,
+        exe:  exe
       }
     end
   end
 
   def new
-    create(params[:id])
+    create(params[:id])   # Alex, please resolve problem with that method
   end
 
   def create(id)
-    @kit = Kit.new(:training_id => id, :user_id => current_user.id)
+    @kit = Kit.new(training_id: id, user_id: current_user.id)
     if @kit.save
       redirect_to edit_kit_path(@kit)
     else
@@ -49,6 +49,7 @@ class KitsController < ApplicationController
   end
 
   private
+
   def find_kit
     @kit = Kit.find(params[:id])
   end

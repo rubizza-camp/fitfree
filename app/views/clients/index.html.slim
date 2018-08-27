@@ -24,7 +24,7 @@ label.btn.btn-secondary.active
           td= client.phone_number
           td= ((Time.zone.now - client.birth.to_time) / 1.year.seconds).floor
           td= client.gender
-          td= client.result_balance
+          td= client.cash
 
 
 - if policy(Client).new?

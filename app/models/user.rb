@@ -21,6 +21,7 @@
 class User < ApplicationRecord
   has_one :coach_info
   has_one :telegram_bot
+  enum role: %i[user vip admin]
   has_many :trainings
   has_many :clients
   has_many :transactions
@@ -42,9 +43,10 @@ class User < ApplicationRecord
     list_id = Rails.application.secrets.mailchimp_list_id
     result = mailchimp.lists(list_id).members.create(
       body: {
-        email_address: self.email,
-        status: 'subscribed'
-      })
-    Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
+        email_address: email,
+        status:        'subscribed'
+      }
+    )
+    Rails.logger.info("Subscribed #{email} to MailChimp") if result
   end
 end

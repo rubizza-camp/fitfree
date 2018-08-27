@@ -1,5 +1,5 @@
 class ExerciseTypesController < ApplicationController
-  before_action :find_exercise_type, only: [:edit, :update, :destroy]
+  before_action :find_exercise_type, only: %i[edit update destroy]
   before_action :authenticate_user!
 
   def index
@@ -41,6 +41,7 @@ class ExerciseTypesController < ApplicationController
   end
 
   private
+
   def find_exercise_type
     @exercise_type = ExerciseType.find(params[:id])
   end

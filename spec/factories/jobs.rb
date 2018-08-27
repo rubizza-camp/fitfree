@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :job do
-    GUID "MyString"
+    GUID 'MyString'
     training nil
   end
 end

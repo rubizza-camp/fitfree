@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get 'payments/create'
     post 'payments/new', to: 'payments#add'
     get 'stats', to: 'clients#stats'
-    resources :metrics, only: [:index]
+    resources :metrics, only: %i[index]
     resources :snapshots, shallow: true
     resources :messages
     post 'message/send', to: 'messages#send'

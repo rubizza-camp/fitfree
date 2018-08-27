@@ -5,7 +5,6 @@ class ClientsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    #@clients = current_user.clients.paginate(page: params[:page], per_page: 5)
     @clients = current_user.clients.order(:first_name).page(params[:page])
     @clients = @clients.where(status: params[:status]) if params[:status].present?
     authorize @clients
