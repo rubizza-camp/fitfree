@@ -1,8 +1,8 @@
 = render 'clients/navbar', active_section: :stats
 h1
   |Client stats
-
-  =link_to 'Add new snapshot', new_client_snapshot_path(@client), class: 'btn btn-primary btn-sm float-right float-top'
+  - if policy(Snapshot).new?
+    =link_to 'Add new snapshot', new_client_snapshot_path(@client), class: 'btn btn-primary btn-sm float-right float-top'
 
 table.table
   thead

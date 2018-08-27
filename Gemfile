@@ -30,6 +30,9 @@ gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
 gem 'sprockets'
 gem 'sucker_punch'
+
+gem 'simple_form'
+gem 'kaminari'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'uglifier', '>= 1.3.0'
 gem 'chart-js-rails'
@@ -37,9 +40,7 @@ gem 'enum_help'
 gem 'paperclip'
 gem 'excon'
 gem 'gravatar_image_tag'
-gem 'paperclip'
-gem 'will_paginate'
-gem 'will_paginate-bootstrap4'
+gem 'pundit'
 
 group :development do
   gem 'annotate'
@@ -49,6 +50,9 @@ group :development do
   gem 'rails_layout'
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'annotate'
+  gem 'pry'
+  gem 'letter_opener'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
 end

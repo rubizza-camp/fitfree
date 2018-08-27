@@ -6,9 +6,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <% unless user.admin? %>
-                <%= render user %>
-              <% end %>
+              <%= render user %>
             </tr>
           <% end %>
         </tbody>
