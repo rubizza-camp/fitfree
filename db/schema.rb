@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 2018_08_26_223354) do
 
   # These are extensions that must be enabled in order to support this database
@@ -41,6 +40,14 @@ ActiveRecord::Schema.define(version: 2018_08_26_223354) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "calendars", force: :cascade do |t|
+    t.string "calendar_id"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "first_name"
     t.string "second_name"
@@ -53,10 +60,15 @@ ActiveRecord::Schema.define(version: 2018_08_26_223354) do
     t.string "facebook_link"
     t.string "vk_link"
     t.integer "status"
+    t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.bigint "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "13a4cefa-016e-434b-a25d-1ae406d74abb"
+    t.string "telegram_bind_id", default: "99680670-9553-413c-811c-8baf2669d7b0"
     t.integer "gender"
     t.integer "cash", default: 0, null: false
   end
@@ -159,6 +171,12 @@ ActiveRecord::Schema.define(version: 2018_08_26_223354) do
     t.index ["client_id"], name: "index_snapshots_on_client_id"
   end
 
+  create_table "statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", default: "", null: false
@@ -211,6 +229,5 @@ ActiveRecord::Schema.define(version: 2018_08_26_223354) do
   end
 
   add_foreign_key "jobs", "trainings"
-
 
 end

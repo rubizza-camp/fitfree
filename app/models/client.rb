@@ -45,4 +45,8 @@ class Client < ApplicationRecord
     self.cash += pay.to_i
     self.save!
   end
+
+  def full_name
+    "#{first_name} #{second_name}"
+  end
 end
