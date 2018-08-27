@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     get 'payments/', to: 'payments#index'
     get 'payments/create'
     post 'payments/new', to: 'payments#add'
+    get 'payments/:id/delete', to: 'payments#delete'
     get 'stats', to: 'clients#stats'
     resources :metrics, only: %i[index]
     resources :snapshots, shallow: true
