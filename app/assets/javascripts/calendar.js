@@ -1,3 +1,6 @@
+//= require fullcalendar
+//= require fullcalendar/gcal
+
 window.onload = function () {
     if (document.getElementById('calendar') != null) {
         calendar()

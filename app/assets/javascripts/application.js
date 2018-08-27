@@ -17,11 +17,11 @@
 //= require bootstrap-sprockets
 //= require moment
 //= require fullcalendar
-////= require fullcalendar/gcal
+
 ////= require select2/dist/js/select2.full.js
 //= require select2
 //= require chart.js/dist/Chart.js
-//= require_tree .
+////= require_tree .
 //= require_tree ./channels
 
 //= require semantic-ui
@@ -29,27 +29,30 @@
 //= require semantic-ui/dropdown
 
 $(document).ready(function() {
-    $('#toc').sidebar({
-        context: $('.bottom.segment')
-    }).sidebar('attach events', '.menu .item');
-    check_window_size()
+    $('#toc')
+        .sidebar({
+            dimPage          : true,
+            transition       : 'overlay',
+            mobileTransition : 'uncover'
+        }).sidebar('attach events', '.menu .item');
+    // check_window_size()
 });
 
-$(window).resize(check_window_size);
+// $(window).resize(check_window_size);
 
-function check_window_size() {
-    if($(window).width() > 1199) {
-        // $('.ui.sidebar').sidebar({
-        //     context: $('.bottom.segment')
-        // }).sidebar('show');
-        $('.toc').css('display', 'flex');
-        $('.attached.menu').css("display", "none")
-    } else {
-        $('.toc').css('display', 'none');
-        // $('.ui.sidebar').sidebar({context: '.bottom.segment'});
-        $('.attached.menu').css("display", "flex")
-    }
-}
+// function check_window_size() {
+//     if($(window).width() > 1199) {
+//         // $('.ui.sidebar').sidebar({
+//         //     context: $('.bottom.segment')
+//         // }).sidebar('show');
+//         $('.toc').css('display', 'flex');
+//         $('.attached.menu').css("display", "none")
+//     } else {
+//         $('.toc').css('display', 'none');
+//         // $('.ui.sidebar').sidebar({context: '.bottom.segment'});
+//         $('.attached.menu').css("display", "flex")
+//     }
+// }
 
 
 // config.action_cable.mount_path = '/messages';

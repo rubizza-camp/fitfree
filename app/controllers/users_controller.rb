@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    binding.pry
     @user = User.find_by(id: params["id"])
     unless @user.coach_info
       @user.build_coach_info
