@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :kind do
-    name "MyString"
+    name 'MyString'
   end
 end

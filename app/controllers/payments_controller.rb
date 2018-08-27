@@ -1,23 +1,41 @@
 class PaymentsController < ApplicationController
-  skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
 
   def index
-    @payments_list = Transaction.where(client_id: params[:client_id]).sort_by(&:datetime).reverse!
-    @result_balance = Client.find(params[:client_id]).result_balance
+    @payments_list = Transaction.where(client_id: client_id).order(created_at: :desc)
+    @payments_list = @payments_list.paginate(page: params[:page], per_page: 10)
+    @result_balance = Client.find(client_id).cash
   end
 
   def create; end
 
+  def delete
+    transaction = Transaction.find(params[:id])
+    add_cash(-transaction.price)
+    transaction.delete
+    redirect_to "/clients/#{client_id}/payments"
+  end
+
   def add
-    @transaction = Transaction.new do |transaction|
-      transaction.datetime = params[:date]
-      transaction.created_at = params[:date]
-      transaction.updated_at = transaction.created_at
-      transaction.client_id = params[:client_id]
-      transaction.price = params[:price]
-      transaction.user_id = current_user.id
-    end
-    @transaction.save
+    transaction = current_user.transactions.create(datetime: params[:date],
+                                                   client_id: client_id,
+                                                   price: params[:price],
+                                                   user_id: current_user.id)
+    add_cash(transaction.price) if transaction.valid?
+    redirect_to "/clients/#{client_id}/payments"
+  end
+
+  private
+  def client_id
+    params[:client_id]
+  end
+
+  def client
+    @client ||= Client.find(client_id)
+  end
+
+  def add_cash(price)
+    client.add_to_cash(price)
+    client.save!
   end
 end

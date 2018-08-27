@@ -7,6 +7,7 @@
 #  units      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  kind_id    :integer
 #
 
 class Metric < ApplicationRecord
@@ -15,4 +16,5 @@ class Metric < ApplicationRecord
   has_many :snapshots, through: :measurements
   belongs_to :kind
   validates :name, :units, presence: true
+  paginates_per 10
 end

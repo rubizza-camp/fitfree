@@ -17,48 +17,57 @@ gem 'now-ui-kit-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'administrate'
+gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.0.0'
 gem 'bourbon'
+gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'gibbon'
 gem 'high_voltage'
+gem 'now-ui-kit-rails'
 gem 'pg'
+gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
+gem 'sprockets'
 gem 'sucker_punch'
 
 gem 'simple_form'
-gem 'will_paginate'
-gem 'will_paginate-bootstrap4'
+gem 'kaminari'
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'uglifier', '>= 1.3.0'
 gem 'chart-js-rails'
-gem 'now-ui-kit-rails'
 gem 'enum_help'
 gem 'paperclip'
 gem 'excon'
 gem 'gravatar_image_tag'
+gem 'pundit'
 
 group :development do
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'annotate'
   gem 'better_errors'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'pry'
   gem 'rails_layout'
+  gem 'spring'
   gem 'spring-commands-rspec'
   gem 'annotate'
   gem 'pry'
+  gem 'letter_opener'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '>= 3.3.0'
 end
 group :development, :test do
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 group :test do
+  gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'chromedriver-helper'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'capybara', '>= 2.15', '< 4.0'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
 end
 gem 'sidekiq'
 gem 'sidekiq-status'

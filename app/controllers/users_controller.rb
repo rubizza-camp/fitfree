@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  protect_from_forgery with: :null_session
-  skip_before_action :verify_authenticity_token
-  before_action :admin_only, except: :show
 
   def index
     @users = User.all
@@ -10,10 +7,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    unless current_user.admin?
-      unless @user == current_user
-        redirect_to root_path, alert: 'Access denied.'
-      end
+    unless @user == current_user
+      redirect_to root_path, alert: 'Access denied.'
     end
   end
 
@@ -62,12 +57,6 @@ class UsersController < ApplicationController
     Excon.get("https://api.telegram.org/bot#{bot[:token]}/setWebhook?url=https://1eeb308b.ngrok.io/webhooks/#{bot[:telegram_webhook_id]}")
   end
 
-  def admin_only
-    unless current_user.admin?
-      redirect_to root_path, alert: 'Access denied.'
-    end
-  end
-
   def user_require_params
     params.require(:user)
   end
@@ -77,7 +66,9 @@ class UsersController < ApplicationController
   end
 
   def coach_info
-    user_require_params.require(:coach_info).permit(:birthdate, :region, :town, :phone, :facebook_sn, :vk_sn, :instagram_sn)
+    user_require_params.require(:coach_info).permit(:birthdate, :region,
+                                                    :town, :phone, :facebook_sn,
+                                                    :vk_sn, :instagram_sn)
   end
 
   def telegram_bot

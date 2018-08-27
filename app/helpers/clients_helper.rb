@@ -21,11 +21,11 @@ module ClientsHelper
 
   def client_data_set(metric, measurements)
     {
-      label: metric.name,
+      label:           metric.name,
       backgroundColor: color,
-      borderColor: color,
-      fill: false,
-      data: measurements.map(&:value),
+      borderColor:     color,
+      fill:            false,
+      data:            measurements.map(&:value)
     }
   end
 
