@@ -37,8 +37,9 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
+    :name,
     :created_at,
-    :email,
+    :email
   #:reset_password_token,
   ].freeze
 

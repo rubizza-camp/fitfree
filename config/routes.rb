@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :users do
       patch :block, on: :member
       patch :unblock, on: :member
+      post :reset_password, on: :member
     end
     root to: 'users#index'
   end

@@ -38,12 +38,24 @@ class User < ApplicationRecord
     MailingListSignupJob.perform_later(self)
   end
 
+  def build_telegram_bot
+
+  end
+
+  def block!
+    update(blocked_at: Time.zone.now)
+  end
+
+  def unblock!
+    update(blocked_at: nil)
+  end
+
   def blocked?
-    self.blocked_at.present?
+    blocked_at.present?
   end
 
   def active_for_authentication?
-    super && !self.blocked?
+    super && !blocked?
   end
 
   def subscribe

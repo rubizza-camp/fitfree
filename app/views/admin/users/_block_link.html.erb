@@ -1,0 +1,5 @@
+<% if user.blocked? %>
+    <%= link_to('Unlock', unblock_admin_user_path(user), remote: true, method: :patch) %>
+<% else %>
+    <%= link_to('Block', block_admin_user_path(user), remote: true, method: :patch) %>
+<% end %>
