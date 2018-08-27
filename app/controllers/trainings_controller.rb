@@ -65,6 +65,7 @@ class TrainingsController < ApplicationController
   end
 
   def destroy
+    TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id)
     @training.destroy
     redirect_to calendar_index_path
   end

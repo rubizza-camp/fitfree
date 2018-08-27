@@ -33,12 +33,20 @@ html
     #content
       br
         h2 Current balance #{@result_balance}
-        table.table
-          tr
-            th.name = 'Date'
-            th.name = 'Price'
-          - @payments_list.each_with_index do |payment, id|
+        - unless @payments_list.empty?
+          table.table
             tr
-              td.Date = payment.datetime.strftime("%B %d, %Y")
-              td.Price = payment.price
-    input class="btn btn-primary" type="submit" value="Add" onclick="window.location='#{client_payments_create_path}';"
+              th.name = 'Date'
+              th.name = 'Price'
+              th.name = 'Delete'
+            - @payments_list.each_with_index do |payment, id|
+              tr
+                td.Date = payment.datetime.strftime("%B %d, %Y")
+                td.Price = payment.price
+                td.Cancel: button class="btn btn-primary btn-icon btn-round" onclick="document.location.replace('#{'payments/' + payment.id.to_s  + '/delete'}')" Ⓧ
+        - else
+            h4 No payments for that client
+input class="btn btn-primary" type="submit" value="Add" onclick="window.location='payments/create';"
+.pagniation-wrapper align="center"
+  = will_paginate @payments_list,
+          previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
