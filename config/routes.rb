@@ -1,10 +1,15 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # namespace :admin do
-  #     resources :users
-  #     root to: "users#index"
-  #   end
+  namespace :admin do
+    resources :users
+    root to: 'users#index'
+  end
   root to: 'visitors#index'
-  devise_for :users
+  devise_for :users, path: 'users', controllers: { sessions: 'users/sessions', confirmations: 'users/confirmations' }
+  devise_for :administrators,
+             path: 'administrators',
+             controllers: {sessions: 'administrators/sessions', confirmations: 'administrators/confirmations' }
   resources :users
   resources :trainings, except: :new
   get 'trainings/new/:date', to: 'trainings#new'
@@ -34,5 +39,4 @@ Rails.application.routes.draw do
   end
 
   post 'webhooks/:id', to: 'webhooks#callback'
-
 end

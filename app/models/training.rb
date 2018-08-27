@@ -6,11 +6,11 @@
 #  time        :datetime
 #  price       :integer
 #  description :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
 #  user_id     :integer
 #  client_id   :integer
-#  status      :integer
+#  status      :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 class Training < ApplicationRecord

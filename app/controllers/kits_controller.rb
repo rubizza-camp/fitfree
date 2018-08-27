@@ -2,7 +2,6 @@ class KitsController < ApplicationController
   before_action :find_kit, only: %i[show edit update destroy]
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
-  skip_before_action :verify_authenticity_token
 
   def index
     @kit = Kit.all

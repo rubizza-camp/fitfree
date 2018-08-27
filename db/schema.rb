@@ -10,15 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_21_122415) do
+
+ActiveRecord::Schema.define(version: 2018_08_26_223354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "amounts", force: :cascade do |t|
-    t.float "quantity"
-    t.integer "client_id"
-    t.integer "meter_id"
+  create_table "administrators", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "superadmin"
+    t.index ["email"], name: "index_administrators_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_administrators_on_reset_password_token", unique: true
   end
 
   create_table "attachments", force: :cascade do |t|
@@ -33,23 +46,18 @@ ActiveRecord::Schema.define(version: 2018_08_21_122415) do
     t.string "second_name"
     t.string "phone_number"
     t.integer "user_id"
+    t.integer "price"
     t.datetime "birth"
     t.string "email"
     t.string "instagram_link"
     t.string "facebook_link"
     t.string "vk_link"
     t.integer "status"
-    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "7b360b0f-e695-4c21-a7d5-24105a6da9da"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "avatar_file_name"
-    t.string "avatar_content_type"
-    t.bigint "avatar_file_size"
-    t.datetime "avatar_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "telegram_bind_id", default: "13a4cefa-016e-434b-a25d-1ae406d74abb"
+    t.integer "gender"
     t.integer "cash", default: 0, null: false
   end
 
@@ -106,8 +114,6 @@ ActiveRecord::Schema.define(version: 2018_08_21_122415) do
   create_table "kits", force: :cascade do |t|
     t.integer "training_id"
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "meals", force: :cascade do |t|
@@ -140,9 +146,9 @@ ActiveRecord::Schema.define(version: 2018_08_21_122415) do
   create_table "metrics", force: :cascade do |t|
     t.string "name", null: false
     t.string "units", null: false
-    t.integer "kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind_id"
   end
 
   create_table "snapshots", force: :cascade do |t|
@@ -156,7 +162,7 @@ ActiveRecord::Schema.define(version: 2018_08_21_122415) do
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", default: "", null: false
-    t.string "telegram_webhook_id", default: "a4f87201-1b19-4c03-9cb8-c8a27ceec04e", null: false
+    t.string "telegram_webhook_id", default: "11d6d037-15d1-4394-9485-5c3bb7b470d3", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_telegram_bots_on_user_id"
@@ -196,9 +202,15 @@ ActiveRecord::Schema.define(version: 2018_08_21_122415) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.integer "role"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
   add_foreign_key "jobs", "trainings"
+
+
 end

@@ -15,11 +15,6 @@ html
     == render 'layouts/navigation'
     main[role="main"]
       - if user_signed_in?
-        - if current_user.admin?
-          .container
-            a.navbar-brand href="#{users_path}" Users
-            = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-primary float-right float-top'
-        - else
-          = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-primary float-right float-top'
+        = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-primary float-right float-top'
       == render 'layouts/messages'
       == yield

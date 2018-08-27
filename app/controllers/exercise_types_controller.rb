@@ -3,15 +3,18 @@ class ExerciseTypesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @exercise_types = ExerciseType.all.paginate(page: params[:page], per_page: 5)
+    @exercise_types = ExerciseType.all.order(:name).page(params[:page])
+    authorize @exercise_types
   end
 
   def new
     @exercise_type = ExerciseType.new
+    authorize @exercise_type
   end
 
   def create
     @exercise_type = ExerciseType.new(type_params)
+    authorize @exercise_type
     if @exercise_type.save
       redirect_to exercise_types_path
     else
@@ -19,9 +22,12 @@ class ExerciseTypesController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @exercise_type
+  end
 
   def update
+    authorize @exercise_type
     if @exercise_type.update(type_params)
       redirect_to exercise_types_path
     else
