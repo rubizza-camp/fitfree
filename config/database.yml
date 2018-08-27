@@ -19,7 +19,7 @@ development:
   database: FitFree
   pool:     5
   username: FitFree
-  password:
+  password: 12345
   template: template0
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -47,7 +47,7 @@ test:
   database: FitFree
   pool:     5
   username: FitFree
-  password:
+  password: 12345
   template: template0
 
 production:
@@ -57,6 +57,6 @@ production:
   database: FitFree
   pool:     5
   username: FitFree
-  password:
+  password: 12345
   template: template0
 

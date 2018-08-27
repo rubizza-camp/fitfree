@@ -21,7 +21,6 @@
 class User < ApplicationRecord
   has_one :coach_info
   has_one :telegram_bot
-  enum role: %i[user vip admin]
   has_many :trainings
   has_many :clients
   has_many :transactions
