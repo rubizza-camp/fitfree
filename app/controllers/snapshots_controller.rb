@@ -2,7 +2,7 @@
 class SnapshotsController < ApplicationController
   include ClientableControllerConcern
 
-  before_action :find_snapshot, only: [:show]
+  before_action :find_snapshot, only: %i[show]
 
   def index
     @snapshots = @client.snapshots

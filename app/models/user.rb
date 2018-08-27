@@ -20,13 +20,13 @@
 #
 
 class User < ApplicationRecord
-  enum role: [:user, :vip, :admin]
   has_one :coach_info
   has_one :telegram_bot
+  enum role: %i[user vip admin]
   has_many :trainings
   has_many :clients
   has_many :transactions
-  after_initialize :set_default_role, :if => :new_record?
+  after_initialize :set_default_role, if: :new_record?
   after_create :sign_up_for_mailing_list
 
   has_many :messages, as: :messagable
@@ -49,9 +49,10 @@ class User < ApplicationRecord
     list_id = Rails.application.secrets.mailchimp_list_id
     result = mailchimp.lists(list_id).members.create(
       body: {
-        email_address: self.email,
-        status: 'subscribed'
-      })
-    Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
+        email_address: email,
+        status:        'subscribed'
+      }
+    )
+    Rails.logger.info("Subscribed #{email} to MailChimp") if result
   end
 end

@@ -16,10 +16,14 @@ development:
   adapter:  postgresql
   host:     localhost
   encoding: unicode
-  database: FitFree_development
+  database: FitFree
   pool:     5
   username: FitFree
+<<<<<<< HEAD
   password: 12345
+=======
+  password:
+>>>>>>> 68b310c66b927ae8e26994c81c086e1fa60d6c37
   template: template0
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -44,18 +48,27 @@ test:
   adapter:  postgresql
   host:     localhost
   encoding: unicode
-  database: FitFree_test
+  database: FitFree
   pool:     5
   username: FitFree
+<<<<<<< HEAD
   password: 12345
+=======
+  password:
+>>>>>>> 68b310c66b927ae8e26994c81c086e1fa60d6c37
   template: template0
 
 production:
   adapter:  postgresql
   host:     localhost
   encoding: unicode
-  database: FitFree_production
+  database: FitFree
   pool:     5
   username: FitFree
+<<<<<<< HEAD
   password: 12345
   template: template0
+=======
+  password:
+  template: template0
+>>>>>>> 68b310c66b927ae8e26994c81c086e1fa60d6c37
