@@ -1,12 +1,16 @@
 module Admin
   class UsersController < Admin::ApplicationController
-    def reset_password
-    end
+    before_action :load_user, only: [:block, :unblock]
+    def reset_password; end
 
     def block
+      @user.update(blocked_at: Time.now) unless @user == current_user
+      redirect_to users_path
     end
 
     def unblock
+      @user.update(blocked_at: nil) unless @user == current_user
+      redirect_to users_path
     end
 
     def create
@@ -37,6 +41,12 @@ module Admin
           page: Administrate::Page::Form.new(dashboard, requested_resource),
         }
       end
+    end
+
+    private
+
+    def load_user
+      @user = User.find(params[:id])
     end
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:

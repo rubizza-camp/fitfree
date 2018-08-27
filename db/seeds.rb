@@ -5,8 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-user = CreateAdminService.new.call
-puts 'CREATED ADMIN USER: ' << user.email
+
 %w[Strength Anthropometry].each { |name| Kind.find_or_create_by(name: name) }
 puts 'Created two kinds of metrics'
 %w[Chest Basin Waist Neck Biceps Shin Hip].each do |name|
@@ -19,7 +18,7 @@ end
 puts 'Created strength metrics'
 superadmin = Administrator.create(email: 'garou@gmail.com', password: '123456789',
              password_confirmation: '123456789', superadmin: true)
-puts 'Create super admin: ' << superadmin
+puts 'Create super admin: ' << superadmin.email
 admin = Administrator.create(email: 'patrick.fiori@gmail.com', password: '123456789',
              password_confirmation: '123456789', superadmin: false)
-puts 'Create admin: ' << admin
+puts 'Create admin: ' << admin.email
