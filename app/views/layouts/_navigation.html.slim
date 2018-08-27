@@ -12,16 +12,43 @@
     /   a.item
     /     i.cog.icon
     /     | Settings
+
+
     .ui.sidebar.inverted.visible.vertical.menu
       .item
         a href="/"
           h1 FitFree
       a.item href="#{calendar_index_path}"
+        i.calendar.icon
         | Calendar
       a.item href="#{clients_path}"
+        i.users.layout.icon
         | Clients
       a.item
-        | Settings`
+        i.cog.icon
+        | Settings
+    .pusher
+
+
+
+    / .ui.top.attached.demo.menu
+    /   a.item
+    /     i.sidebar.icon
+    /     | Menu
+    / .ui.sidebar.inverted.vertical.menu
+    /   .item
+    /     a href="/"
+    /       b UI Docs
+    /   a.item
+    /     | Calendar
+    /   a.item
+    /     | Clients
+    /   a.item
+    /     | Settings
+
+
+
+
     / .nav-side-menu
     /   .brand Fit Free
     /   i.fa.fa-bars.fa-2x.toggle-btn data-target="#menu-content" data-toggle="collapse"

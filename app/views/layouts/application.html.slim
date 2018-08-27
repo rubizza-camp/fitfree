@@ -9,21 +9,54 @@ html
     == javascript_include_tag 'application'
     script src="https://use.fontawesome.com/d1341f9b7a.js"
     == csrf_meta_tags
+    link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /
     / link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" rel="stylesheet" /
   body
-    header
-    link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /
-    == render 'layouts/navigation'
-    main[role="main"]
-      - if user_signed_in?
-        - if current_user.admin?
-          .container
-            a.navbar-brand href="#{users_path}" Users
-            = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-primary float-right float-top'
-        - else
-          = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-primary float-right float-top'
-      == render 'layouts/messages'
-      == yield
+    / == render 'layouts/navigation'
+
+    .ui.top.attached.inverted.main.menu
+      a.item
+        i.sidebar.icon
+        | Menu
+    .ui.bottom.attached.segment.pushable
+      #toc.ui.sidebar.inverted.vertical.menu.left
+        .item
+          a href="/"
+            h1 FitFree
+        a.item href="#{calendar_index_path}"
+          i.calendar.icon
+          | Calendar
+        a.item href="#{clients_path}"
+          i.users.layout.icon
+          | Clients
+        a.item
+          i.cog.icon
+          | Settings
+      .pusher
+        .toc
+          .ui.sidebar.inverted.vertical.menu.visible
+            .item
+              a href="/"
+                h1 FitFree
+            a.item href="#{calendar_index_path}"
+              i.calendar.icon
+              | Calendar
+            a.item href="#{clients_path}"
+              i.users.layout.icon
+              | Clients
+            a.item
+              i.cog.icon
+              | Settings
+        main[role="main"]
+          - if user_signed_in?
+            - if current_user.admin?
+              .container
+                a.navbar-brand href="#{users_path}" Users
+                = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-primary float-right float-top'
+            - else
+              = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-primary float-right float-top'
+          == render 'layouts/messages'
+          == yield
     link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" /
     link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" /
     script src="https://code.jquery.com/jquery-2.1.4.js"

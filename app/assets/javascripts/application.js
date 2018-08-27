@@ -28,4 +28,30 @@
 //= require semantic-ui/modal
 //= require semantic-ui/dropdown
 
-config.action_cable.mount_path = '/messages';
+$(document).ready(function() {
+    $('#toc').sidebar({
+        context: $('.bottom.segment')
+    }).sidebar('attach events', '.menu .item');
+    check_window_size()
+});
+
+$(window).resize(check_window_size);
+
+function check_window_size() {
+    if($(window).width() > 1199) {
+        // $('.ui.sidebar').sidebar({
+        //     context: $('.bottom.segment')
+        // }).sidebar('show');
+        $('.toc').css('display', 'flex');
+        $('.attached.menu').css("display", "none")
+    } else {
+        $('.toc').css('display', 'none');
+        // $('.ui.sidebar').sidebar({context: '.bottom.segment'});
+        $('.attached.menu').css("display", "flex")
+    }
+}
+
+
+// config.action_cable.mount_path = '/messages';
+
+

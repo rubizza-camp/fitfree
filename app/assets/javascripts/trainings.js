@@ -13,7 +13,7 @@ $(document).ready(function(){
     });
 
     var clients = $('#clients_select').val();
-    join_clients(JSON.stringify(clients ? clients : []));
+    // join_clients(JSON.stringify(clients ? clients : []));
 });
 
 function join_clients(clients_ids) {
@@ -29,6 +29,12 @@ function join_clients(clients_ids) {
     xhttp.send(form_data);
 }
 
+
+
 function add_exercise() {
     $('.tiny.modal').modal('show');
 }
+
+// $(window).on('beforeunload', function() {
+//     alert('123123123');
+// });
