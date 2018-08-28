@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
+admin_password = Rails.application.secrets[:admin_password].to_s
 %w[Strength Anthropometry].each { |name| Kind.find_or_create_by(name: name) }
 puts 'Created two kinds of metrics'
 %w[Chest Basin Waist Neck Biceps Shin Hip].each do |name|
@@ -16,9 +16,12 @@ puts 'Created anthropometry metrics'
   Metric.find_or_create_by(name: name, units: 'repeats', kind_id: 1)
 end
 puts 'Created strength metrics'
-superadmin = Administrator.create(email: 'superadmin@gmail.com', password: '123456789',
-             password_confirmation: '123456789', superadmin: true)
+superadmin = Administrator.create(email: 'superadmin@gmail.com',
+                                  password: admin_password,
+             password_confirmation: admin_password, superadmin: true)
 puts 'Create super admin: ' << superadmin.email
-admin = Administrator.create(email: 'admin@gmail.com', password: '123456789',
-             password_confirmation: '123456789', superadmin: false)
+admin = Administrator.create(email: 'admin@gmail.com', password: admin_password,
+             password_confirmation: admin_password, superadmin: false)
 puts 'Create admin: ' << admin.email
+Administrator.all.update_all confirmed_at: DateTime.now
+puts 'Administrators were confirmed'
