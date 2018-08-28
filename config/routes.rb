@@ -22,7 +22,8 @@ Rails.application.routes.draw do
 
   post 'trainings/clients', to: 'trainings#join_clients'
 
-  mount ActionCable.server => '/cable'
+  mount ActionCable.server, at: '/cable'
+
   resources :clients do
     get 'payments/', to: 'payments#index'
     get 'payments/create'

@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Fit Free'}"/>
   <title><% content_for?(:title) ? yield(:title) : 'Fit Free' %></title>
-  <% csrf_meta_tags %>
-  <% stylesheet_link_tag "application", :media => 'all' %>
+  <%= csrf_meta_tags %>
+  <%= action_cable_meta_tag %>
+  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag "application", :media => 'all' %>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -42,7 +44,7 @@
     <div class="pusher">
 
       <div class="container">
-        <a class="btn btn-primary float-right float-top" rel="nofollow" data-method="delete" href="/users/sign_out">Sign Out</a>
+        <a class="btn btn-primary float-right float-top" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path(@user) %>">Sign Out</a>
       </div>
 
       <%= render 'layouts/messages' %>
@@ -59,7 +61,6 @@
 <% end %>
 
 </body>
-<% javascript_include_tag 'application' %>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
 </html>

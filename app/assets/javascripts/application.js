@@ -16,17 +16,19 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require moment
-//= require fullcalendar
+////= require fullcalendar
 
 ////= require select2/dist/js/select2.full.js
 //= require select2
 //= require chart.js/dist/Chart.js
 ////= require_tree .
-//= require_tree ./channels
+//= require cable
 
 //= require semantic-ui
 //= require semantic-ui/modal
 //= require semantic-ui/dropdown
+
+// config.action_cable.mount_path = '/messages';
 
 $(document).ready(function() {
     $('#toc')
@@ -53,8 +55,5 @@ $(document).ready(function() {
 //         $('.attached.menu').css("display", "flex")
 //     }
 // }
-
-
-// config.action_cable.mount_path = '/messages';
 
 

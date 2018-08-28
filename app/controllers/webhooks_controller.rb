@@ -7,18 +7,18 @@ class WebhooksController < ApplicationController
     puts message[:text]
     puts
     if client && message_exist.nil? && message[:text]
-      client.messages.create(text: message[:text], update_id: web_hook[:update_id])
+      client.messages.create(text: message[:text], update_id: webhook[:update_id])
       send_broadcast
     end
     render nothing: true, head: :ok
   end
 
   def message_exist
-    client.messages.find_by(update_id: web_hook[:update_id])
+    client.messages.find_by(update_id: webhook[:update_id])
   end
 
   def send_broadcast
-    ActionCable.server.broadcast 'messages',
+    ActionCable.server.broadcast "messages_#{webhook_id}",
                                  message: message[:text],
                                  user: client.first_name
     head :ok
@@ -39,12 +39,16 @@ class WebhooksController < ApplicationController
     @binding_id ||= message[:text][/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/]
   end
 
-  def web_hook
+  def webhook_id
+    params[:id]
+  end
+
+  def webhook
     params['webhook']
   end
 
   def message
-    web_hook['message']
+    webhook['message']
   end
 
   def msg_entities
