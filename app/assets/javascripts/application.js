@@ -22,7 +22,6 @@
 //= require select2
 //= require chart.js/dist/Chart.js
 //= require now-ui-kit
-//= require clients
 //= require_tree .
 //= require_tree ./channels
 

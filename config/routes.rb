@@ -23,9 +23,11 @@ Rails.application.routes.draw do
   resources :trainings, except: :new
   get 'trainings/new/:date', to: 'trainings#new'
   put '/trainings/cancel/:id', to: 'trainings#cancel'
-  resources :calendar, only: %i[index download]
+  resources :calendar, only: [:index, :new, :create]
+  get '/redirect', to: 'calendar#redirect', as: 'redirect'
+  get '/callback', to: 'calendar#callback', as: 'callback'
   get 'download', to: 'calendar#download'
-  resources :exercise_types, only: %i[index new create edit update destroy]
+  resources :exercise_types, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :exercises, except: :new
   get 'exercise/new/:id', to: 'exercises#new'
   resources :kits, except: :new

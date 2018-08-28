@@ -1,11 +1,6 @@
 $(function () {
-    calendar()
-});
-
-function calendar() {
     $('#calendar').fullCalendar({
         themeSystem: 'bootstrap4',
-        googleCalendarApiKey: 'AIzaSyD_EW8Jfd7NQWpF7QCQbNXdxViQOv1vTRo',
         header: {
             left: 'prev,next, today',
             center: 'title',
@@ -19,13 +14,14 @@ function calendar() {
             }
         },
         defaultView: 'agendaThreeDay',
+        nowIndicator: true,
+        slotDuration: "00:15",
         firstDay: 1,
         slotLabelFormat: 'HH:mm',
         selectable: true,
         selectHelper: true,
         editable: false,
         eventLimit: true,
-        events: 'k9qatn9fshgu56rhtccrec0dao@group.calendar.google.com',
         eventSources: ['/download'],
         timeFormat: 'HH:mm',
         aspectRatio: 1.8,
@@ -38,4 +34,5 @@ function calendar() {
             $(this).fullCalendar('unselect');
         },
     });
-}
+});
+

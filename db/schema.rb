@@ -45,6 +45,14 @@ ActiveRecord::Schema.define(version: 2018_08_28_081848) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "calendars", force: :cascade do |t|
+    t.string "calendar_id"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "first_name"
     t.string "second_name"
