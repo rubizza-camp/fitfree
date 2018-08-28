@@ -5,26 +5,31 @@
     .menu-list
       li
         a href="#{calendar_index_path}"
-          i.fa.fa-calendar.fa-lg
-          | #{t('navigation.calendar')}
+          div
+            i.fa.fa-calendar.fa-lg
+            | #{t('navigation.calendar')}
       li
         a href="#{clients_path}"
-          i.fa.fa-users.fa-lg
-          | #{t('navigation.clients')}
+          div
+            i.fa.fa-users.fa-lg
+            | #{t('navigation.clients')}
       li.collapsed data-target="#settings" data-toggle="collapse"
         a href="#"
-          i.fa.fa-globe.fa-lg
-          | #{t('navigation.settings')}
-          span.arrow
+          div
+            i.fa.fa-globe.fa-lg
+            | #{t('navigation.settings')}
+            span.arrow
       ul#settings.sub-menu.collapse
         li
           a href="#{metrics_path}"
+            div
 
-            | #{t('navigation.metrics')}
+              | #{t('navigation.metrics')}
         li
           a href="#{exercise_types_path}"
+            div
 
-            | #{t('navigation.exercise_types')}
+              | #{t('navigation.exercise_types')}
 
 - else
   = link_to t('log_in'), new_user_session_path, class: 'btn btn-primary float-right float-top'

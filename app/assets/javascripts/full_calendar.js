@@ -1,6 +1,19 @@
 $(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            locale = this.responseText;
+            calendar(locale)
+        }
+    };
+    xhttp.open("GET", "/locale", true);
+    xhttp.send(new FormData());
+});
+
+var calendar = function(locale){
     $('#calendar').fullCalendar({
         themeSystem: 'bootstrap4',
+        locale: locale,
         header: {
             left: 'prev,next, today',
             center: 'title',
@@ -10,20 +23,17 @@ $(function () {
             agendaThreeDay: {
                 type: 'agenda',
                 duration: { days: 3 },
-                buttonText: '3 days'
+                buttonText: '3 days(дня)'
             }
         },
         defaultView: 'agendaThreeDay',
         nowIndicator: true,
         slotDuration: "00:15",
-        firstDay: 1,
-        slotLabelFormat: 'HH:mm',
         selectable: true,
         selectHelper: true,
         editable: false,
         eventLimit: true,
         eventSources: ['/download'],
-        timeFormat: 'HH:mm',
         aspectRatio: 1.8,
         dayClick: function (date) {
             window.location.href = "/trainings/new/" + date.format();
@@ -34,5 +44,5 @@ $(function () {
             $(this).fullCalendar('unselect');
         },
     });
-});
+};
 

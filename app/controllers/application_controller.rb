@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     logger.debug "* Locale set to '#{I18n.locale}'"
   end
 
+  def get_locale
+    render plain: I18n.locale
+  end
+
   def pundit_user
     current_user || current_admin
   end

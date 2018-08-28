@@ -5,25 +5,42 @@ require 'googleauth'
 class CalendarController < ApplicationController
   before_action :authenticate_user!
 
-  def index; end
+  def index
+    begin
+      @client = Signet::OAuth2::Client.new(client_options)
+      @client.update!(session[:authorization])
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = @client
+      @calendar = Calendar.find_by(user_id: current_user.id)
+      if @calendar != nil
+        @calendar_summary = service.get_calendar(@calendar.calendar_id).summary
+      end
+    rescue Google::Apis::AuthorizationError
+      response = client.refresh!
+      session[:authorization] = session[:authorization].merge(response)
+      retry
+    end
+  end
 
   def new
-    client = Signet::OAuth2::Client.new(client_options)
-    client.update!(session[:authorization])
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-    @calendar = Calendar.new
-    @calendars = []
-    service.list_calendar_lists.items.each do |item|
-      calendar = []
-      calendar[1] = item.id
-      calendar[2] = item.summary
-      @calendars << calendar
+    begin
+      @client = Signet::OAuth2::Client.new(client_options)
+      @client.update!(session[:authorization])
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = @client
+      @calendar = Calendar.new
+      @calendars = []
+      service.list_calendar_lists.items.each do |item|
+        calendar = []
+        calendar[1] = item.id
+        calendar[2] = item.summary
+        @calendars << calendar
+      end
+    rescue Google::Apis::AuthorizationError
+      response = client.refresh!
+      session[:authorization] = session[:authorization].merge(response)
+      retry
     end
-  rescue Google::Apis::AuthorizationError
-    response = client.refresh!
-    session[:authorization] = session[:authorization].merge(response)
-    retry
   end
 
   def create
@@ -54,16 +71,16 @@ class CalendarController < ApplicationController
   end
 
   def callback
-    client = Signet::OAuth2::Client.new(client_options)
-    client.code = params[:code]
-    response = client.fetch_access_token!
+    @client = Signet::OAuth2::Client.new(client_options)
+    @client.code = params[:code]
+    response = @client.fetch_access_token!
     session[:authorization] = response
     redirect_to new_calendar_path
   end
 
   def redirect
-    client = Signet::OAuth2::Client.new(client_options)
-    redirect_to client.authorization_uri.to_s
+    @client = Signet::OAuth2::Client.new(client_options)
+    redirect_to @client.authorization_uri.to_s
   end
 
   private
