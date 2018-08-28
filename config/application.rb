@@ -19,7 +19,7 @@ module FitFree
       generator.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
 
-    config.i18n.default_locale = :ru
+    config.i18n.default_locale = :en
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     config.active_job.queue_adapter = Rails.env.production? ? :sidekq : :async
