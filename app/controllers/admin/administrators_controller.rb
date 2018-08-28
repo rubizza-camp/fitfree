@@ -1,21 +1,24 @@
 module Admin
   class AdministratorsController < Admin::ApplicationController
-    # To customize the behavior of this controller,
-    # you can overwrite any of the RESTful actions. For example:
-    #
-    # def index
-    #   super
-    #   @resources = Administrator.
-    #     page(params[:page]).
-    #     per(10)
-    # end
+    before_action :set_admin, only: [:block, :unblock]
 
-    # Define a custom finder by overriding the `find_resource` method:
-    # def find_resource(param)
-    #   Administrator.find_by!(slug: param)
-    # end
+    def reset_password
+      requested_resource.send_reset_password_instructions
+      flash[:notice] = 'password was successfully reset!'
+    end
 
-    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
-    # for more information
+    def block
+      requested_resource.block!
+    end
+
+    def unblock
+      requested_resource.unblock!
+    end
+
+    private
+
+    def set_admin
+      @admin = requested_resource
+    end
   end
 end

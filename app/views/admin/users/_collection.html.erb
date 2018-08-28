@@ -76,17 +76,17 @@ to display a collection of resources in an HTML table.
         <% end %>
 
         <td>
-          <%= #link_to(
-                'reset password'
-                # reset_password_user_path(resource),
-               # remote: true
-              #)
+          <%= link_to(
+                  'reset password',
+                  reset_password_admin_user_path(resource),
+                  remote: true,
+                  method: :post
+              )
           %>
         </td>
-        <td>
-          block
+        <td data-id="<%= resource.id %>">
+          <%= render 'block_link', user: resource %>
         </td>
-
         <% if valid_action? :edit, collection_presenter.resource_name %>
           <td><%= link_to(
             t("administrate.actions.edit"),

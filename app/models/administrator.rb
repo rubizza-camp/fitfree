@@ -21,6 +21,22 @@
 class Administrator < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def block!
+    update(blocked_at: Time.zone.now)
+  end
+
+  def unblock!
+    update(blocked_at: nil)
+  end
+
+  def blocked?
+    blocked_at.present?
+  end
+
+  def active_for_authentication?
+    super && !blocked?
+  end
 end

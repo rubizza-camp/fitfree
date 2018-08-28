@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_26_223354) do
+ActiveRecord::Schema.define(version: 2018_08_28_081848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(version: 2018_08_26_223354) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "superadmin"
+    t.datetime "blocked_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_administrators_on_confirmation_token", unique: true
     t.index ["email"], name: "index_administrators_on_email", unique: true
     t.index ["reset_password_token"], name: "index_administrators_on_reset_password_token", unique: true
   end
@@ -60,15 +65,10 @@ ActiveRecord::Schema.define(version: 2018_08_26_223354) do
     t.string "facebook_link"
     t.string "vk_link"
     t.integer "status"
-    t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "avatar_file_name"
-    t.string "avatar_content_type"
-    t.bigint "avatar_file_size"
-    t.datetime "avatar_updated_at"
     t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "99680670-9553-413c-811c-8baf2669d7b0"
+    t.string "telegram_bind_id", default: "13a4cefa-016e-434b-a25d-1ae406d74abb"
     t.integer "gender"
     t.integer "cash", default: 0, null: false
   end
@@ -171,12 +171,6 @@ ActiveRecord::Schema.define(version: 2018_08_26_223354) do
     t.index ["client_id"], name: "index_snapshots_on_client_id"
   end
 
-  create_table "statuses", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", default: "", null: false
@@ -192,7 +186,7 @@ ActiveRecord::Schema.define(version: 2018_08_26_223354) do
     t.text "description"
     t.integer "user_id"
     t.integer "client_id"
-    t.integer 'status', default: 0, null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -223,11 +217,10 @@ ActiveRecord::Schema.define(version: 2018_08_26_223354) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.datetime "blocked_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
-  add_foreign_key "jobs", "trainings"
 
 end

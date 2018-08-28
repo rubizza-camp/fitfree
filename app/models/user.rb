@@ -21,7 +21,7 @@
 class User < ApplicationRecord
   has_one :coach_info
   has_one :telegram_bot
-  enum role: %i[user vip admin]
+
   has_many :trainings
   has_many :clients
   has_many :transactions
@@ -36,6 +36,26 @@ class User < ApplicationRecord
 
   def sign_up_for_mailing_list
     MailingListSignupJob.perform_later(self)
+  end
+
+  def build_telegram_bot
+
+  end
+
+  def block!
+    update(blocked_at: Time.zone.now)
+  end
+
+  def unblock!
+    update(blocked_at: nil)
+  end
+
+  def blocked?
+    blocked_at.present?
+  end
+
+  def active_for_authentication?
+    super && !blocked?
   end
 
   def subscribe
