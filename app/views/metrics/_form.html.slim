@@ -1,7 +1,7 @@
 = simple_form_for [@client,@metric] do |form|
   /= select_tag(:kind_id, options_for_select(@kinds), :prompt => 'Select a kind of metric' )
-  = form.association :kind
-  = form.input :name
-  = form.input :units
-  = form.submit
+  = form.association :kind, label: t('metrics._form.kind')
+  = form.input :name, label: t('metrics._form.name')
+  = form.input :units, label: t('metrics._form.units')
+  = form.submit t('metrics._form.submit')
 

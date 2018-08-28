@@ -1,52 +1,51 @@
-/= render 'clients/navbar', active_section: :payments
 ul.nav.nav-tabs.justify-content-center role="tablist"
   li.nav-item
     a.nav-link href="./" role="tab"
       i.now-ui-icons.users_single-02
-      | Client info
+      | #{t('client_navigation.info')}
   li.nav-item
     a.nav-link href="./stats" role="tab"
       i.now-ui-icons.sport_user-run
-      |Stats
+      | #{t('client_navigation.stats')}
   li.nav-item
     a.nav-link role="tab"
       i.now-ui-icons.ui-1_email-85
-      | Messages
+      | #{t('client_navigation.messages')}
   li.nav-item
     a.nav-link role="tab"
       i.now-ui-icons.shopping_box
-      | Client diet
+      | #{t('client_navigation.diet')}
   li.nav-item
     a.nav-link.active href="#{client_payments_path}" role="tab"
       i.now-ui-icons.business_bank
-      | Payments
+      | #{t('client_navigation.payments')}
   li.nav-item
     a.nav-link role="tab"
       i.now-ui-icons.sport_trophy
-      | Training diary
+      | #{t('client_navigation.diary')}
 doctype html
 html
   head
     title Payments for client
   body
-    h1 Payments for client
+    h1 #{t('payments.index.title')}
     #content
       br
-        h2 Current balance #{@result_balance}
+        h2 #{t('payments.index.current_balance')} #{@result_balance}
         - unless @payments_list.empty?
           table.table
             tr
-              th.name = 'Date'
-              th.name = 'Price'
-              th.name = 'Delete'
+              th.name = t('payments.index.date')
+              th.name = t('payments.index.price')
+              th.name = t('payments.index.delete')
             - @payments_list.each_with_index do |payment, id|
               tr
                 td.Date = payment.datetime.strftime("%B %d, %Y")
                 td.Price = payment.price
                 td.Cancel: button class="btn btn-primary btn-icon btn-round" onclick="document.location.replace('#{'payments/' + payment.id.to_s  + '/delete'}')" Ⓧ
         - else
-            h4 No payments for that client
-input class="btn btn-primary" type="submit" value="Add" onclick="window.location='payments/create';"
+            h4 #{t('payments.index.no_payments')}
+input class="btn btn-primary" type="submit" value=t('payments.index.add') onclick="window.location='payments/create';"
 .pagniation-wrapper align="center"
-  = will_paginate @payments_list,
+  = paginate @payments_list,
           previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0

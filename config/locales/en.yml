@@ -31,3 +31,18 @@
 
 en:
   hello: "Hello world"
+  navigation:
+    calendar: "Calendar"
+    clients: "Clients"
+    settings: "Settings"
+    metrics: "Metrics"
+    exercise_types: "Exercise Types"
+    sing_out: "Sing Out"
+    log_in: "Log In"
+    edit_acc: "Edit account"
+    admin_log_in: "I'm admin and i want to log in"
+    sing_in: "Sing In"
+    email: "E-mail"
+    password: "Password"
+    forgot_pass: "Forgot password?"
+    remember_me: "Remember me"

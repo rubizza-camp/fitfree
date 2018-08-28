@@ -6,26 +6,26 @@
       li
         a href="#{calendar_index_path}"
           i.fa.fa-calendar.fa-lg
-          | Calendar
+          | #{t('navigation.calendar')}
       li
         a href="#{clients_path}"
           i.fa.fa-users.fa-lg
-          | Clients
+          | #{t('navigation.clients')}
       li.collapsed data-target="#settings" data-toggle="collapse"
         a href="#"
           i.fa.fa-globe.fa-lg
-          | Settings
+          | #{t('navigation.settings')}
           span.arrow
       ul#settings.sub-menu.collapse
         li
           a href="#{metrics_path}"
 
-            | Metrics
+            | #{t('navigation.metrics')}
         li
           a href="#{exercise_types_path}"
 
-            | Exercise types
+            | #{t('navigation.exercise_types')}
 
 - else
-  = link_to 'Log In', new_user_session_path, class: 'btn btn-primary float-right float-top'
-  = link_to 'I am admin, and i want to log in',  new_administrator_session_path, class: 'btn btn-primary float-right float-top'
+  = link_to t('log_in'), new_user_session_path, class: 'btn btn-primary float-right float-top'
+  = link_to t('admin_log_in'),  new_administrator_session_path, class: 'btn btn-primary float-right float-top'

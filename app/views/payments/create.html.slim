@@ -5,17 +5,17 @@ html
     - csrf_meta_tags
     title Adding payment for client
   body
-    h1 Adding payments for client
+    h1 #{t('.title')}
 
   form action='new' method='post'
-    label Date
+    label #{t('.date')}
     input class='form-control string optional' name='date' type='date'
     br
-    label Price
+    label #{t('.price')}
     input class='form-control string optional' name='price' type='text'
     br
-    label Notice
+    label #{t('.notice')}
     input class='form-control string optional' name='notice' type='text'
     br
-    input class='btn btn-primary btn-round' type='submit' value='Add payment' onclick='document.getElementById("alert").style.visibility = "visible";'
-    input class="btn btn-primary btn-simple btn-round" value="Cancel" onclick="window.location='../payments';"
+    input class='btn btn-primary btn-round' type='submit' value=t('.add') onclick='document.getElementById("alert").style.visibility = "visible";'
+    input class="btn btn-primary btn-simple btn-round" value=t('.cancel') onclick="window.location='../payments';"

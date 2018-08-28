@@ -1,0 +1,17 @@
+ru:
+  navigation:
+    calendar: "Календарь"
+    clients: "Клиенты"
+    settings: "Настройки"
+    metrics: "Метрики"
+    exercise_types: "Типы упражнений"
+  sing_out: "Выйти"
+  log_in: "Войти"
+  edit_acc: "Редактировать аккаунт"
+  admin_log_in: "Я админ и хочу войти"
+  sing_in: "Войти"
+  email: "E-mail"
+  password: "Пароль"
+  forgot_pass: "Забыли пароль?"
+  remember_me: "Запомнить меня"
+
