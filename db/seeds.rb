@@ -16,9 +16,9 @@ puts 'Created anthropometry metrics'
   Metric.find_or_create_by(name: name, units: 'repeats', kind_id: 1)
 end
 puts 'Created strength metrics'
-superadmin = Administrator.create(email: 'garou@gmail.com', password: '123456789',
+superadmin = Administrator.create(email: 'superadmin@gmail.com', password: '123456789',
              password_confirmation: '123456789', superadmin: true)
 puts 'Create super admin: ' << superadmin.email
-admin = Administrator.create(email: 'patrick.fiori@gmail.com', password: '123456789',
+admin = Administrator.create(email: 'admin@gmail.com', password: '123456789',
              password_confirmation: '123456789', superadmin: false)
 puts 'Create admin: ' << admin.email

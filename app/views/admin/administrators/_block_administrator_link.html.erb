@@ -1,0 +1,5 @@
+<% if admin.blocked? %>
+    <%= link_to('Unblock', unblock_admin_administrator_path(admin), remote: true, method: :patch) %>
+<% else %>
+    <%= link_to('Block', block_admin_administrator_path(admin), remote: true, method: :patch) %>
+<% end %>

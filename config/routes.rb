@@ -7,6 +7,11 @@ Rails.application.routes.draw do
       patch :unblock, on: :member
       post :reset_password, on: :member
     end
+    resources :administrators do
+      patch :block, on: :member
+      patch :unblock, on: :member
+      post :reset_password, on: :member
+    end
     root to: 'users#index'
   end
   root to: 'visitors#index'
