@@ -3,7 +3,6 @@ class TrainingsController < ApplicationController
   require 'google/apis/calendar_v3'
   require 'googleauth'
   include ClientListConcern
-  include TrainingPlanConcern
   before_action :find_training, only: %i[show edit update cancel destroy]
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
@@ -128,7 +127,7 @@ class TrainingsController < ApplicationController
           service.delete_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1assl1com')
         end
       end
-      TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id) unless @training.status == :complete
+      TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id) if @training.status == :planned
       @training.destroy
       redirect_to calendar_index_path
     rescue Google::Apis::AuthorizationError

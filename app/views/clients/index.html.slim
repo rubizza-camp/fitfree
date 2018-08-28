@@ -3,18 +3,18 @@
     li class=("#{'active' if params[:status] == status}")
       = link_to status_i18n, clients_path(status: status), class:'online-offline'
 label.btn.btn-secondary.active
-  = link_to 'All', clients_path, class:'online-offline'
+  = link_to t('clients.index.all'), clients_path, class:'online-offline'
 
 - unless @clients.blank?
   table.table
     thead
       tr
-        th First name:
-        th Last name:
-        th Phone number:
-        th Age:
-        th Gender:
-        th Current balance:
+        th= t('clients.index.first_name')
+        th= t('clients.index.last_name')
+        th= t('clients.index.phone')
+        th= t('clients.index.age')
+        th= t('clients.index.gender')
+        th= t('clients.index.balance')
         th.hidden
     tbody
       - @clients.each do |client|
@@ -28,8 +28,8 @@ label.btn.btn-secondary.active
 
 
 - if policy(Client).new?
-  =link_to'New client', new_client_path, class: 'btn btn-primary float-right float-top'
+  =link_to t('clients.index.new'), new_client_path, class: 'btn btn-primary float-right float-top'
 
 .pagniation-wrapper align="center"
   = paginate @clients,
-          previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
+          inner_window: 1, outer_window: 0

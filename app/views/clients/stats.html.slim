@@ -1,13 +1,13 @@
 = render 'clients/navbar', active_section: :stats
 h1
-  |Client stats
+  | #{t('.stats')}
   - if policy(Snapshot).new?
-    =link_to 'Add new snapshot', new_client_snapshot_path(@client), class: 'btn btn-primary btn-sm float-right float-top'
+    =link_to t('.new_snapshot'), new_client_snapshot_path(@client), class: 'btn btn-primary btn-sm float-right float-top'
 
 table.table
   thead
     tr
-      th Date
+      th= t('.date')
       - @client.metrics.each do |metric|
         th= metric_name_with_units(metric)
   tbody
@@ -19,5 +19,5 @@ table.table
           td= measurement.value
 
 - Kind.all.each do |kind|
-  h2= "Client #{kind.name.downcase} graph"
+  h2= t('.graph', kind: kind.name.downcase)
   canvas width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots, kind) data-chart="true"

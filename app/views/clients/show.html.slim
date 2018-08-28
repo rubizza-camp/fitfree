@@ -4,19 +4,19 @@
   .photo-container.size-2
     = gravatar_image_tag(@client.email, filetype: :png, rating: 'pg', size: 15, secure: false)
   section.form-centered
-    | Client:
+    | #{t('clients.show.client')}
     = @client.first_name + ' ' + @client.second_name
   section.form-centered
-    |Email:
+    | #{t('.email')}
     = link_to  @client.email
   section.form-centered
-    |Phone number:
+    | #{t('.phone')}
     = simple_format(@client.phone_number)
   section.form-centered
-    |Age:
+    | #{t('.age')}
     = ((Time.zone.now - @client.birth.to_time) / 1.year.seconds).floor
   section.form-centered
-    | Status:
+    | #{t('.status')}
     = @client.status_i18n
   .prof-box.form-centered
     ul
@@ -32,7 +32,7 @@
 
   div.btn.btn-primary.btn-info.btn-round.btn-warning =link_to edit_client_path(@client)
     i.now-ui-icons.ui-2_settings-90
-      | Edit
+      | #{t('.edit')}
   div.btn.btn-primary.btn-info.btn-round.btn-danger = link_to  client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
     i.now-ui-icons.design_scissors
-      | Delete
+      | #{t('.delete')}

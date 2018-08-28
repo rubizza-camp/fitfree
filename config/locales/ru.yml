@@ -1,4 +1,25 @@
 ru:
+  date:
+    month_names:
+    -
+    - января
+    - февраля
+    - марта
+    - апреля
+    - мая
+    - июня
+    - июля
+    - августа
+    - сентября
+    - октября
+    - ноября
+    - декабря
+    order:
+    - :day
+    - :month
+    - :year
+    formats:
+      default: "%d.%m.%Y"
   navigation:
     calendar: "Календарь"
     clients: "Клиенты"
@@ -37,11 +58,52 @@ ru:
       connect: "Подключить Google календарь"
   client_navigation:
     info: "Сведения о клиенте"
-    stats: "Замеры"
+    stats: "Замеры клиента"
     messages: "Сообщения"
     diet: "Диета"
     payments: "Платежи"
     diary: "Дневник тренировок"
+  clients:
+    index:
+      all: "Все"
+      first_name: "Имя"
+      last_name: "Фамилия"
+      phone: "Номер телефона"
+      age: "Возраст"
+      gender: "Пол"
+      balance: "Текущий баланс"
+      new: "Новый клиент"
+    new:
+      add: "Добавление нового пользователя"
+    form:
+      status: "Статус"
+      gender: "Пол"
+      first_name: "Имя"
+      second_name: "Фамилия"
+      phone: "Номер телефона"
+      email: "E-mail"
+      instagram: "Instagram"
+      facebook: "Facebook"
+      vk: "VK"
+      price: "Цена"
+      metrics: "Замеры"
+      date: "День рождения"
+      submit: "%{action} клиента"
+    show:
+      client: "Клиент: "
+      email: "E-mail: "
+      phone: "Номер телефона: "
+      age: "Возраст: "
+      status: "Статус: "
+      edit: "Изменить"
+      delete: "Удалить"
+    stats:
+      stats: "Замеры клиента"
+      date: "Дата"
+      graph: "Статистика замеров клиента в категории \"%{kind}\""
+      new_snapshot: "Добавить новый замер"
+    edit:
+      title: "Редактирование клиента"
   payments:
     index:
       title: "Платежи клиента"
