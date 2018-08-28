@@ -16,7 +16,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    binding.pry
     @user = User.find_by(id: params["id"])
     unless @user.coach_info
       @user.build_coach_info
@@ -52,13 +51,12 @@ class UsersController < ApplicationController
 
   private
 
-  def user_telegram_bot
-    User.find(params[:id]).telegram_bot
+  def bot
+     @bot ||= User.find(params[:id]).telegram_bot
   end
 
   def regist_webhooks_for_bot
-    bot = user_telegram_bot
-    Excon.get("https://api.telegram.org/bot#{bot[:token]}/setWebhook?url=https://830515e5.ngrok.io/webhooks/#{bot[:telegram_webhook_id]}")
+    Excon.get("https://api.telegram.org/bot#{bot[:token]}/setWebhook?url=https:/#{request.server_name}{/#{bot[:telegram_webhook_id]}")
   end
 
   def admin_only
