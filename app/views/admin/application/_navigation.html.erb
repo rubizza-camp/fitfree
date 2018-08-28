@@ -15,5 +15,5 @@ as defined by the routes in the `admin/` namespace
       class: "navigation__link navigation__link--#{nav_link_state(resource)}"
     ) %>
   <% end %>
-  <%= link_to('log out', destroy_administrator_session_path, method: :delete) %>
+  <%= link_to(t('sing_out'), destroy_administrator_session_path, method: :delete) %>
 </nav>

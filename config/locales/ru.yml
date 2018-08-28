@@ -14,4 +14,90 @@ ru:
   password: "Пароль"
   forgot_pass: "Забыли пароль?"
   remember_me: "Запомнить меня"
+  exercise_type:
+    title: "Тип упражнения"
+    new:
+      name: "Название"
+      description: "Описание"
+      submit: "Добавить"
+      title: "Добавить новый тип упражнений"
+    index:
+      edit: "Изменить"
+      delete: "Удалить"
+    delete:
+      sure: "Вы уверены?"
+    edit:
+      title: "Изменение типа упражнения"
+  calendar:
+    title: "Google календарь"
+    new:
+      submit: "Подключить"
+      title: "Выберите Google календарь:"
+    index:
+      connect: "Подключить Google календарь"
+  client_navigation:
+    info: "Сведения о клиенте"
+    stats: "Замеры"
+    messages: "Сообщения"
+    diet: "Диета"
+    payments: "Платежи"
+    diary: "Дневник тренировок"
+  payments:
+    index:
+      title: "Платежи клиента"
+      current_balance: "Текущий баланс"
+      date: "Дата"
+      price: "Количество"
+      delete: "Удалить"
+      no_payments: "У клиента еще нет совершенных платежей"
+      add: "Добавить"
+    create:
+      title: "Добавление нового платежа"
+      date: "Дата"
+      price: "Количество"
+      notice: "Примечание"
+      add: "Добавить платеж"
+      cancel: "Отменить"
+  exercises:
+    title: "Новое упражнение"
+    add: "Добавить упражнение"
+  kits:
+    title: "Новый сет"
+    add_exe: "Добавить новое упражнение"
+  snaphots:
+    form:
+      date: "Дата"
+      submit: "Добавить замеры"
+    index:
+      title: "Таблица замеров"
+      date: "Дата"
+    new:
+      title: "Добавление нового замера"
+    show:
+      date: "Дата"
+      metric: "Замер"
+      value: "Значение"
+  metrics:
+    index:
+      title_exist: "Таблица существующих замеров"
+      title_no: "Пока не добавлено ни одного замера"
+      metric: "Замер"
+      units: "Единицы измерения"
+      new: "Добавить новый замер"
+    new:
+      title: "Новый замер"
+    _form:
+      kind: "Тип"
+      name: "Название"
+      units: "Единицы измерения"
+      submit: "Добавить замер"
+    show:
+      name: "Название"
+      units: "Единицы измерения"
+  kaminari:
+    first: "Начало"
+    truncate: "Усеченное"
+    last: "Конец"
+    next: "Следующая"
+    prev: "Предыдущая"
 
