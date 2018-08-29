@@ -7,14 +7,6 @@
       a.item.active href="#{clients_path}" All
       - Client.statuses_i18n.each do |status, status_i18n|
         a.item [class="#{'active' if params[:status] == status}" href="#{clients_path(status: status)}" ] #{status_i18n}
-
-
-    /   label.btn.btn-secondary.active
-    /     li class=("#{'active' if params[:status] == status}")
-    /       = link_to status_i18n, clients_path(status: status), class:'online-offline'
-    / label.btn.btn-secondary.active
-    /   = link_to 'All', clients_path, class:'online-offline'
-
     - unless @clients.blank?
       table.ui.unstackable.table
         thead
