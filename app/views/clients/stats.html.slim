@@ -1,23 +1,26 @@
 = render 'clients/navbar', active_section: :stats
-h1
-  |Client stats
-  - if policy(Snapshot).new?
-    =link_to 'Add new snapshot', new_client_snapshot_path(@client), class: 'btn btn-primary btn-sm float-right float-top'
+.main.ui.container
+  .ui.active.tab [data-tab="definition"]
+    .ui.existing.segment
+      h1
+        |Client stats
+        - if policy(Snapshot).new?
+          =link_to 'Add new snapshot', new_client_snapshot_path(@client), class: 'btn btn-primary btn-sm float-right float-top'
 
-table.table
-  thead
-    tr
-      th Date
-      - @client.metrics.each do |metric|
-        th= metric_name_with_units(metric)
-  tbody
-    - @snapshots.each do |snapshot|
-      tr
-        td
-          = link_to l(snapshot.date), snapshot
-        - snapshot.measurements.each do |measurement|
-          td= measurement.value
+      table.table
+        thead
+          tr
+            th Date
+            - @client.metrics.each do |metric|
+              th= metric_name_with_units(metric)
+        tbody
+          - @snapshots.each do |snapshot|
+            tr
+              td
+                = link_to l(snapshot.date), snapshot
+              - snapshot.measurements.each do |measurement|
+                td= measurement.value
 
-- Kind.all.each do |kind|
-  h2= "Client #{kind.name.downcase} graph"
-  canvas width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots, kind) data-chart="true"
+      - Kind.all.each do |kind|
+        h2= "Client #{kind.name.downcase} graph"
+        canvas width="400px" heigth="400px" data-metrics=client_metrics_data(@client, @snapshots, kind) data-chart="true"

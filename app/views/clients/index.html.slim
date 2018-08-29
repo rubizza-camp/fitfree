@@ -1,35 +1,38 @@
-- Client.statuses_i18n.each do |status, status_i18n|
-  label.btn.btn-secondary.active
-    li class=("#{'active' if params[:status] == status}")
-      = link_to status_i18n, clients_path(status: status), class:'online-offline'
-label.btn.btn-secondary.active
-  = link_to 'All', clients_path, class:'online-offline'
+.main.ui.container
+  .ui.active.tab [data-tab="definition"]
+    .ui.existing.segment
+      - Client.statuses_i18n.each do |status, status_i18n|
+        label.btn.btn-secondary.active
+          li class=("#{'active' if params[:status] == status}")
+            = link_to status_i18n, clients_path(status: status), class:'online-offline'
+      label.btn.btn-secondary.active
+        = link_to 'All', clients_path, class:'online-offline'
 
-- unless @clients.blank?
-  table.table
-    thead
-      tr
-        th First name:
-        th Last name:
-        th Phone number:
-        th Age:
-        th Gender:
-        th Current balance:
-        th.hidden
-    tbody
-      - @clients.each do |client|
-        tr= link_to  client
-          td.title= link_to client.first_name, client
-          td= client.second_name
-          td= client.phone_number
-          td= ((Time.zone.now - client.birth.to_time) / 1.year.seconds).floor
-          td= client.gender
-          td= client.cash
+      - unless @clients.blank?
+        table.table
+          thead
+            tr
+              th First name:
+              th Last name:
+              th Phone number:
+              th Age:
+              th Gender:
+              th Current balance:
+              th.hidden
+          tbody
+            - @clients.each do |client|
+              tr= link_to  client
+                td.title= link_to client.first_name, client
+                td= client.second_name
+                td= client.phone_number
+                td= ((Time.zone.now - client.birth.to_time) / 1.year.seconds).floor
+                td= client.gender
+                td= client.cash
 
 
-- if policy(Client).new?
-  =link_to'New client', new_client_path, class: 'btn btn-primary float-right float-top'
+      - if policy(Client).new?
+        =link_to'New client', new_client_path, class: 'btn btn-primary float-right float-top'
 
-.pagniation-wrapper align="center"
-  = paginate @clients,
-          previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
+      .pagniation-wrapper align="center"
+        = paginate @clients,
+                previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0

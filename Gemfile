@@ -4,6 +4,7 @@ ruby '2.5.1'
 gem 'administrate'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.0.0'
+gem 'jquery-rails'
 gem 'bourbon'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'

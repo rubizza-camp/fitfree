@@ -5,9 +5,11 @@ class TrainingsController < ApplicationController
   include ClientListConcern
   before_action :find_training, only: %i[show edit update cancel destroy]
   before_action :authenticate_user!
-  protect_from_forgery with: :null_session
+  # protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token, only: %i[join_clients]
 
   def index
+
     @training = Training.where(user_id: current_user.id).map do |training|
       {
         name:     Client.find_by(id: training.client_id).full_name,
@@ -22,6 +24,7 @@ class TrainingsController < ApplicationController
   end
 
   def new
+    binding.pry
     @clients = current_user.clients
     @training = current_user.trainings.build
     # todo: parse and set to calendar input
@@ -32,6 +35,7 @@ class TrainingsController < ApplicationController
   end
 
   def join_clients
+    binding.pry
     if params[:clients] && params[:clients].present?
       @clients = current_user.clients.select do|client|
         JSON.parse(params[:clients]).include?(client.id.to_s)

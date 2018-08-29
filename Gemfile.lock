@@ -400,6 +400,7 @@ DEPENDENCIES
   gravatar_image_tag
   high_voltage
   jbuilder (~> 2.5)
+  jquery-rails
   kaminari
   launchy
   letter_opener

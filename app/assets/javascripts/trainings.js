@@ -12,8 +12,8 @@ $(document).ready(function(){
         type: 'time'
     });
 
-    var clients = $('#clients_select').val();
-    join_clients(JSON.stringify(clients ? clients : []));
+    // var clients = $('#clients_select').val();
+    // join_clients(JSON.stringify(clients ? clients : []));
 });
 
 function join_clients(clients_ids) {
