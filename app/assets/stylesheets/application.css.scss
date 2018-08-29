@@ -32,13 +32,23 @@
 }
 
 .main.ui.container {
-  min-height:  100vh;
   display:  flex;
   flex-flow:  row nowrap;
   justify-content:  center;
-  align-items:  center;
 }
 
-.ui.raised.very.padded.text.container.segment {
-  margin-bottom: 30%;
+.ui.raised.container.segment {
+  margin-top: 10%;
 }
+
+//.main.ui.container {
+//  min-height:  100vh;
+//  display:  flex;
+//  flex-flow:  row nowrap;
+//  justify-content:  center;
+//  align-items:  center;
+//}
+//
+//.ui.raised.container.segment {
+//  margin-bottom: 30%;
+//}
