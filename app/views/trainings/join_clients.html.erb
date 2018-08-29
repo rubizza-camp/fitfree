@@ -1,6 +1,6 @@
 <% if @clients.any? %>
   <% @clients.each do |client| %>
-    <label><%= client.first_name + " " + client.second_name %></label>
+    <label><%= client.full_name %></label>
     <div class="field" style="margin-bottom: 10px">
       <div class="ui labeled input">
         <div class="ui label">$</div>

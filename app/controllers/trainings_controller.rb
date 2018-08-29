@@ -23,7 +23,8 @@ class TrainingsController < ApplicationController
 
   def new
     @clients = current_user.clients
-    # @training = current_user.trainings.build
+    @training = current_user.trainings.build
+    # todo: parse and set to calendar input
     date = params[:date][0...10]
     @day = date[8].to_i == 0 ? date[9] : date[8..9]
     @month = date[5].to_i == 0 ? date[6] : date[5..6]

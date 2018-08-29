@@ -13,7 +13,7 @@ $(document).ready(function(){
     });
 
     var clients = $('#clients_select').val();
-    // join_clients(JSON.stringify(clients ? clients : []));
+    join_clients(JSON.stringify(clients ? clients : []));
 });
 
 function join_clients(clients_ids) {
