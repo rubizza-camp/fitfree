@@ -1,10 +1,11 @@
 ==javascript_include_tag 'lang/ru'
 
 - if @calendar == nil
-  h5
-    | Нет подключенных календарей
+  p
+    | #{t('.no_calendar')}
+  = link_to t('.connect'), redirect_path, class: 'btn btn-primary'
 - else
-  h5
-    | Подключен календарь #{@calendar_summary}
-= link_to t('.connect'), redirect_path, class: 'btn btn-primary'
+  p
+    | #{t('.connected', calendar: @calendar_summary)}
+  = link_to t('.connect'), redirect_path, class: 'btn btn-primary'
 #calendar

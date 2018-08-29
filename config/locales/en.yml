@@ -67,6 +67,8 @@ en:
       title: "Choose your Google calendar:"
     index:
       connect: "Connect Google calendar"
+      no_calendar: "Google calendar don't connected"
+      connected: "Connected calendar %{calendar}"
   client_navigation:
     info: "Client info"
     stats: "Stats"

@@ -56,6 +56,8 @@ ru:
       title: "Выберите Google календарь:"
     index:
       connect: "Подключить Google календарь"
+      no_calendar: "Google календарь еще не подключен"
+      connected: "Подключен календарь %{calendar}"
   client_navigation:
     info: "Сведения о клиенте"
     stats: "Замеры клиента"

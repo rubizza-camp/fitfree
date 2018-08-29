@@ -12,12 +12,11 @@ $(function () {
 
 var calendar = function(locale){
     $('#calendar').fullCalendar({
-        themeSystem: 'bootstrap4',
         locale: locale,
         header: {
-            left: 'prev,next, today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaThreeDay,agendaDay'
+            left: 'title',
+            center: '',
+            right: 'prev,next, today, month,agendaWeek,agendaThreeDay,agendaDay'
         },
         views: {
             agendaThreeDay: {
