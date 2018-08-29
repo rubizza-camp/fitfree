@@ -4,4 +4,4 @@ ul.nav.nav-tabs.justify-content-center role="tablist"
   = render 'nav_link', text: 'Messages', url: '#', active_section: active_section, section_name: :messages, icon_class: 'ui-1_email-85'
   = render 'nav_link', text: 'Client diet', url: '#', active_section: active_section, section_name: :diet, icon_class: 'shopping_box'
   = render 'nav_link', text: 'Payments', url: client_payments_path(@client), active_section: active_section, section_name: :payments, icon_class: 'business_bank'
-  = render 'nav_link', text: 'Training diary', url: '#', active_section: active_section, section_name: :diary, icon_class: 'sport_trophy'
+  = render 'nav_link', text: 'Training diary', url: client_diary_path(@client), active_section: active_section, section_name: :diary, icon_class: 'sport_trophy'

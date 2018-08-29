@@ -36,6 +36,12 @@ class ClientsController < ApplicationController
     @snapshots = @client.snapshots.includes(measurements: :metric)
   end
 
+  def diary
+    @client = Client.find(params[:client_id])
+    authorize @client
+    @trainings = @client.trainings.order('created_at DESC').page(params[:page])
+  end
+
   def edit; end
 
   def update

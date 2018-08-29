@@ -4,7 +4,11 @@ class ClientPolicy < ApplicationPolicy
   end
 
   def stats?
-    user
+    record.user == user
+  end
+
+  def diary?
+    record.user == user
   end
 
   def destroy?

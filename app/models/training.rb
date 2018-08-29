@@ -17,6 +17,7 @@ class Training < ApplicationRecord
   belongs_to :user
   belongs_to :client
   has_many :kits
+  paginates_per 10
 
   validates :client_id, :time, presence: true
   validates :price, :numericality => { :greater_than => 0 }
