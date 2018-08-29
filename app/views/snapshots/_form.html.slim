@@ -1,6 +1,6 @@
 = simple_form_for [@client, @snapshot] do |f|
-  = f.input :date
+  = f.input :date, as: :date, label: t('snaphots.form.date'), html5: true
   = f.simple_fields_for :measurements do |mf|
     = mf.input :value, label: metric_name_with_units(mf.object.metric)
     = mf.input :metric_id, as: :hidden
-  = f.submit
+  = f.submit t('snaphots.form.submit')

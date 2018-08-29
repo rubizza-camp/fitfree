@@ -1,15 +1,18 @@
 = simple_form_for @client do |f|
-  = f.input :status
-  = f.input :gender
-  = f.input :first_name
-  = f.input :second_name
-  = f.input :phone_number
-  = f.input :email
-  = f.input :instagram_link
-  = f.input :facebook_link
-  = f.input :vk_link
-  = f.input :price
-  = f.association :metrics, collection: @metrics, input_html: { class: 'select2' }
-  = f.date_select :birth, start_year:1900,end_year:2018, label:'Date of Birth'
+  = f.input :status, label: t('.status')
+  = f.input :gender, label: t('.gender')
+  = f.input :first_name, label: t('.first_name')
+  = f.input :second_name, label: t('.second_name')
+  = f.input :phone_number, label: t('.phone')
+  = f.input :email, label: t('.email')
+  = f.input :instagram_link, label: t('.instagram')
+  = f.input :facebook_link, label: t('.facebook')
+  = f.input :vk_link, label: t('.vk')
+  = f.input :price, label: t('.price')
+  = f.association :metrics, label: t('.metrics'), collection: @metrics, input_html: { class: 'select2' }
+  h7
+    | #{t('.date')}
+  h6
+  = f.date_select :birth, label: t('.gender'), start_year: Time.now.strftime("%Y").to_i - 120, end_year: Time.now.strftime("%Y").to_i
   h3
-  = f.submit
+  = f.submit t('.submit', action: @client.new_record? ? 'Добавить' : 'Редактировать')

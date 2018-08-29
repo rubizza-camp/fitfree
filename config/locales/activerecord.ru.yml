@@ -1,0 +1,9 @@
+ru:
+  activerecord:
+    errors:
+      models:
+        exercise_type:
+          attributes:
+            name:
+              blank: "не может быть пустым"
+              too_short: "слишком короткое, не менее 3 символов"

@@ -1,4 +1,4 @@
 = simple_form_for(@exercise_type, html: {novalidate: true}) do |f|
-  = f.input :name
-  = f.input :description
-  = f.submit 'Add'
+  = f.input :name, label: t('exercise_type.new.name')
+  = f.input :description, label: t('exercise_type.new.description')
+  = f.submit t('exercise_type.new.submit')
