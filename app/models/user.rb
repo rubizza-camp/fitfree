@@ -16,32 +16,46 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  name                   :string
-#  role                   :integer
 #
 
 class User < ApplicationRecord
-  enum role: [:user, :vip, :admin]
   has_one :coach_info
   has_one :telegram_bot
+
   has_many :trainings
   has_many :clients
   has_many :transactions
-  after_initialize :set_default_role, :if => :new_record?
   after_create :sign_up_for_mailing_list
 
   has_many :messages, as: :messagable
 
-  def set_default_role
-    self.role ||= :user
-  end
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   def sign_up_for_mailing_list
     MailingListSignupJob.perform_later(self)
+  end
+
+  def build_telegram_bot
+
+  end
+
+  def block!
+    update(blocked_at: Time.zone.now)
+  end
+
+  def unblock!
+    update(blocked_at: nil)
+  end
+
+  def blocked?
+    blocked_at.present?
+  end
+
+  def active_for_authentication?
+    super && !blocked?
   end
 
   def subscribe
@@ -49,9 +63,10 @@ class User < ApplicationRecord
     list_id = Rails.application.secrets.mailchimp_list_id
     result = mailchimp.lists(list_id).members.create(
       body: {
-        email_address: self.email,
-        status: 'subscribed'
-      })
-    Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
+        email_address: email,
+        status:        'subscribed'
+      }
+    )
+    Rails.logger.info("Subscribed #{email} to MailChimp") if result
   end
 end

@@ -2,16 +2,18 @@
 class SnapshotsController < ApplicationController
   include ClientableControllerConcern
 
-  before_action :find_snapshot, only: [:show]
+  before_action :find_snapshot, only: %i[show]
 
   def index
     @snapshots = @client.snapshots
+    authorize @snapshots
   end
 
   def show; end
 
   def new
     @snapshot = @client.snapshots.new
+    authorize @snapshot
     @client.metrics.each do |metric|
       @snapshot.measurements.build(metric: metric)
     end
@@ -19,6 +21,7 @@ class SnapshotsController < ApplicationController
 
   def create
     @snapshot = @client.snapshots.new(snapshot_params)
+    authorize @snapshot
     if @snapshot.save
       redirect_to client_stats_path(@client)
     else

@@ -13,8 +13,7 @@ label.btn.btn-secondary.active
         th Last name:
         th Phone number:
         th Age:
-        th Created:
-        th Updated:
+        th Gender:
         th Current balance:
         th.hidden
     tbody
@@ -24,14 +23,13 @@ label.btn.btn-secondary.active
           td= client.second_name
           td= client.phone_number
           td= ((Time.zone.now - client.birth.to_time) / 1.year.seconds).floor
-          td.date= client.created_at.to_date.strftime("%d/%m/%Y")
-          td.date= client.updated_at.to_date.strftime("%d/%m/%Y")
-          td= client.result_balance
+          td= client.gender
+          td= client.cash
 
 
-
-=link_to'New client', new_client_path, class: 'btn btn-primary float-right float-top'
+- if policy(Client).new?
+  =link_to'New client', new_client_path, class: 'btn btn-primary float-right float-top'
 
 .pagniation-wrapper align="center"
-  = will_paginate @clients,
+  = paginate @clients,
           previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0

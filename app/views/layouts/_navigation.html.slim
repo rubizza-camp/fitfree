@@ -1,80 +1,81 @@
-- if user_signed_in?
-  - if current_user.admin?
-    .container
-  - else
-    / .ui.left.demo.vertical.visible.inverted.sidebar.labeled.icon.menu
-    /   a.item
-    /     i.calendar.icon
-    /     | Calendar
-    /   a.item
-    /     i.users.layout.icon
-    /     | Clients
-    /   a.item
-    /     i.cog.icon
-    /     | Settings
-
-
-    .ui.sidebar.inverted.visible.vertical.menu
-      .item
-        a href="/"
-          h1 FitFree
-      a.item href="#{calendar_index_path}"
-        i.calendar.icon
-        | Calendar
-      a.item href="#{clients_path}"
-        i.users.layout.icon
-        | Clients
-      a.item
-        i.cog.icon
-        | Settings
-    .pusher
-
-
-
-    / .ui.top.attached.demo.menu
-    /   a.item
-    /     i.sidebar.icon
-    /     | Menu
-    / .ui.sidebar.inverted.vertical.menu
-    /   .item
-    /     a href="/"
-    /       b UI Docs
-    /   a.item
-    /     | Calendar
-    /   a.item
-    /     | Clients
-    /   a.item
-    /     | Settings
-
-
-
-
-    / .nav-side-menu
-    /   .brand Fit Free
-    /   i.fa.fa-bars.fa-2x.toggle-btn data-target="#menu-content" data-toggle="collapse"
-    /   .menu-list
-    /     li
-    /       a href="#{calendar_index_path}"
-    /         i.fa.fa-calendar.fa-lg
-    /         | Calendar
-    /     li
-    /       a href="#{clients_path}"
-    /         i.fa.fa-users.fa-lg
-    /         | Clients
-    /     li.collapsed data-target="#settings" data-toggle="collapse"
-    /       a href="#"
-    /         i.fa.fa-globe.fa-lg
-    /         | Settings
-    /         span.arrow
-    /     ul#settings.sub-menu.collapse
-    /       li
-    /         a href="#{metrics_path}"
-    /
-    /           | Metrics
-    /       li
-    /         a href="#{exercise_types_path}"
-    /
-    /           | Exercise types
-
-- else
-  = link_to 'Log In', new_user_session_path, class: 'btn btn-primary float-right float-top'
+/ - if user_signed_in?
+/   - if current_user.admin?
+/     .container
+/   - else
+/     / .ui.left.demo.vertical.visible.inverted.sidebar.labeled.icon.menu
+/     /   a.item
+/     /     i.calendar.icon
+/     /     | Calendar
+/     /   a.item
+/     /     i.users.layout.icon
+/     /     | Clients
+/     /   a.item
+/     /     i.cog.icon
+/     /     | Settings
+/
+/
+/     .ui.sidebar.inverted.visible.vertical.menu
+/       .item
+/         a href="/"
+/           h1 FitFree
+/       a.item href="#{calendar_index_path}"
+/         i.calendar.icon
+/         | Calendar
+/       a.item href="#{clients_path}"
+/         i.users.layout.icon
+/         | Clients
+/       a.item
+/         i.cog.icon
+/         | Settings
+/     .pusher
+/
+/
+/
+/     / .ui.top.attached.demo.menu
+/     /   a.item
+/     /     i.sidebar.icon
+/     /     | Menu
+/     / .ui.sidebar.inverted.vertical.menu
+/     /   .item
+/     /     a href="/"
+/     /       b UI Docs
+/     /   a.item
+/     /     | Calendar
+/     /   a.item
+/     /     | Clients
+/     /   a.item
+/     /     | Settings
+/
+/
+/
+/
+/     / .nav-side-menu
+/     /   .brand Fit Free
+/     /   i.fa.fa-bars.fa-2x.toggle-btn data-target="#menu-content" data-toggle="collapse"
+/     /   .menu-list
+/     /     li
+/     /       a href="#{calendar_index_path}"
+/     /         i.fa.fa-calendar.fa-lg
+/     /         | Calendar
+/     /     li
+/     /       a href="#{clients_path}"
+/     /         i.fa.fa-users.fa-lg
+/     /         | Clients
+/     /     li.collapsed data-target="#settings" data-toggle="collapse"
+/     /       a href="#"
+/     /         i.fa.fa-globe.fa-lg
+/     /         | Settings
+/     /         span.arrow
+/     /     ul#settings.sub-menu.collapse
+/     /       li
+/     /         a href="#{metrics_path}"
+/     /
+/     /           | Metrics
+/     /       li
+/     /         a href="#{exercise_types_path}"
+/     /
+/     /           | Exercise types
+/
+/ - else
+/   = link_to 'Log In', new_user_session_path, class: 'btn btn-primary float-right float-top'
+/   = link_to 'I am admin, and i want to log in',  new_administrator_session_path, class: 'btn btn-primary float-right float-top'

@@ -1,6 +1,6 @@
 # for metrics
 class MetricsController < ApplicationController
-  before_action :find_metric, only: [:show]
+  before_action :find_metric, only: %i[show]
   include ClientableControllerConcern
 
   def index
@@ -9,18 +9,23 @@ class MetricsController < ApplicationController
                else
                  Metric.all
                end
-    @metrics = @metrics.order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+    @metrics = @metrics.order(created_at: :desc).page(params[:page])
+    authorize @metrics
   end
 
-  def show; end
+  def show
+    authorize @metric
+  end
 
   def new
     @metric = Metric.new
-    @kinds = Kind.all.map { |k| [k.name, k.id] }
+    @kinds = Kind.all.map { |kind| [kind.name, kind.id] }
+    authorize @metric
   end
 
   def create
     @metric = Metric.new(metric_params)
+    authorize @metric
     if @metric.save
       redirect_to metrics_path
     else

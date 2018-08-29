@@ -10,6 +10,8 @@ class UserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     email: Field::String,
+    password: Field::String,
+    password_confirmation: Field::String,
     encrypted_password: Field::String,
     reset_password_token: Field::String,
     reset_password_sent_at: Field::DateTime,
@@ -22,7 +24,10 @@ class UserDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     name: Field::String,
-    role: Field::String.with_options(searchable: false),
+    # coach_info: Field::HasOne(
+    #    searchable: true,
+    #    searchable_field: %w(birthdate)
+    # )
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -32,9 +37,10 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
-    :email,
-    :encrypted_password,
-    :reset_password_token,
+    :name,
+    :created_at,
+    :email
+  #:reset_password_token,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -54,25 +60,16 @@ class UserDashboard < Administrate::BaseDashboard
     :created_at,
     :updated_at,
     :name,
-    :role,
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :email,
-    :encrypted_password,
-    :reset_password_token,
-    :reset_password_sent_at,
-    :remember_created_at,
-    :sign_in_count,
-    :current_sign_in_at,
-    :last_sign_in_at,
-    :current_sign_in_ip,
-    :last_sign_in_ip,
     :name,
-    :role,
+    :email,
+    :password,
+    :password_confirmation,
   ].freeze
 
   # Overwrite this method to customize how users are displayed

@@ -2,15 +2,23 @@
 #
 # Table name: clients
 #
-#  id           :bigint(8)        not null, primary key
-#  first_name   :string
-#  second_name  :string
-#  phone_number :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  user_id      :integer
-#  birth        :datetime
-#  email        :string
+#  id               :bigint(8)        not null, primary key
+#  first_name       :string
+#  second_name      :string
+#  phone_number     :string
+#  user_id          :integer
+#  price            :integer
+#  birth            :datetime
+#  email            :string
+#  instagram_link   :string
+#  facebook_link    :string
+#  vk_link          :string
+#  status           :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  telegram_chat_id :string
+#  telegram_bind_id :string           default("13a4cefa-016e-434b-a25d-1ae406d74abb")
+#  gender           :integer
 #
 
 class Client < ApplicationRecord
@@ -20,6 +28,7 @@ class Client < ApplicationRecord
   has_many :transactions
   has_and_belongs_to_many :metrics
   has_many :snapshots
+
   has_many :messages, as: :messagable
 
   accepts_nested_attributes_for :metrics
@@ -27,10 +36,15 @@ class Client < ApplicationRecord
   validates :first_name, :status, presence: true
 
   enum status: %i[online offline]
+  enum gender: %i[М W]
+  paginates_per 10
 
-  def result_balance
-    result = 0
-    Transaction.where(client_id: self.id).each { |transaction| result += transaction.price }
-    result
+  def add_to_cash(pay)
+    self.cash += pay.to_i
+    self.save!
+  end
+
+  def full_name
+    "#{first_name} #{second_name}"
   end
 end
