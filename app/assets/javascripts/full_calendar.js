@@ -1,6 +1,7 @@
 $(function () {
     $('#calendar').fullCalendar({
-        themeSystem: 'bootstrap4',
+        height: 600,
+        themeSystem: 'standard',
         header: {
             left: 'prev,next, today',
             center: 'title',

@@ -18,14 +18,17 @@
 //= require moment
 
 ////= require select2/dist/js/select2.full.js
-//= require select2
 //= require chart.js/dist/Chart.js
-//= require_tree .
 //= require cable
-
+//= require moment
+//= require jquery
+//= require jquery_ujs
+//= require fullcalendar
 //= require semantic-ui
 //= require semantic-ui/modal
 //= require semantic-ui/dropdown
+
+//= require_tree .
 
 
 // $(document).ready(function() {
