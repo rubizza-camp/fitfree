@@ -30,3 +30,25 @@
 .ui.sidebar.inverted.vertical.menu.visible:after {
   content: none;
 }
+
+.main.ui.container {
+  display:  flex;
+  flex-flow:  row nowrap;
+  justify-content:  center;
+}
+
+.ui.raised.container.segment {
+  margin-top: 10%;
+}
+
+//.main.ui.container {
+//  min-height:  100vh;
+//  display:  flex;
+//  flex-flow:  row nowrap;
+//  justify-content:  center;
+//  align-items:  center;
+//}
+//
+//.ui.raised.container.segment {
+//  margin-bottom: 30%;
+//}
