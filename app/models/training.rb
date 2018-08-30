@@ -14,13 +14,9 @@
 #
 
 class Training < ApplicationRecord
-  belongs_to :user
-  belongs_to :client
-  has_many :kits
+  belongs_to :user, optional: true
+  has_and_belongs_to_many :clients
+  has_many :exercises
 
-  validates :client_id, :time, presence: true
-  validates :price, :numericality => { :greater_than => 0 }
-  validates :description, presence: false
-
-  enum status: %i[planned complete canceled]
+  enum status: %i[is_created planned complete canceled]
 end

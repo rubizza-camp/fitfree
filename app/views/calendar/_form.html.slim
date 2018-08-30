@@ -1,5 +1,5 @@
 = form_tag("/calendar", method: "post") do
-  = label_tag(:calendar_id, "Calendar:")
+  = label_tag(:calendar_id, t('calendar.title'))
   = select_tag "calendar_id", options_for_select(@calendars.collect{|x| [x[2], x[1]]})
-  = submit_tag("Add")
+  = submit_tag(t('calendar.new.submit'))
 

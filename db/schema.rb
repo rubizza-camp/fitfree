@@ -54,9 +54,9 @@ ActiveRecord::Schema.define(version: 2018_08_28_081848) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string "first_name"
-    t.string "second_name"
-    t.string "phone_number"
+    t.string "first_name", default: "", null: false
+    t.string "second_name", default: "", null: false
+    t.string "phone_number", default: "", null: false
     t.integer "user_id"
     t.integer "price"
     t.datetime "birth"
@@ -76,6 +76,13 @@ ActiveRecord::Schema.define(version: 2018_08_28_081848) do
   create_table "clients_metrics", id: false, force: :cascade do |t|
     t.bigint "metric_id", null: false
     t.bigint "client_id", null: false
+  end
+
+  create_table "clients_trainings", id: false, force: :cascade do |t|
+    t.bigint "training_id"
+    t.bigint "client_id"
+    t.index ["client_id"], name: "index_clients_trainings_on_client_id"
+    t.index ["training_id"], name: "index_clients_trainings_on_training_id"
   end
 
   create_table "coach_infos", force: :cascade do |t|
@@ -100,11 +107,20 @@ ActiveRecord::Schema.define(version: 2018_08_28_081848) do
   end
 
   create_table "exercises", force: :cascade do |t|
-    t.integer "exercise_type_id"
-    t.integer "kit_id"
-    t.integer "user_id"
+    t.bigint "training_id"
+    t.bigint "exercise_type_id"
     t.integer "repeats"
-    t.integer "approach"
+    t.integer "approaches"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_type_id"], name: "index_exercises_on_exercise_type_id"
+    t.index ["training_id"], name: "index_exercises_on_training_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.integer "message_id"
+    t.integer "status"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -121,11 +137,6 @@ ActiveRecord::Schema.define(version: 2018_08_28_081848) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "kits", force: :cascade do |t|
-    t.integer "training_id"
-    t.integer "user_id"
   end
 
   create_table "meals", force: :cascade do |t|
@@ -171,6 +182,12 @@ ActiveRecord::Schema.define(version: 2018_08_28_081848) do
     t.index ["client_id"], name: "index_snapshots_on_client_id"
   end
 
+  create_table "statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", default: "", null: false
@@ -181,14 +198,14 @@ ActiveRecord::Schema.define(version: 2018_08_28_081848) do
   end
 
   create_table "trainings", force: :cascade do |t|
+    t.bigint "user_id"
     t.datetime "time"
     t.integer "price"
     t.text "description"
-    t.integer "user_id"
-    t.integer "client_id"
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_trainings_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|

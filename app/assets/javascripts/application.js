@@ -12,18 +12,30 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require rails-ujs
 //= require popper
 //= require bootstrap-sprockets
 //= require moment
-//= require fullcalendar
-//= require fullcalendar/gcal
-//= require select2/dist/js/select2.full.js
-//= require select2
+////= require select2/dist/js/select2.full.js
 //= require chart.js/dist/Chart.js
-//= require now-ui-kit
+//= require cable
+//= require moment
+//= require jquery
+//= require jquery_ujs
+//= require fullcalendar
+//= require semantic-ui
+//= require semantic-ui/modal
+//= require semantic-ui/dropdown
+
 //= require_tree .
-//= require_tree ./channels
 
 
-config.action_cable.mount_path = '/messages';
+// $(document).ready(function() {
+//     $('#toc')
+//         .sidebar({
+//             dimPage          : true,
+//             transition       : 'overlay',
+//             mobileTransition : 'uncover'
+//         }).sidebar('attach events', '.menu .item');
+// });
+
+

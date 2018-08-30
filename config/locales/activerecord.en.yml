@@ -1,0 +1,29 @@
+en:
+  activerecord:
+    errors:
+      models:
+        exercise_type:
+          attributes:
+            name:
+              blank: "can't be blank"
+              too_short: "too short, at list 3 symbols"
+        client:
+          attributes:
+            status:
+              blank: "can't be blank"
+            first_name:
+              blank: "can't be blank"
+          snapshot:
+            attributes:
+              date:
+                blank: "can't be blank"
+          measurement:
+            attributes:
+              value:
+                blank: "can't be blank"
+          metric:
+            attributes:
+              name:
+                blank: "can't be blank"
+              units:
+                blank: "can't be blank"
