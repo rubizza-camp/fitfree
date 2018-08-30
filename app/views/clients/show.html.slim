@@ -5,23 +5,22 @@
       .photo-container.size-2
         = gravatar_image_tag(@client.email, filetype: :png, rating: 'pg', size: 15, secure: false)
       div.rowcol-md-6.mb-3
-        | Client:
+        | #{t('clients.show.client')}
         = @client.first_name + ' ' + @client.second_name
       div.rowcol-md-6.mb-3
-        |Email:
+        | #{t('.email')}
         = link_to  @client.email
       div.rowcol-md-6.mb-3
-        |Phone number:
+        | #{t('.phone')}
         = simple_format(@client.phone_number)
       div.rowcol-md-6.mb-3
-        |Age:
+        | #{t('.age')}
         = ((Time.zone.now - @client.birth.to_time) / 1.year.seconds).floor
       div.rowcol-md-6.mb-3
-        | Status:
+        | #{t('.status')}
         = @client.status_i18n
-
       div.rowcol-md-6.mb-3
-        |Telegram url:
+        | Telegram url:
         = simple_format('http://t.me/fitfree_bot?start=' + @client.telegram_bind_id)
       .prof-box.form-centered
         ul
@@ -37,7 +36,8 @@
 
       div.btn.btn-primary.btn-info.btn-round.btn-warning =link_to edit_client_path(@client)
         i.now-ui-icons.ui-2_settings-90
-          | Edit
+          | #{t('.edit')}
       div.btn.btn-primary.btn-info.btn-round.btn-danger = link_to  client_path(@client), method: :delete, data: {confirm: 'Are you sure?'}
         i.now-ui-icons.design_scissors
-          | Delete
+          | #{t('.delete')}
+

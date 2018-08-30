@@ -1,24 +1,24 @@
 .main.ui.container
   .ui.raised.very.padded.text.container.segment
     .ui.top.attached.label
-      h4 Adding payments for client
+      h4 #{t('.title')}
     form action='new' method='post'
       .ui.form.mb-3
         .field
-          label Date
+          label #{t('.date')}
           #training_date.ui.calendar
             .ui.input.left.icon
               i.calendar.icon
-              input placeholder="Date" type="text" name="date" /
+              input placeholder={t('.date')} type="text" name="date" /
 
       .ui.form.input.mb-3
         .field
-          label Price
+          label #{t('.price')}
           input type="text" name="price" /
 
       .ui.form.mb-5
         .field
-          label Notice
+          label #{t('.notice')}
           textarea rows="2" name='notice'
 
       / label Notice
@@ -28,9 +28,9 @@
       .ui.form
         .extra
           .ui.buttons.right.floated
-            button.ui.button.right onclick="window.location='../payments';" Cancel
+            button.ui.button.right onclick="window.location='../payments';" t('.cancel')
             .or
-            button.ui.positive.button [type="submit" onclick='document.getElementById("alert").style.visibility = "visible"'] Add payments
+            button.ui.positive.button [type="submit" onclick='document.getElementById("alert").style.visibility = "visible"'] t('.add')
 
       / input class='btn btn-primary btn-round' type='submit' value='Add payment' onclick='document.getElementById("alert").style.visibility = "visible";'
       / input class="btn btn-primary btn-simple btn-round" value="Cancel" onclick="window.location='../payments';"

@@ -54,31 +54,35 @@ class TrainingsController < ApplicationController
   def create
     @training = current_user.trainings.build(training_params)
     if @training.save
-      client = Signet::OAuth2::Client.new(client_options)
-      client.update!(session[:authorization])
       calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
-      service = Google::Apis::CalendarV3::CalendarService.new
-      service.authorization = client
-      start_time = @training.time
-      end_time = start_time + 2.hours
-      summary = Client.find_by(id: @training.client_id).full_name
-      event = Google::Apis::CalendarV3::Event.new({
-                                                      id: 'training' + @training.id.to_s,
-                                                      start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
-                                                      end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
-                                                      summary: summary,
-                                                      description: @training.description
-                                                  })
-      service.insert_event(calendar_id, event)
+      begin
+        if calendar_id
+          @client = Signet::OAuth2::Client.new(client_options)
+          @client.update!(session[:authorization])
+          service = Google::Apis::CalendarV3::CalendarService.new
+          service.authorization = @client
+          start_time = @training.time
+          end_time = start_time + 2.hours
+          summary = Client.find_by(id: @training.client_id).full_name
+          event = Google::Apis::CalendarV3::Event.new({
+                                                          id: 'training' + @training.id.to_s + 'fitfree1asslcom',
+                                                          start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+                                                          end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+                                                          summary: summary,
+                                                          description: @training.description
+                                                      })
+            service.insert_event(calendar_id, event)
+        end
+      rescue Google::Apis::AuthorizationError
+        response = @client.refresh!
+        session[:authorization] = session[:authorization].merge(response)
+        retry
+      end
       TrainingsHelper::BackgroundProccess.create_background_proc(@training.id) unless @training.status == :complete
       redirect_to edit_training_path(@training)
     else
       render 'new'
     end
-  rescue Google::Apis::AuthorizationError
-    response = client.refresh!
-    session[:authorization] = session[:authorization].merge(response)
-    retry
   end
 
   def edit
@@ -90,21 +94,32 @@ class TrainingsController < ApplicationController
   def update
     @training.update(status: :planned)
     if @training.update(training_params)
-      client = Signet::OAuth2::Client.new(client_options)
-      client.update!(session[:authorization])
       calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
-      service = Google::Apis::CalendarV3::CalendarService.new
-      service.authorization = client
-      start_time = @training.time
-      end_time = start_time + 2.hours
-      summary = Client.find_by(id: @training.client_id).full_name
-      event = Google::Apis::CalendarV3::Event.new({
-                                                      start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
-                                                      end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
-                                                      summary: summary,
-                                                      description: @training.description
-                                                  })
-      service.patch_event(calendar_id, 'training' + @training.id.to_s, event)
+      begin
+        if calendar_id
+          @client = Signet::OAuth2::Client.new(client_options)
+          @client.update!(session[:authorization])
+
+          service = Google::Apis::CalendarV3::CalendarService.new
+          service.authorization = @client
+          start_time = @training.time
+          end_time = start_time + 2.hours
+          summary = Client.find_by(id: @training.client_id).full_name
+          event = Google::Apis::CalendarV3::Event.new({
+                                                          start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+                                                          end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+                                                          summary: summary,
+                                                          description: @training.description
+                                                      })
+          if service.get_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom')
+            service.patch_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom', event)
+          end
+        end
+      rescue Google::Apis::AuthorizationError
+        response = @client.refresh!
+        session[:authorization] = session[:authorization].merge(response)
+        retry
+      end
       if @training.status == :planned
         TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id)
         TrainingsHelper::BackgroundProccess.create_background_proc(@training.id)
@@ -115,10 +130,6 @@ class TrainingsController < ApplicationController
     else
       render 'edit'
     end
-  rescue Google::Apis::AuthorizationError
-    response = client.refresh!
-    session[:authorization] = session[:authorization].merge(response)
-    retry
   end
 
   def cancel
@@ -126,19 +137,25 @@ class TrainingsController < ApplicationController
   end
 
   def destroy
-    client = Signet::OAuth2::Client.new(client_options)
-    client.update!(session[:authorization])
     calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-    service.delete_event(calendar_id, 'training' + @training.id.to_s)
-    TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id)
-    @training.destroy
-    redirect_to calendar_index_path
-  rescue Google::Apis::AuthorizationError
-    response = client.refresh!
-    session[:authorization] = session[:authorization].merge(response)
-    retry
+    begin
+      if calendar_id
+        @client = Signet::OAuth2::Client.new(client_options)
+        @client.update!(session[:authorization])
+        service = Google::Apis::CalendarV3::CalendarService.new
+        service.authorization = @client
+        if service.get_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom').status != 'cancelled'
+          service.delete_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom')
+        end
+      end
+      TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id) if @training.status == :planned
+      @training.destroy
+      redirect_to calendar_index_path
+    rescue Google::Apis::AuthorizationError
+      response = @client.refresh!
+      session[:authorization] = session[:authorization].merge(response)
+      retry
+    end
   end
 
   private

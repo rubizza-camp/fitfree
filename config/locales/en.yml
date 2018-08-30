@@ -31,3 +31,147 @@
 
 en:
   hello: "Hello world"
+  navigation:
+    calendar: "Calendar"
+    clients: "Clients"
+    settings: "Settings"
+    metrics: "Metrics"
+    exercise_types: "Exercise Types"
+  sing_out: "Sing Out"
+  log_in: "Log In"
+  edit_acc: "Edit account"
+  admin_log_in: "I'm admin and i want to log in"
+  sing_in: "Sing In"
+  email: "E-mail"
+  password: "Password"
+  forgot_pass: "Forgot password?"
+  remember_me: "Remember me"
+  exercise_type:
+    title: "Exercise Type"
+    new:
+      name: "Name"
+      description: "Description"
+      submit: "Add"
+      title: "Add new exercise type"
+    index:
+      edit: "Edit"
+      delete: "Detele"
+    delete:
+      sure: "Are you sure?"
+    edit:
+      title: "Edit exercise type"
+  calendar:
+    title: "Google calendar"
+    new:
+      submit: "Connect"
+      title: "Choose your Google calendar:"
+    index:
+      connect: "Connect Google calendar"
+      no_calendar: "Google calendar don't connected"
+      connected: "Connected calendar %{calendar}"
+  client_navigation:
+    info: "Client info"
+    stats: "Stats"
+    messages: "Messages"
+    diet: "Client diet"
+    payments: "Payments"
+    diary: "Training diary"
+  clients:
+    index:
+      all: "All"
+      first_name: "First name"
+      last_name: "Second name"
+      phone: "Phone"
+      age: "Age"
+      gender: "Gender"
+      balance: "Current balance"
+      new: "New client"
+    new:
+      add: "Add new client"
+    form:
+      status: "Status"
+      gender: "Gender"
+      first_name: "First name"
+      second_name: "Second name"
+      phone: "Phone"
+      email: "E-mail"
+      instagram: "Instagram"
+      facebook: "Facebook"
+      vk: "VK"
+      price: "Price"
+      metrics: "Metrics"
+      date: "Date of birth"
+      submit: "Add client"
+    show:
+      client: "Client: "
+      email: "E-mail: "
+      phone: "Phone: "
+      age: "Age: "
+      status: "Status: "
+      edit: "Edit"
+      delete: "Delete"
+    stats:
+      stats: "Stats"
+      date: "Date"
+      graph: "Client's stats in category \"%{kind}\""
+      new_snapshot: "Add new snapshot"
+    edit:
+      title: "Edit client"
+  payments:
+    index:
+      title: "Client's payments"
+      current_balance: "Current balance"
+      date: "Date"
+      price: "Price"
+      delete: "Delete"
+      no_payments: "There are no payments for this client"
+      add: "Add"
+    create:
+      title: "Add new payment"
+      date: "Date"
+      price: "Price"
+      notice: "Notice"
+      add: "Add payment"
+      cancel: "Cancel"
+  exercises:
+    title: "New exercise"
+    add: "Add exercise"
+  kits:
+    title: "New kit"
+    add_exe: "Add new exercise"
+  snaphots:
+    form:
+      date: "Date"
+      submit: "Add snapshot"
+    index:
+      title: "All snapshots"
+      date: "Date"
+    new:
+      title: "Add new snapshot"
+    show:
+      date: "Date"
+      metric: "Metric"
+      value: "Value"
+  metrics:
+    index:
+      title_exist: "There are all metrics"
+      title_no: "There are no metrics"
+      metric: "Metric"
+      units: "Units"
+      new: "Add new metric"
+    new:
+      title: "New metric"
+    _form:
+      kind: "Kind"
+      name: "Name"
+      units: "Units"
+      submit: "Add metric"
+    show:
+      name: "Name"
+      units: "Units"
+  kaminari:
+    first: "First"
+    truncate: "truncate"
+    last: "Last"
+    next: "Next"
+    prev: "Prev"

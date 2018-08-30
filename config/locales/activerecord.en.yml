@@ -1,0 +1,9 @@
+en:
+  activerecord:
+    errors:
+      models:
+        exercise_type:
+          attributes:
+            name:
+              blank: "can't be blank"
+              too_short: "too short, at list 3 symbols"

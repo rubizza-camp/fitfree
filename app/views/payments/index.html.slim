@@ -32,14 +32,14 @@
       h4 Adding payments for client
     #content
       br
-        h2 Current balance #{@result_balance}
+        h2 #{t('payments.index.current_balance')} #{@result_balance}
         - unless @payments_list.empty?
           table.ui.unstackable.table
             thead
               tr
-                th Date
-                th Price
-                th.right.aligned Delete
+                th #{t('payments.index.date')}
+                th #{t('payments.index.price')}
+                th.right.aligned #{t('payments.index.delete')}
             tbody
               - @payments_list.each_with_index do |payment, id|
                 tr
@@ -60,8 +60,8 @@
                     a.icon.item
                       i.right.chevron.icon
         - else
-          h4 No payments for that client
-          button.positive.ui.button [type="submit" onclick="window.location='payments/create';"] Add
+          h4 #{t('payments.index.no_payments')}
+          button.positive.ui.button [type="submit" onclick="window.location='payments/create';"] #{t('payments.index.add')}
     /todo: make pagination
     = paginate @payments_list,
             previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0

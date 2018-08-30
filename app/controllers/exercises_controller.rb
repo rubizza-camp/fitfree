@@ -5,15 +5,6 @@ class ExercisesController < ApplicationController
   protect_from_forgery with: :null_session
   @@count = 1
 
-  def index
-    @exercises = Exercise.all.map do |exe|    # It's bad naming
-      {
-          :name => (ExerciseType.find_by(id: exe.exercise_type_id)).name,
-          :exercise => exe
-      }
-    end
-  end
-
   def new
     create(params['id'])
   end

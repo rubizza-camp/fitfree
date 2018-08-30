@@ -3,22 +3,8 @@ class KitsController < ApplicationController
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
 
-  def index
-    @kit = Kit.all
-  end
-
-  def show
-    @exercises = Exercise.where(kit_id: @kit.id)
-    @exes = @exercises.map do |exe|
-      {
-        name: ExerciseType.find_by(id: exe.exercise_type_id).name,
-        exe:  exe
-      }
-    end
-  end
-
   def new
-    create(params[:id])   # Alex, please resolve problem with that method
+    create(params[:id])
   end
 
   def create(id)
@@ -49,7 +35,6 @@ class KitsController < ApplicationController
   end
 
   private
-
   def find_kit
     @kit = Kit.find(params[:id])
   end
