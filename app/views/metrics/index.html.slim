@@ -1,6 +1,13 @@
 - if @metrics.count == 0
   h1 There are no metrics!
 - else
+  ul.nav.nav-tabs.justify-content-center role="tablist"
+    li.nav-item
+      a.nav-link.active href="#{metrics_path}" role="tab"
+        | Metrics
+    li.nav-item
+      a.nav-link href="#{exercise_types_path}" role="tab"
+        | Exercise types
   h1 There are all metrics:
   table.table
     thead

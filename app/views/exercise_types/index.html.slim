@@ -1,3 +1,10 @@
+ul.nav.nav-tabs.justify-content-center role="tablist"
+  li.nav-item
+    a.nav-link href="#{metrics_path}" role="tab"
+      | Metrics
+  li.nav-item
+    a.nav-link.active href="#{exercise_types_path}" role="tab"
+      | Exercise types
 h1
   | Exercise types
 - unless @exercise_types.blank?
