@@ -1,10 +1,3 @@
-/ ul.nav.nav-tabs.justify-content-center role="tablist"
-  / = render 'nav_link', text: 'Client info', url: @client, active_section: active_section, section_name: :show, icon_class: 'users_single-02'
-/   = render 'nav_link', text: 'Stats', url: client_stats_path(@client), active_section: active_section, section_name: :stats, icon_class: 'sport_user-run'
-/   = render 'nav_link', text: 'Messages', url: '#', active_section: active_section, section_name: :messages, icon_class: 'ui-1_email-85'
-/   = render 'nav_link', text: 'Client diet', url: '#', active_section: active_section, section_name: :diet, icon_class: 'shopping_box'
-/   = render 'nav_link', text: 'Payments', url: client_payments_path(@client), active_section: active_section, section_name: :payments, icon_class: 'business_bank'
-/   = render 'nav_link', text: 'Training diary', url: '#', active_section: active_section, section_name: :diary, icon_class: 'sport_trophy'
 .ui.container
   .ui.six.item.stackable.tabs.menu
     a.item [class="#{'active' if active_section == :show}" href="#{client_path(@client)}" ] Client info

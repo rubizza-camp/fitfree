@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('.ui.dropdown').dropdown({onChange(value, text, selItem) {
+    $('#clients_select').dropdown({onChange(value, text, selItem) {
         join_clients(JSON.stringify(value));
     }});
 

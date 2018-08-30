@@ -1,15 +1,99 @@
-= simple_form_for @client do |f|
-  = f.input :status
-  = f.input :gender
-  = f.input :first_name
-  = f.input :second_name
-  = f.input :phone_number
-  = f.input :email
-  = f.input :instagram_link
-  = f.input :facebook_link
-  = f.input :vk_link
-  = f.input :price
-  = f.association :metrics, collection: @metrics, input_html: { class: 'select2' }
-  = f.date_select :birth, start_year:1900,end_year:2018, label:'Date of Birth'
-  h3
-  = f.submit
+form [action='/clients' method='post']
+  .ui.form.mb-3
+    .field
+      label Gender
+      .ui.selection.dropdown
+        input name="status" type="hidden" /
+        i.dropdown.icon
+        .default.text
+        .menu
+          - Client.statuses.each do |status, index|
+            .item data-value='#{index}' #{status}
+
+  .ui.form.mb-3
+    .field
+      label Gender
+      .ui.selection.dropdown
+        input name="gender" type="hidden" /
+        i.dropdown.icon
+        .default.text
+        .menu
+          - Client.genders.each do |gender, index|
+            .item data-value='#{index}' #{gender}
+
+  .ui.form.mb-3
+    .field
+      label First Name
+      .ui.input
+        input name='first_name' type='text'
+
+  .ui.form.mb-3
+    .field
+      label Second Name
+      .ui.input
+        input name='second_name' type='text'
+
+  .ui.form.mb-3
+    .field
+      label Phone Number
+      .ui.input
+        input name='phone_number' type='text'
+
+  .ui.form.mb-3
+    .field
+      label Email
+      .ui.input
+        input name='email' type='text'
+
+  .ui.form.mb-3
+    .field
+      label Instagram link
+      .ui.input
+        input name='instagram_link' type='text'
+
+  .ui.form.mb-3
+    .field
+      label Instagram link
+      .ui.input
+        input name='instagram_link' type='text'
+
+  .ui.form.mb-3
+    .field
+      label Facebook link
+      .ui.input
+        input name='facebook_link' type='text'
+
+  .ui.form.mb-3
+    .field
+      label VK link
+      .ui.input
+        input name='vk_link' type='text'
+
+  .ui.form.mb-3
+    .field
+      label Price
+      .ui.input
+        input name='price' type='text'
+
+
+  .ui.form.mb-3
+    .field
+      label Metrics
+      select#metrics_select.ui.fluid.dropdown multiple="" name="metrics"
+        - @metrics.each do |metric|
+          option value="#{metric.id}" #{metric.name}
+
+  .ui.form.mb-3
+    .field
+      label Date
+      #birth_date.ui.calendar
+        .ui.input.left.icon
+          i.calendar.icon
+          input placeholder="Date" type="text" name="date" /
+
+  .ui.form
+    .extra
+      .ui.buttons.right.floated
+        a.ui.button href="#{clients_path}" Cancel
+        .or
+        button.ui.positive.button type="submit" Save

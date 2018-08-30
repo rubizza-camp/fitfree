@@ -3,8 +3,7 @@
     .ui.top.attached.label
       h4 Clients
     .ui.three.item.stackable.tabs.menu
-      /todo: move status all to "Client.statuses_i18n.each"
-      a.item.active href="#{clients_path}" All
+      a.item [href="#{clients_path}" class="#{'active' unless params[:status]}"] All
       - Client.statuses_i18n.each do |status, status_i18n|
         a.item [class="#{'active' if params[:status] == status}" href="#{clients_path(status: status)}" ] #{status_i18n}
     - unless @clients.blank?
@@ -32,16 +31,8 @@
               - if policy(Client).new?
                 a.positive.ui.button [href="#{new_client_path}"] New client
               .ui.right.floated.pagination.menu
-                a.icon.item
-                  i.left.chevron.icon
-                a.item 1
-                a.item 2
-                a.item 3
-                a.item 4
-                a.icon.item
-                  i.right.chevron.icon
+                = paginate @clients,
+                        previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
 
     /todo: pagination
-    .pagniation-wrapper align="center"
-      = paginate @clients,
-              previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
+
