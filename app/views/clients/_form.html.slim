@@ -7,8 +7,8 @@ form#new_client [action='/clients' method='post']
         i.dropdown.icon
         .default.text
         .menu
-          - Client.statuses_i18n.each do |status, status_i18n|
-            .item data-value='#{status}' #{status_i18n}
+          - Client.statuses.each do |status, index|
+            .item data-value='#{index}' #{status}
 
   #new_client_gender.ui.form.mb-3
     .field
@@ -73,17 +73,17 @@ form#new_client [action='/clients' method='post']
   .ui.form.mb-3
     .field
       label Metrics
-      select#metrics_select.ui.fluid.dropdown name='metrics[]' multiple=""
+      select#metrics_select.ui.fluid.dropdown name='metric_ids[]' multiple=""
         - @metrics.each do |metric|
           option value="#{metric.id}" #{metric.name}
 
   .ui.form.mb-3
     .field
-      label Date
+      label Birth
       #birth_date.ui.calendar
         .ui.input.left.icon
           i.calendar.icon
-          input placeholder="Date" type="text" name="date" /
+          input type="text" name="birth" /
 
   .ui.form
     .extra

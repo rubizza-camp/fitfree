@@ -1,7 +1,7 @@
 .main.ui.container
   .ui.raised.container.segment
     .ui.top.attached.label
-      h4= t('.title')
+      h3= t('.title')
     .ui.three.item.stackable.tabs.menu
       a.item [href="#{clients_path}" class="#{'active' unless params[:status]}"] #{t('.all')}
       - Client.statuses_i18n.each do |status, status_i18n|
