@@ -1,4 +1,13 @@
-= link_to 'Connect Google calendar', redirect_path, class: 'btn btn-primary'
+==javascript_include_tag 'lang/ru'
+
+- if @calendar == nil
+  p
+    | #{t('.no_calendar')}
+  = link_to t('.connect'), redirect_path, class: 'btn btn-primary'
+- else
+  p
+    | #{t('.connected', calendar: @calendar_summary)}
+  = link_to t('.connect'), redirect_path, class: 'btn btn-primary'
 .main.ui.container
   .ui.active.tab [data-tab="definition"]
     / .ui.raised.very.padded.text.container.segment

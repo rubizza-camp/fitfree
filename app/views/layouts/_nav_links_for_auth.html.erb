@@ -1,7 +1,6 @@
 <% if user_signed_in? %>
-  <li class='nav-item'><%= link_to 'Edit account', edit_user_registration_path, class: 'nav-link' %></li>
-  <li class='nav-item'><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete', class: 'nav-link' %></li>
+  <li class='nav-item'><%= link_to t('navigation.edit_acc'), edit_user_registration_path, class: 'nav-link' %></li>
+  <li class='nav-item'><%= link_to t('navigation.sing_out'), destroy_user_session_path, :method=>'delete', class: 'nav-link' %></li>
 <% else %>
-  <li class='nav-item'><%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %></li>
-  <li class='nav-item'><%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %></li>
+  <li class='nav-item'><%= link_to t('navigation.sing_in'), new_user_session_path, class: 'nav-link' %></li>
 <% end %>

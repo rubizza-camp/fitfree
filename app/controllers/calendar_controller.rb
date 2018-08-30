@@ -1,29 +1,47 @@
 require 'json'
-require 'google/apis/calendar_v3'
 require 'googleauth'
+require 'google/apis/calendar_v3'
 
 class CalendarController < ApplicationController
   before_action :authenticate_user!
 
-  def index; end
-
-  def new
+  def index
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
-    @calendar = Calendar.new
-    @calendars = []
-    service.list_calendar_lists.items.each do |item|
-      calendar = []
-      calendar[1] = item.id
-      calendar[2] = item.summary
-      @calendars << calendar
+    @calendar = Calendar.find_by(user_id: current_user.id)
+    if @calendar != nil
+      begin
+        @calendar_summary = service.get_calendar(@calendar.calendar_id).summary
+      rescue Google::Apis::AuthorizationError
+        #binding.pry
+        response = client.refresh!
+        session[:authorization] = session[:authorization].merge(response)
+        retry
+      end
     end
-  rescue Google::Apis::AuthorizationError
-    response = client.refresh!
-    session[:authorization] = session[:authorization].merge(response)
-    retry
+  end
+
+  def new
+    begin
+      client = Signet::OAuth2::Client.new(client_options)
+      client.update!(session[:authorization])
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = client
+      @calendar = Calendar.new
+      @calendars = []
+      service.list_calendar_lists.items.each do |item|
+        calendar = []
+        calendar[1] = item.id
+        calendar[2] = item.summary
+        @calendars << calendar
+      end
+    rescue Google::Apis::AuthorizationError
+      response = client.refresh!
+      session[:authorization] = session[:authorization].merge(response)
+      retry
+    end
   end
 
   def create
@@ -44,7 +62,7 @@ class CalendarController < ApplicationController
       date = training.time.to_s.delete ' UTC'
       client = Client.find_by(id: training.client_id)
       info = {
-          title: Client.find_by(id: training.client_id).first_name + ' ' + Client.find_by(id: training.client_id).second_name,
+          title: client.full_name,
           start: date[0...10].to_s + ' ' + date[10...15],
           id: training.id
       }

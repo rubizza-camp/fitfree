@@ -1,12 +1,12 @@
 - if @metrics.count == 0
-  h1 There are no metrics!
+  h1= t('.title_no')
 - else
-  h1 There are all metrics:
+  h1= t('.title_exist')
   table.table
     thead
       tr
-        th Metric
-        th Units
+        th= t('.metric')
+        th= t('.units')
     tbody
       - @metrics.each do |metric|
         tr
@@ -16,8 +16,8 @@
 /=link_to 'New metric',new_metric_path, class: 'btn btn-primary float-right float-top'
 
 - if policy(Metric).new?
-  =link_to 'New metric',new_metric_path, class: 'btn btn-primary float-right float-top'
+  =link_to t('.new'),new_metric_path, class: 'btn btn-primary float-right float-top'
 
 .pagniation-wrapper align="center"
   = paginate @metrics,
-          previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
+          inner_window: 1, outer_window: 0
