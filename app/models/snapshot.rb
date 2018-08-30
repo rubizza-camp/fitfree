@@ -15,4 +15,6 @@ class Snapshot < ApplicationRecord
   has_many :metrics, through: :measurements
 
   accepts_nested_attributes_for :measurements
+
+  validates :date, presence: true
 end

@@ -1,9 +1,9 @@
 .ui.container
   .ui.six.item.stackable.tabs.menu
-    a.item [class="#{'active' if active_section == :show}" href="#{client_path(@client)}" ] t('client_navigation.info')
-    a.item [class="#{'active' if active_section == :stats}" href="#{client_stats_path(@client)}" ] t('client_navigation.stats')
-    a.item [class="#{'active' if active_section == :messages}" href="#{client_messages_path(@client)}" ] t('client_navigation.messages')
-    a.item [class="#{'active' if active_section == :diet}" href="#" ] t('client_navigation.diet')
-    a.item [class="#{'active' if active_section == :payments}" href="#{client_payments_path(@client)}" ] t('client_navigation.payments')
-    a.item [class="#{'active' if active_section == :diary}" href="#" ] t('client_navigation.diary')
+    a.item [class="#{'active' if active_section == :show}" href="#{client_path(@client)}" ] #{t('client_navigation.info')}
+    a.item [class="#{'active' if active_section == :stats}" href="#{client_stats_path(@client)}" ] #{t('client_navigation.stats')}
+    a.item [class="#{'active' if active_section == :messages}" href="#{client_messages_path(@client)}" ] #{t('client_navigation.messages')}
+    a.item [class="#{'active' if active_section == :diet}" href="#" ] #{t('client_navigation.diet')}
+    a.item [class="#{'active' if active_section == :payments}" href="#{client_payments_path(@client)}" ] #{t('client_navigation.payments')}
+    a.item [class="#{'active' if active_section == :diary}" href="#" ] #{t('client_navigation.diary')}
 
