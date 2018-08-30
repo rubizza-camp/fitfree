@@ -1,16 +1,16 @@
-form [action='/clients' method='post']
-  .ui.form.mb-3
+form#new_client [action='/clients' method='post']
+  #new_client_status.ui.form.mb-3
     .field
-      label Gender
+      label Status
       .ui.selection.dropdown
         input name="status" type="hidden" /
         i.dropdown.icon
         .default.text
         .menu
-          - Client.statuses.each do |status, index|
-            .item data-value='#{index}' #{status}
+          - Client.statuses_i18n.each do |status, status_i18n|
+            .item data-value='#{status}' #{status_i18n}
 
-  .ui.form.mb-3
+  #new_client_gender.ui.form.mb-3
     .field
       label Gender
       .ui.selection.dropdown
@@ -53,12 +53,6 @@ form [action='/clients' method='post']
 
   .ui.form.mb-3
     .field
-      label Instagram link
-      .ui.input
-        input name='instagram_link' type='text'
-
-  .ui.form.mb-3
-    .field
       label Facebook link
       .ui.input
         input name='facebook_link' type='text'
@@ -79,7 +73,7 @@ form [action='/clients' method='post']
   .ui.form.mb-3
     .field
       label Metrics
-      select#metrics_select.ui.fluid.dropdown multiple="" name="metrics"
+      select#metrics_select.ui.fluid.dropdown name='metrics[]' multiple=""
         - @metrics.each do |metric|
           option value="#{metric.id}" #{metric.name}
 

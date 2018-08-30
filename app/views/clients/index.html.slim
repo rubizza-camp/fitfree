@@ -7,19 +7,19 @@
       - Client.statuses_i18n.each do |status, status_i18n|
         a.item [class="#{'active' if params[:status] == status}" href="#{clients_path(status: status)}" ] #{status_i18n}
     - unless @clients.blank?
-      table.ui.unstackable.table
+      table.ui.unstackable.selectable.table
         thead
           tr
-            th= t('clients.index.first_name')
-              th= t('clients.index.last_name')
-              th= t('clients.index.phone')
-              th= t('clients.index.age')
-              th= t('clients.index.gender')
-              th= t('clients.index.balance')
+            th First name:
+            th Last name:
+            th Phone number:
+            th Age:
+            th Gender:
+            th Current balance:
         tbody
           - @clients.each do |client|
-            tr= link_to client
-              td.title= link_to client.first_name, client
+            tr [onclick="window.location = '#{client_path(client)}'"]
+              td= client.first_name
               td = client.second_name
               td= client.phone_number
               td= ((Time.zone.now - client.birth.to_time) / 1.year.seconds).floor
@@ -29,7 +29,7 @@
           tr
             th colspan="6"
               - if policy(Client).new?
-                a.positive.ui.button [href="#{new_client_path}"] t('clients.index.new')
+                a.positive.ui.button [href="#{new_client_path}"] New client
               .ui.right.floated.pagination.menu
                 = paginate @clients,
                         previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
