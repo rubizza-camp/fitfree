@@ -1,4 +1,4 @@
-class ClientPolicy < ApplicationPolicy
+class TrainingPolicy < ApplicationPolicy
   def index?
     user
   end
@@ -7,11 +7,11 @@ class ClientPolicy < ApplicationPolicy
     record.user == user
   end
 
-  def stats?
+  def update?
     record.user == user
   end
 
-  def diary?
+  def cancel?
     record.user == user
   end
 

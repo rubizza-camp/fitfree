@@ -15,15 +15,18 @@ class TrainingsController < ApplicationController
         training: training
       }
     end
+    authorize @training
   end
 
   def show
+    authorize @training
     @name = Client.find_by(id: @training.client_id).full_name
     @sets = kit_constructor
   end
 
   def new
     @training = current_user.trainings.build
+    authorize @training
     @list = client_list(current_user)
     date = params[:date][0...10]
     @day = date[8].to_i == 0 ? date[9] : date[8..9]
@@ -33,6 +36,7 @@ class TrainingsController < ApplicationController
 
   def create
     @training = current_user.trainings.build(training_params)
+    authorize @training
     if @training.save
       client = Signet::OAuth2::Client.new(client_options)
       client.update!(session[:authorization])
@@ -62,6 +66,7 @@ class TrainingsController < ApplicationController
   end
 
   def edit
+    authorize @training
     @list = client_list(current_user)
     @name = Client.find_by(id: @training.client_id).full_name
     @sets = kit_constructor
@@ -69,6 +74,7 @@ class TrainingsController < ApplicationController
 
   def update
     @training.update(status: :planned)
+    authorize @training
     if @training.update(training_params)
       client = Signet::OAuth2::Client.new(client_options)
       client.update!(session[:authorization])
@@ -102,10 +108,12 @@ class TrainingsController < ApplicationController
   end
 
   def cancel
+    authorize @training
     @training.update(status: :canceled)
   end
 
   def destroy
+    authorize @training
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
     calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id

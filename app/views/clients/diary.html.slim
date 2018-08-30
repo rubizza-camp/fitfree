@@ -11,7 +11,7 @@ table.table
   tbody
     - @trainings.each do |training|
       tr
-        td = link_to "Training #{training.id}", training_path(@client)
+        td = link_to 'Training', training_path(training)
         td= training.time.to_date.strftime("%d/%m/%Y")
         td= training.price
 
