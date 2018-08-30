@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_28_081848) do
+ActiveRecord::Schema.define(version: 2018_08_30_220232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,11 +65,15 @@ ActiveRecord::Schema.define(version: 2018_08_28_081848) do
     t.string "facebook_link"
     t.string "vk_link"
     t.integer "status"
+    t.integer "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "telegram_chat_id"
     t.string "telegram_bind_id", default: "13a4cefa-016e-434b-a25d-1ae406d74abb"
-    t.integer "gender"
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.bigint "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.integer "cash", default: 0, null: false
   end
 
@@ -202,6 +206,7 @@ ActiveRecord::Schema.define(version: 2018_08_28_081848) do
     t.datetime "time"
     t.integer "price"
     t.text "description"
+    t.integer "client_id"
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -236,8 +241,9 @@ ActiveRecord::Schema.define(version: 2018_08_28_081848) do
     t.datetime "confirmation_sent_at"
     t.datetime "blocked_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.integer "role"
+    t.boolean "birthday_seen"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
 end
