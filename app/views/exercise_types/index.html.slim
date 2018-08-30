@@ -1,31 +1,30 @@
-ul.nav.nav-tabs.justify-content-center role="tablist"
-  li.nav-item
-    a.nav-link href="#{metrics_path}" role="tab"
+.ui.container
+  .ui.six.item.stackable.menu
+    a.item href="#{metrics_path}" role="tab"
       | Metrics
-  li.nav-item
-    a.nav-link.active href="#{exercise_types_path}" role="tab"
+    a.item.active href="#{exercise_types_path}" role="tab"
       | Exercise types
-h1
-  | #{t('exercise_type.title')}
-- unless @exercise_types.blank?
-  table.table
-    thead
-      tr
-        th #{t('exercise_type.new.name')}
-        th #{t('exercise_type.new.description')}
-        th #{t('exercise_type.index.edit')}
-        th #{t('exercise_type.index.delete')}
-        th.hidden
-    tbody
-      - @exercise_types.each do |exercise_type|
+  h1
+    | #{t('exercise_type.title')}
+  - unless @exercise_types.blank?
+    table.table
+      thead
         tr
-          td.title= exercise_type.name
-          td= link_to exercise_type.description, exercise_type.description
-          td= link_to t('exercise_type.index.edit'), edit_exercise_type_path(exercise_type)
-          td= link_to t('exercise_type.index.delete'), exercise_type_path(exercise_type), method: :delete, data: {confirm: t('exercise_type.delete.sure')}
-- if policy(ExerciseType).new?
-  =link_to t('exercise_type.new.title'), new_exercise_type_path, class: 'btn btn-primary float-right float-top'
+          th #{t('exercise_type.new.name')}
+          th #{t('exercise_type.new.description')}
+          th #{t('exercise_type.index.edit')}
+          th #{t('exercise_type.index.delete')}
+          th.hidden
+      tbody
+        - @exercise_types.each do |exercise_type|
+          tr
+            td.title= exercise_type.name
+            td= link_to exercise_type.description, exercise_type.description
+            td= link_to t('exercise_type.index.edit'), edit_exercise_type_path(exercise_type)
+            td= link_to t('exercise_type.index.delete'), exercise_type_path(exercise_type), method: :delete, data: {confirm: t('exercise_type.delete.sure')}
+  - if policy(ExerciseType).new?
+    =link_to t('exercise_type.new.title'), new_exercise_type_path, class: 'btn btn-primary float-right float-top'
 
-.pagniation-wrapper align="center"
-  = paginate @exercise_types,
-          previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
+  .pagniation-wrapper align="center"
+    = paginate @exercise_types,
+            previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
