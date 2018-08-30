@@ -6,25 +6,25 @@ ul.nav.nav-tabs.justify-content-center role="tablist"
     a.nav-link.active href="#{exercise_types_path}" role="tab"
       | Exercise types
 h1
-  | Exercise types
+  | #{t('exercise_type.title')}
 - unless @exercise_types.blank?
   table.table
     thead
       tr
-        th Name
-        th Description
-        th Edit
-        th Delete
+        th #{t('exercise_type.new.name')}
+        th #{t('exercise_type.new.description')}
+        th #{t('exercise_type.index.edit')}
+        th #{t('exercise_type.index.delete')}
         th.hidden
     tbody
       - @exercise_types.each do |exercise_type|
         tr
           td.title= exercise_type.name
           td= link_to exercise_type.description, exercise_type.description
-          td= link_to 'Edit ', edit_exercise_type_path(exercise_type)
-          td= link_to 'Delete ', exercise_type_path(exercise_type), method: :delete, data: {confirm: 'Are you sure?'}
+          td= link_to t('exercise_type.index.edit'), edit_exercise_type_path(exercise_type)
+          td= link_to t('exercise_type.index.delete'), exercise_type_path(exercise_type), method: :delete, data: {confirm: t('exercise_type.delete.sure')}
 - if policy(ExerciseType).new?
-  =link_to 'New exercise type', new_exercise_type_path, class: 'btn btn-primary float-right float-top'
+  =link_to t('exercise_type.new.title'), new_exercise_type_path, class: 'btn btn-primary float-right float-top'
 
 .pagniation-wrapper align="center"
   = paginate @exercise_types,

@@ -1,7 +1,7 @@
 == javascript_include_tag 'newexerciseform'
 
 h5
-  | New kit
+  | #{t('kits.title')}
 div[id="kit_#{@id}" style="margin-left: 50px"]
-input[type="button" class="btn btn-sm" onclick="newexercise(#{@id})" value="Add new exercise"]
+input[type="button" class="btn btn-sm" onclick="newexercise(#{@id})" value=t('kits.add_exe')]
 h1

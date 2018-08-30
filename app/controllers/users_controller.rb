@@ -48,13 +48,12 @@ class UsersController < ApplicationController
 
   private
 
-  def user_telegram_bot
-    User.find(params[:id]).telegram_bot
+  def bot
+     @bot ||= User.find(params[:id]).telegram_bot
   end
 
   def regist_webhooks_for_bot
-    bot = user_telegram_bot
-    Excon.get("https://api.telegram.org/bot#{bot[:token]}/setWebhook?url=https://1eeb308b.ngrok.io/webhooks/#{bot[:telegram_webhook_id]}")
+    Excon.get("https://api.telegram.org/bot#{bot[:token]}/setWebhook?url=https:/#{request.server_name}{/#{bot[:telegram_webhook_id]}")
   end
 
   def user_require_params

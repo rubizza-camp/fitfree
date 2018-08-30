@@ -3,6 +3,7 @@ class ClientsController < ApplicationController
   before_action :find_client, only: %i[show edit update destroy]
   before_action :set_metrics, only: %i[new edit]
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   def index
     @clients = current_user.clients.order(:first_name).page(params[:page])

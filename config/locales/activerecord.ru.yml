@@ -1,0 +1,29 @@
+ru:
+  activerecord:
+    errors:
+      models:
+        exercise_type:
+          attributes:
+            name:
+              blank: "не может быть пустым"
+              too_short: "слишком короткое, не менее 3 символов"
+        client:
+          attributes:
+            status:
+              blank: "не может быть пустым"
+            first_name:
+              blank: "не может быть пустым"
+        snapshot:
+          attributes:
+            date:
+              blank: "не может быть пустым"
+        measurement:
+          attributes:
+            value:
+              blank: "не может быть пустым"
+        metric:
+          attributes:
+            name:
+              blank: "не может быть пустым"
+            units:
+              blank: "не может быть пустым"

@@ -10,6 +10,7 @@
 #
 
 class ExerciseType < ApplicationRecord
+  has_one :exercises
   paginates_per 10
   validates :name, presence: true, length: { minimum: 3 }
 end

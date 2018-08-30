@@ -20,6 +20,7 @@ Rails.application.routes.draw do
              path: 'administrators',
              controllers: {sessions: 'administrators/sessions', confirmations: 'administrators/confirmations' }
   resources :users
+  get '/locale', to: 'application#get_locale'
   resources :trainings, except: :new
   get 'trainings/new/:date', to: 'trainings#new'
   put '/trainings/cancel/:id', to: 'trainings#cancel'
@@ -36,7 +37,10 @@ Rails.application.routes.draw do
   post 'newexerciseform', to: 'exercises#new_exercise_form'
   resources :metrics
 
-  mount ActionCable.server => '/cable'
+  post 'trainings/clients', to: 'trainings#join_clients'
+
+  mount ActionCable.server, at: '/cable'
+
   resources :clients do
     get 'payments/', to: 'payments#index'
     get 'payments/create'

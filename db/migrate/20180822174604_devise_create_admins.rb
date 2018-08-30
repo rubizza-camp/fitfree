@@ -2,13 +2,13 @@
 
 class DeviseCreateAdmins < ActiveRecord::Migration[5.2]
   def change
-    create_table :admins do |t|
+    create_table :administrators do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email,              null: false, default: '', unique: true
+      t.string :encrypted_password, null: false, default: ''
 
       ## Recoverable
-      t.string   :reset_password_token
+      t.string   :reset_password_token, unique: true
       t.datetime :reset_password_sent_at
 
       ## Rememberable
@@ -36,8 +36,8 @@ class DeviseCreateAdmins < ActiveRecord::Migration[5.2]
       t.timestamps null: false
     end
 
-    add_index :administrators, :email, unique: true
-    add_index :administrators, :reset_password_token, unique: true
+    # add_index :administrators, :email, unique: true
+    # add_index :administrators, :reset_password_token, unique: true
     # add_index :admins, :confirmation_token,   unique: true
     # add_index :admins, :unlock_token,         unique: true
   end

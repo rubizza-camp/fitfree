@@ -1,17 +1,17 @@
 class CreateClients < ActiveRecord::Migration[5.2]
   def change
     create_table :clients do |t|
-      t.string :first_name
-      t.string :second_name
-      t.string :phone_number
+      t.string :first_name, default: '', null: false
+      t.string :second_name, default: '', null: false
+      t.string :phone_number, default: '', null: false
       t.integer :user_id
-      t.datetime :birth
-      t.string :email
-      t.string :instagram_link
-      t.string :facebook_link
-      t.string :vk_link
-      t.integer :status
-      t.integer :price
+      t.datetime :birth, default: Time.now, null: false
+      t.string :email, default: '', null: false
+      t.string :instagram_link, default: '', null: false
+      t.string :facebook_link, default: '', null: false
+      t.string :vk_link, default: '', null: false
+      t.integer :status, default: 0, null: false
+      t.integer :price, default: 0, null: false
 
       t.timestamps
     end
