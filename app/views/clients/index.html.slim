@@ -1,10 +1,10 @@
 .main.ui.container
   .ui.raised.container.segment
     .ui.top.attached.label
-      h4 Clients
+      h4= t('.title')
     .ui.three.item.stackable.tabs.menu
       /todo: move status all to "Client.statuses_i18n.each"
-      a.item.active href="#{clients_path}" t('.all')
+      a.item.active href="#{clients_path}" #{t('.all')}
       - Client.statuses_i18n.each do |status, status_i18n|
         a.item [class="#{'active' if params[:status] == status}" href="#{clients_path(status: status)}" ] #{status_i18n}
     - unless @clients.blank?
@@ -12,11 +12,11 @@
         thead
           tr
             th= t('clients.index.first_name')
-              th= t('clients.index.last_name')
-              th= t('clients.index.phone')
-              th= t('clients.index.age')
-              th= t('clients.index.gender')
-              th= t('clients.index.balance')
+            th= t('clients.index.last_name')
+            th= t('clients.index.phone')
+            th= t('clients.index.age')
+            th= t('clients.index.gender')
+            th= t('clients.index.balance')
         tbody
           - @clients.each do |client|
             tr= link_to client
@@ -30,7 +30,7 @@
           tr
             th colspan="6"
               - if policy(Client).new?
-                a.positive.ui.button [href="#{new_client_path}"] t('clients.index.new')
+                a.positive.ui.button [href="#{new_client_path}"] #{t('clients.index.new')}
               .ui.right.floated.pagination.menu
                 a.icon.item
                   i.left.chevron.icon

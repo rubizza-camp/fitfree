@@ -24,7 +24,7 @@ class TrainingsController < ApplicationController
   end
 
   def new
-    binding.pry
+    #binding.pry
     @clients = current_user.clients
     @training = current_user.trainings.build
     # todo: parse and set to calendar input
@@ -35,7 +35,7 @@ class TrainingsController < ApplicationController
   end
 
   def join_clients
-    binding.pry
+    #binding.pry
     if params[:clients] && params[:clients].present?
       @clients = current_user.clients.select do|client|
         JSON.parse(params[:clients]).include?(client.id.to_s)
