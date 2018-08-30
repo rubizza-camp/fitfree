@@ -1,35 +1,35 @@
 .main.ui.container
   .ui.raised.container.segment
     .ui.top.attached.label
-      h4= t('.title')
+      h3= t('.title')
     .ui.three.item.stackable.tabs.menu
       a.item [href="#{clients_path}" class="#{'active' unless params[:status]}"] #{t('.all')}
       - Client.statuses_i18n.each do |status, status_i18n|
         a.item [class="#{'active' if params[:status] == status}" href="#{clients_path(status: status)}" ] #{status_i18n}
-    - unless @clients.blank?
-      table.ui.unstackable.table
-        thead
-          tr
-            th= t('clients.index.first_name')
-            th= t('clients.index.last_name')
-            th= t('clients.index.phone')
-            th= t('clients.index.age')
-            th= t('clients.index.gender')
-            th= t('clients.index.balance')
-        tbody
+    table.ui.unstackable.selectable.table
+      thead
+        tr
+          th= t('clients.index.first_name')
+          th= t('clients.index.last_name')
+          th= t('clients.index.phone')
+          th= t('clients.index.age')
+          th= t('clients.index.gender')
+          th= t('clients.index.balance')
+      tbody
+        - unless @clients.blank?
           - @clients.each do |client|
-            tr= link_to client
-              td.title= link_to client.first_name, client
+            tr [onclick="window.location = '#{client_path(client)}'"]
+              td= client.first_name
               td = client.second_name
               td= client.phone_number
               td= ((Time.zone.now - client.birth.to_time) / 1.year.seconds).floor
               td= client.gender
               td= client.cash
-        tfoot
-          tr
-            th colspan="6"
-              - if policy(Client).new?
-                a.positive.ui.button [href="#{new_client_path}"] #{t('clients.index.new')}
-              .ui.right.floated.pagination.menu
-                = paginate @clients,
-                        previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
+      tfoot
+        tr
+          th colspan="6"
+            - if policy(Client).new?
+              a.positive.ui.button [href="#{new_client_path}"] #{t('clients.index.new')}
+            .ui.right.floated.pagination.menu
+              = paginate @clients,
+                      previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0

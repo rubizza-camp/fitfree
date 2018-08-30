@@ -22,10 +22,7 @@ class ClientsController < ApplicationController
   end
 
   def create
-    if params[:metrics] != nil
-      params[:metrics].map!(&:to_i)
-    end
-    @client = current_user.clients.build(params)
+    @client = current_user.clients.build(client_params)
     authorize @client
     if @client.save
       redirect_to @client
@@ -64,10 +61,14 @@ class ClientsController < ApplicationController
   end
 
   def client_params
-    #binding.pry
-    params.require(:client).permit(:status, :gender, :first_name, :second_name, :phone_number,
-                                    :email, :instagram_link, :facebook_link, :vk_link, :price,
-                                    :metrics, :birth)
+    params[:status] = params[:status].to_i
+    params[:gender] = params[:gender].to_i
+    params[:metric_ids].map!(&:to_i)
+    params.slice(:metric_ids, :first_name, :second_name,
+                                  :phone_number, :status, :birth, :email,
+                                  :instagram_link, :facebook_link, :vk_link,
+                                  :avatar, :price, :gender,
+                                  :birth).permit!
   end
 
   def set_metrics

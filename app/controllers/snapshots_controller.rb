@@ -3,6 +3,8 @@ class SnapshotsController < ApplicationController
   include ClientableControllerConcern
 
   before_action :find_snapshot, only: %i[show]
+  before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   def index
     @snapshots = @client.snapshots
@@ -32,7 +34,7 @@ class SnapshotsController < ApplicationController
   private
 
   def snapshot_params
-    params.require(:snapshot).permit(:date, measurements_attributes:
+    params.permit(:date, measurements_attributes:
       %i[value metric_id])
   end
 

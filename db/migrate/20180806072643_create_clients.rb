@@ -12,7 +12,9 @@ class CreateClients < ActiveRecord::Migration[5.2]
       t.string :vk_link, default: '', null: false
       t.integer :status, default: 0, null: false
       t.integer :price, default: 0, null: false
-
+      t.string :telegram_chat_id
+      t.string :telegram_bind_id, unique: true, default: SecureRandom.uuid
+      t.integer :gender
       t.timestamps
     end
   end
