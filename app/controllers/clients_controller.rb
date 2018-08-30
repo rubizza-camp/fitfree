@@ -22,6 +22,7 @@ class ClientsController < ApplicationController
   end
 
   def create
+
     @client = current_user.clients.build(client_params)
     authorize @client
     if @client.save
@@ -61,11 +62,14 @@ class ClientsController < ApplicationController
   end
 
   def client_params
-    params.require(:client).slice(:metric_ids, :first_name, :second_name,
+    params[:status] = params[:status].to_i
+    params[:gender] = params[:gender].to_i
+    params[:metric_ids].map!(&:to_i)
+    params.slice(:metric_ids, :first_name, :second_name,
                                   :phone_number, :status, :birth, :email,
                                   :instagram_link, :facebook_link, :vk_link,
                                   :avatar, :price, :gender,
-                                  'birth(1i)', 'birth(2i)', 'birth(3i)').permit!
+                                  :birth).permit!
   end
 
   def set_metrics
