@@ -3,6 +3,7 @@ class ClientsController < ApplicationController
   before_action :find_client, only: %i[show edit update destroy]
   before_action :set_metrics, only: %i[new edit]
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   def index
     @clients = current_user.clients.order(:first_name).page(params[:page])
@@ -21,7 +22,10 @@ class ClientsController < ApplicationController
   end
 
   def create
-    @client = current_user.clients.build(client_params)
+    if params[:metrics] != nil
+      params[:metrics].map!(&:to_i)
+    end
+    @client = current_user.clients.build(params)
     authorize @client
     if @client.save
       redirect_to @client
@@ -60,11 +64,10 @@ class ClientsController < ApplicationController
   end
 
   def client_params
-    params.require(:client).slice(:metric_ids, :first_name, :second_name,
-                                  :phone_number, :status, :birth, :email,
-                                  :instagram_link, :facebook_link, :vk_link,
-                                  :avatar, :price, :gender,
-                                  'birth(1i)', 'birth(2i)', 'birth(3i)').permit!
+    #binding.pry
+    params.require(:client).permit(:status, :gender, :first_name, :second_name, :phone_number,
+                                    :email, :instagram_link, :facebook_link, :vk_link, :price,
+                                    :metrics, :birth)
   end
 
   def set_metrics
