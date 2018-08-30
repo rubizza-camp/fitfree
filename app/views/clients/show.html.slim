@@ -20,7 +20,7 @@
         | #{t('.status')}
         = @client.status_i18n
       div.rowcol-md-6.mb-3
-        | Telegram url:
+        | #{t('.telegram')}
         = simple_format('http://t.me/fitfree_bot?start=' + @client.telegram_bind_id)
       .prof-box.form-centered
         ul

@@ -22,20 +22,20 @@
 <!--        </div>-->
 <!--        <a class="item" href="<%#= calendar_index_path %>">-->
 <!--          <i class="calendar icon"></i>-->
-<!--          Calendar-->
+          <%#= t('navigation.calendar') %>
 <!--        </a>-->
 <!--        <a class="item" href="<%#= clients_path %>">-->
 <!--          <i class="users icon"></i>-->
-<!--          Clients-->
+          <%#= t('navigation.clients') %>
 <!--        </a>-->
 <!--        <a class="item" href="#">-->
 <!--          <i class="cog icon"></i>-->
-<!--          Settings-->
+          <%#= t('navigation.settings') %>
 <!--        </a>-->
 <!--      </div>-->
 <!--      <a class="item" href="<%#= destroy_user_session_path(@user) %>">-->
 <!--        <i class="logout icon"></i>-->
-<!--        Log out-->
+        <%#= t('sing_out') %>
 <!--      </a>-->
 <!--      </div>-->
     <div class="pusher">
@@ -43,8 +43,8 @@
       <%= yield %>
     </div>
 <% else %>
-  <a href="<%= new_user_session_path %>" class="btn btn-primary float-right float-top">Log in</a>
-  <a href="<%= new_administrator_session_path %>" class="btn btn-primary float-right float-top">Admin log in</a>
+  <a href="<%= new_user_session_path %>" class="btn btn-primary float-right float-top"><%= t('log_in') %></a>
+  <a href="<%= new_administrator_session_path %>" class="btn btn-primary float-right float-top"><%= t('admin_log_in') %></a>
   <%= render 'layouts/messages' %>
   <%= yield %>
 <% end %>

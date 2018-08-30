@@ -67,6 +67,7 @@ ru:
     diary: "Дневник тренировок"
   clients:
     index:
+      title: "Клиенты"
       all: "Все"
       first_name: "Имя"
       last_name: "Фамилия"
@@ -97,6 +98,7 @@ ru:
       phone: "Номер телефона: "
       age: "Возраст: "
       status: "Статус: "
+      telegram: "Telegram: "
       edit: "Изменить"
       delete: "Удалить"
     stats:

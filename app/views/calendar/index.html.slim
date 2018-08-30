@@ -3,7 +3,7 @@
 - if @calendar == nil
   p
     | #{t('.no_calendar')}
-  = link_to t('.connect'), redirect_path, class: 'btn btn-primary'
+  = link_to t('.connect'), new_calendar_path, class: 'btn btn-primary'
 - else
   p
     | #{t('.connected', calendar: @calendar_summary)}

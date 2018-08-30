@@ -1,21 +1,21 @@
 .main.ui.container
   .ui.raised.container.segment
     .ui.top.attached.label
-      h4 Clients
+      h4= t('.title')
     .ui.three.item.stackable.tabs.menu
-      a.item [href="#{clients_path}" class="#{'active' unless params[:status]}"] All
+      a.item [href="#{clients_path}" class="#{'active' unless params[:status]}"] #{t('.all')}
       - Client.statuses_i18n.each do |status, status_i18n|
         a.item [class="#{'active' if params[:status] == status}" href="#{clients_path(status: status)}" ] #{status_i18n}
     - unless @clients.blank?
       table.ui.unstackable.selectable.table
         thead
           tr
-            th First name:
-            th Last name:
-            th Phone number:
-            th Age:
-            th Gender:
-            th Current balance:
+            th= t('clients.index.first_name')
+            th= t('clients.index.last_name')
+            th= t('clients.index.phone')
+            th= t('clients.index.age')
+            th= t('clients.index.gender')
+            th= t('clients.index.balance')
         tbody
           - @clients.each do |client|
             tr [onclick="window.location = '#{client_path(client)}'"]
@@ -29,7 +29,7 @@
           tr
             th colspan="6"
               - if policy(Client).new?
-                a.positive.ui.button [href="#{new_client_path}"] New client
+                a.positive.ui.button [href="#{new_client_path}"] #{t('clients.index.new')}
               .ui.right.floated.pagination.menu
                 = paginate @clients,
                         previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0

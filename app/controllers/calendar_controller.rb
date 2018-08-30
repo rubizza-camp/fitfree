@@ -7,6 +7,7 @@ class CalendarController < ApplicationController
 
   def index
     client = Signet::OAuth2::Client.new(client_options)
+    #binding.pry
     client.update!(session[:authorization])
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
@@ -15,7 +16,6 @@ class CalendarController < ApplicationController
       begin
         @calendar_summary = service.get_calendar(@calendar.calendar_id).summary
       rescue Google::Apis::AuthorizationError
-        #binding.pry
         response = client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
@@ -74,6 +74,7 @@ class CalendarController < ApplicationController
   def callback
     client = Signet::OAuth2::Client.new(client_options)
     client.code = params[:code]
+    #binding.pry
     response = client.fetch_access_token!
     session[:authorization] = response
     redirect_to new_calendar_path
