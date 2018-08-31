@@ -16,6 +16,7 @@ module Admin
     end
 
     def create
+      # resourse = user
       resource = resource_class.new(resource_params)
       authorize_resource(resource)
       resource.telegram_bot = TelegramBot.new
