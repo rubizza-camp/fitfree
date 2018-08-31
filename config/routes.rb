@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     post 'payments/new', to: 'payments#add'
     get 'payments/:id/delete', to: 'payments#delete'
     get 'stats', to: 'clients#stats'
+    get 'diary', to: 'clients#diary'
     resources :metrics, only: %i[index]
     resources :snapshots, shallow: true
     resources :messages
