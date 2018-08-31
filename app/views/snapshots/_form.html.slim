@@ -2,9 +2,6 @@
   .ui.form.mb-3
     .field
       label =t('snaphots.form.date')
-      /#birth_date.ui.calendar
-      /  .ui.input.left.icon
-      /    i.calendar.icon
       = f.date_field :date
     .ui.form.mb-3
       .field
@@ -18,5 +15,5 @@
       .ui.buttons.right.floated
         a.ui.button href="#{client_stats_path(@client)}" Cancel
         .or
-        button.ui.positive.button type="submit" Save
-        = f.submit
+        button.ui.positive.button type="submit" onclick="document.findElementById('new_snapshot').submit" Save
+
