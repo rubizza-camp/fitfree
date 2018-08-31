@@ -7,7 +7,6 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'bourbon'
 gem 'foreman'
-gem 'dotenv'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'gibbon'
@@ -32,7 +31,8 @@ gem 'paperclip'
 gem 'pundit'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'sendgrid'
-
+gem 'sidekiq'
+gem 'sidekiq-status'
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 
 group :development do
@@ -60,5 +60,3 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
-gem 'sidekiq'
-gem 'sidekiq-status'
