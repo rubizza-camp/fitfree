@@ -52,6 +52,10 @@ class TrainingsController < ApplicationController
         if calendar_id
           @client = Signet::OAuth2::Client.new(client_options)
           @client.update!(session[:authorization])
+          if client.refresh_token == nil
+            refresh_token = Calendar.find_by(user_id: current_user.id).code
+            client.refresh_token = refresh_token
+          end
           service = Google::Apis::CalendarV3::CalendarService.new
           service.authorization = @client
           start_time = @training.time
@@ -67,10 +71,6 @@ class TrainingsController < ApplicationController
             service.insert_event(calendar_id, event)
         end
       rescue Google::Apis::AuthorizationError
-        if client.refresh_token == nil
-          refresh_token = Calendar.find_by(user_id: current_user.id).code
-          client.refresh_token = refresh_token
-        end
         response = client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
@@ -98,7 +98,10 @@ class TrainingsController < ApplicationController
         if calendar_id
           @client = Signet::OAuth2::Client.new(client_options)
           @client.update!(session[:authorization])
-
+          if client.refresh_token == nil
+            refresh_token = Calendar.find_by(user_id: current_user.id).code
+            client.refresh_token = refresh_token
+          end
           service = Google::Apis::CalendarV3::CalendarService.new
           service.authorization = @client
           start_time = @training.time
@@ -115,10 +118,6 @@ class TrainingsController < ApplicationController
           end
         end
       rescue Google::Apis::AuthorizationError
-        if client.refresh_token == nil
-          refresh_token = Calendar.find_by(user_id: current_user.id).code
-          client.refresh_token = refresh_token
-        end
         response = client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
@@ -147,6 +146,10 @@ class TrainingsController < ApplicationController
       if calendar_id
         @client = Signet::OAuth2::Client.new(client_options)
         @client.update!(session[:authorization])
+        if client.refresh_token == nil
+          refresh_token = Calendar.find_by(user_id: current_user.id).code
+          client.refresh_token = refresh_token
+        end
         service = Google::Apis::CalendarV3::CalendarService.new
         service.authorization = @client
         if service.get_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom').status != 'cancelled'
@@ -154,10 +157,6 @@ class TrainingsController < ApplicationController
         end
       end
     rescue Google::Apis::AuthorizationError
-      if client.refresh_token == nil
-        refresh_token = Calendar.find_by(user_id: current_user.id).code
-        client.refresh_token = refresh_token
-      end
       response = client.refresh!
       session[:authorization] = session[:authorization].merge(response)
       retry
