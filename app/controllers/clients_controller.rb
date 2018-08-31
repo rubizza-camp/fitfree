@@ -25,6 +25,7 @@ class ClientsController < ApplicationController
     @client = current_user.clients.build(client_params)
     authorize @client
     if @client.save
+      ClientMailer.telegram_link_sender(@client).deliver
       redirect_to @client
     else
       render 'new'

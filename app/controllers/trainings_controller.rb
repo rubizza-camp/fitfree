@@ -9,6 +9,7 @@ class TrainingsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[join_clients]
 
   def new
+    authorize @training
     @clients = current_user.clients
     @date = params[:date]
     @training = current_user.trainings.build

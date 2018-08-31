@@ -1,9 +1,9 @@
 .ui.container
   .ui.six.item.stackable.menu
     a.item href="#{metrics_path}" role="tab"
-      | Metrics
-    a.item.active href="#{exercise_types_path}" role="tab"
-      | Exercise types
+      | #{t('exercise_type.index.metrics')}
+      a.item.active href="#{exercise_types_path}" role="tab"
+        | #{t('exercise_type.index.exercise_types')}
   h1
     | #{t('exercise_type.title')}
   - unless @exercise_types.blank?
