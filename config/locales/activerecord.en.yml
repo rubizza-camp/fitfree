@@ -27,3 +27,7 @@ en:
                 blank: "can't be blank"
               units:
                 blank: "can't be blank"
+          user:
+            attributes:
+              email:
+                taken: " already taken, select another"

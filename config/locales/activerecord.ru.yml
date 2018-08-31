@@ -27,3 +27,7 @@ ru:
               blank: "не может быть пустым"
             units:
               blank: "не может быть пустым"
+        user:
+          attributes:
+            email:
+              taken: " уже занят, выберите другой"
