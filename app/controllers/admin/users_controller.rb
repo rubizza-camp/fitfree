@@ -18,7 +18,7 @@ module Admin
 
     def create
       # resourse = user
-      binding.pry
+      #binding.pry
       resource = resource_class.new(resource_params)
       authorize_resource(resource)
       resource.telegram_bot = TelegramBot.new
