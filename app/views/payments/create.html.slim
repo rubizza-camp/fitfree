@@ -2,8 +2,8 @@
   .ui.raised.very.padded.text.container.segment
     .ui.top.attached.label
       h4 #{t('.title')}
-    form action='new' method='post'
-      .ui.form.mb-3
+=     form_tag('new', method: :post)
+        .ui.form.mb-3
         .field
           label #{t('.date')}
           #training_date.ui.calendar
