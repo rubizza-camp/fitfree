@@ -45,6 +45,8 @@ ru:
     index:
       edit: "Изменить"
       delete: "Удалить"
+      metrics: "Метрики"
+      exercise_types: "Типы упражнений"
     delete:
       sure: "Вы уверены?"
     edit:
@@ -109,6 +111,10 @@ ru:
       new_snapshot: "Добавить новый замер"
     edit:
       title: "Редактирование клиента"
+    diet:
+      title: "Дневник тренировок клиента"
+      date: "Дата"
+      price: "Стоимость"
   payments:
     index:
       title: "Платежи клиента"
@@ -151,6 +157,8 @@ ru:
       metric: "Замер"
       units: "Единицы измерения"
       new: "Добавить новый замер"
+      metrics: "Метрики"
+      exercise_types: "Типы упражнений"
     new:
       title: "Новый замер"
     _form:

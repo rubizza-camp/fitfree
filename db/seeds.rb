@@ -57,10 +57,12 @@ ExerciseType.create(name: 'Side Effects', description: '')
 ExerciseType.create(name: 'Bringing the hip in a crossover', description: '')
 ExerciseType.create(name: 'Ascent to the socks in a standing machine', description: '')
 ExerciseType.create(name: 'Ascent to the socks in a sitting simulator', description: '')
+
 superadmin = Administrator.create(email: 'superadmin@gmail.com',
                                   password: admin_password,
              password_confirmation: admin_password, superadmin: true)
 puts 'Create super admin: ' << superadmin.email
+
 admin = Administrator.create(email: 'admin@gmail.com', password: admin_password,
              password_confirmation: admin_password, superadmin: false)
 puts 'Create admin: ' << admin.email

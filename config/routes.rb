@@ -21,6 +21,7 @@ Rails.application.routes.draw do
              controllers: {sessions: 'administrators/sessions', confirmations: 'administrators/confirmations' }
   resources :users
   get '/locale', to: 'application#get_locale'
+  get '/instruction', to: 'instruction#index'
   resources :trainings, except: :new
   get 'trainings/new/:date', to: 'trainings#new'
   put '/trainings/cancel/:id', to: 'trainings#cancel'
