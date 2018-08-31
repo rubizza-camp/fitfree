@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   def set_locale
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
     locale = extract_locale_from_accept_language_header
-    I18n.locale = locale == 'ru' ? :ru  : I18n.default_locale
+    I18n.locale = (locale == 'ru' || locale == 'ru-RU') ? :ru  : I18n.default_locale
     logger.debug "* Locale set to '#{I18n.locale}'"
   end
 
