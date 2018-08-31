@@ -1,5 +1,6 @@
 module Admin
   class UsersController < Admin::ApplicationController
+
     before_action :set_user, only: [:block, :unblock]
 
     def reset_password
@@ -65,22 +66,6 @@ module Admin
       Excon.get("https://api.telegram.org/bot#{bot[:token]}/setWebhook?url=https:/#{request.server_name}{/#{bot[:telegram_webhook_id]}")
     end
 
-    # To customize the behavior of this controller,
-    # you can overwrite any of the RESTful actions. For example:
-    #
-    # def index
-    #   super
-    #   @resources = User.
-    #     page(params[:page]).
-    #     per(10)
-    # end
-
-    # Define a custom finder by overriding the `find_resource` method:
-    # def find_resource(param)
-    #   User.find_by!(slug: param)
-    # end
-
-    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
-    # for more information
+  
   end
 end

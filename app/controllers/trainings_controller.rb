@@ -8,23 +8,11 @@ class TrainingsController < ApplicationController
   # protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token, only: %i[join_clients]
 
-  def show
-    authorize @training
-    @name = Client.find_by(id: @training.client_id).full_name
-    @sets = kit_constructor
-  end
-
   def new
-    @clients = current_user.clients
-    @training = current_user.trainings.build
     authorize @training
-    # todo: parse and set to calendar input
-    @list = client_list(current_user)
-    redirect_to new_client_path if @list.empty?
-    date = params[:date][0...10]
-    @day = date[8].to_i == 0 ? date[9] : date[8..9]
-    @month = date[5].to_i == 0 ? date[6] : date[5..6]
-    @year = date[0..3]
+    @clients = current_user.clients
+    @date = params[:date]
+    @training = current_user.trainings.build
   end
 
   def join_clients
@@ -34,6 +22,12 @@ class TrainingsController < ApplicationController
       end
     end
     render layout: false
+  end
+
+  def show
+    authorize @training
+    @name = Client.find_by(id: @training.client_id).full_name
+    @sets = kit_constructor
   end
 
   def client_list
@@ -57,13 +51,13 @@ class TrainingsController < ApplicationController
           start_time = @training.time
           end_time = start_time + 2.hours
           summary = Client.find_by(id: @training.client_id).full_name
-          event = Google::Apis::CalendarV3::Event.new({
-                                                          id: 'training' + @training.id.to_s + 'fitfree1asslcom',
-                                                          start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
-                                                          end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
-                                                          summary: summary,
-                                                          description: @training.description
-                                                      })
+          event = Google::Apis::CalendarV3::Event.new(
+            id: 'training' + @training.id.to_s + 'fitfree1asslcom',
+            start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+            end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+            summary: summary,
+            description: @training.description
+                                                      )
             service.insert_event(calendar_id, event)
         end
       rescue Google::Apis::AuthorizationError
@@ -104,12 +98,12 @@ class TrainingsController < ApplicationController
           start_time = @training.time
           end_time = start_time + 2.hours
           summary = Client.find_by(id: @training.client_id).full_name
-          event = Google::Apis::CalendarV3::Event.new({
-                                                          start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
-                                                          end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
-                                                          summary: summary,
-                                                          description: @training.description
-                                                      })
+          event = Google::Apis::CalendarV3::Event.new(
+            start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+            end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+            summary: summary,
+            description: @training.description
+                                                      )
           if service.get_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom')
             service.patch_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom', event)
           end

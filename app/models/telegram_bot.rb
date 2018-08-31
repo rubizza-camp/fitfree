@@ -13,9 +13,9 @@
 class TelegramBot < ApplicationRecord
   belongs_to :user
 
-  before_validation :set_default_token
-
-  def set_default_token
-    self.token = Rails.application.secrets[:telegram_token]
-  end
+  # before_validation :set_default_token
+  #
+  # def set_default_token
+  #   self.token = Rails.application.secrets[:telegram_token]
+  # end
 end

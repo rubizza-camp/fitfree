@@ -40,10 +40,29 @@
 
 .ui.raised.container.segment {
 //#container-segment {
-  margin-top: 23px;
+  margin-top: 50px;
 }
 
+@media only screen and (max-width: 1520px) {
+  #fixed-sidebar {
+    display: none;
+  }
+  #toggle-sidebar,
+  #menu-sidebar {
+    display: flex;
+  }
 
+}
+
+@media only screen and (min-width: 1521px) {
+  #fixed-sidebar {
+    display: flex;
+  }
+  #toggle-sidebar,
+  #menu-sidebar{
+    display: none
+  }
+}
 
 //.main.ui.container {
 //  min-height:  100vh;
