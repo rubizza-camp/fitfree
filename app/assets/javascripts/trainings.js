@@ -7,7 +7,7 @@ $(document).ready(function(){
         type: 'date'
     });
 
-    $('#start_time, #finish_time').calendar({
+    $('#start_time').calendar({
         ampm: false,
         type: 'time'
     });

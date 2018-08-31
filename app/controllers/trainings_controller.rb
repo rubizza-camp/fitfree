@@ -8,29 +8,10 @@ class TrainingsController < ApplicationController
   # protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token, only: %i[join_clients]
 
-  def index
-
-    @training = Training.where(user_id: current_user.id).map do |training|
-      {
-        name:     Client.find_by(id: training.client_id).full_name,
-        training: training
-      }
-    end
-  end
-
-  def show
-    @name = Client.find_by(id: @training.client_id).full_name
-    @sets = kit_constructor
-  end
-
   def new
     @clients = current_user.clients
+    @date = params[:date]
     @training = current_user.trainings.build
-    # todo: parse and set to calendar input
-    date = params[:date][0...10]
-    @day = date[8].to_i == 0 ? date[9] : date[8..9]
-    @month = date[5].to_i == 0 ? date[6] : date[5..6]
-    @year = date[0..3]
   end
 
   def join_clients
@@ -40,6 +21,11 @@ class TrainingsController < ApplicationController
       end
     end
     render layout: false
+  end
+
+  def show
+    @name = Client.find_by(id: @training.client_id).full_name
+    @sets = kit_constructor
   end
 
   def client_list
