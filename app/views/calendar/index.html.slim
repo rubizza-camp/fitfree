@@ -1,5 +1,7 @@
 ==javascript_include_tag 'lang/ru'
 ==javascript_include_tag 'sing_out_google'
+script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"
+script src="birthday.js"
 
 - if @calendar == nil
   p
@@ -12,4 +14,5 @@
   .ui.active.tab [data-tab="definition"]
     / .ui.raised.very.padded.text.container.segment
     .ui.existing.segment
-      #calendar
+javascript:
+  birthday_notification("#{@client_birthday_list}");

@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
+  # UserMailer.registration_confirm("<Here link to token>", <Here user for confirm>).deliver
+
   def index
     @users = User.all
   end
