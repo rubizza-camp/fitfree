@@ -29,13 +29,16 @@
 //= require_tree .
 
 
-// $(document).ready(function() {
-//     $('#toc')
-//         .sidebar({
-//             dimPage          : true,
-//             transition       : 'overlay',
-//             mobileTransition : 'uncover'
-//         }).sidebar('attach events', '.menu .item');
-// });
-
-
+$(document).ready(function() {
+    $('#toggle-sidebar')
+        .sidebar({
+            context: $('#bottom-segment')
+        })
+        .sidebar('attach events', '#menu-sidebar .item');
+    // $('#toc')
+    //     .sidebar({
+    //         dimPage          : true,
+    //         transition       : 'overlay',
+    //         mobileTransition : 'uncover'
+    //     }).sidebar('attach events', '.menu .item');
+});
