@@ -43,11 +43,11 @@
       <i class="logout icon"></i>
       <%= link_to t('sing_out'), destroy_user_session_path, method: :delete %>
     </a>
-<!--      </div>-->
-    <div class="pusher">
-      <%= render 'layouts/messages' %>
-      <%= yield %>
-    </div>
+  </div>
+  <div class="pusher">
+    <%= render 'layouts/messages' %>
+    <%= yield %>
+  </div>
 <% else %>
   <a href="<%= new_user_session_path %>" class="btn btn-primary float-right float-top"><%= t('log_in') %></a>
   <a href="<%= new_administrator_session_path %>" class="btn btn-primary float-right float-top"><%= t('admin_log_in') %></a>
