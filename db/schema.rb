@@ -227,6 +227,7 @@ ActiveRecord::Schema.define(version: 2018_08_30_220232) do
     t.string "encrypted_password", default: "", null: false
     t.string "bot_token"
     t.string "bot_name"
+    t.string "bot_webhook_id", default: SecureRandom.uuid, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
