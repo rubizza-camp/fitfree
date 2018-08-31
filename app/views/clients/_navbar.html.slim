@@ -5,5 +5,5 @@
     a.item [class="#{'active' if active_section == :messages}" href="#{client_messages_path(@client)}" ] #{t('client_navigation.messages')}
     a.item [class="#{'active' if active_section == :diet}" href="#" ] #{t('client_navigation.diet')}
     a.item [class="#{'active' if active_section == :payments}" href="#{client_payments_path(@client)}" ] #{t('client_navigation.payments')}
-    a.item [class="#{'active' if active_section == :diary}" href="#" ] #{t('client_navigation.diary')}
+    a.item [class="#{'active' if active_section == :diary}" href="#{client_diary_path(@client)}" ] #{t('client_navigation.diary')}
 
