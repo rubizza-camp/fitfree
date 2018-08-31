@@ -24,6 +24,7 @@ class TrainingsController < ApplicationController
   end
 
   def show
+    authorize @training
     @name = Client.find_by(id: @training.client_id).full_name
     @sets = kit_constructor
   end
@@ -37,6 +38,7 @@ class TrainingsController < ApplicationController
 
   def create
     @training = current_user.trainings.build(training_params)
+    authorize @training
     if @training.save
       calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
       begin
@@ -58,7 +60,11 @@ class TrainingsController < ApplicationController
             service.insert_event(calendar_id, event)
         end
       rescue Google::Apis::AuthorizationError
-        response = @client.refresh!
+        if client.refresh_token == nil
+          refresh_token = Calendar.find_by(user_id: current_user.id).code
+          client.refresh_token = refresh_token
+        end
+        response = client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
       end
@@ -70,6 +76,7 @@ class TrainingsController < ApplicationController
   end
 
   def edit
+    authorize @training
     @list = client_list
     @name = name(@training)
     @sets = sets(@training, current_user)
@@ -77,6 +84,7 @@ class TrainingsController < ApplicationController
 
   def update
     @training.update(status: :planned)
+    authorize @training
     if @training.update(training_params)
       calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
       begin
@@ -100,7 +108,11 @@ class TrainingsController < ApplicationController
           end
         end
       rescue Google::Apis::AuthorizationError
-        response = @client.refresh!
+        if client.refresh_token == nil
+          refresh_token = Calendar.find_by(user_id: current_user.id).code
+          client.refresh_token = refresh_token
+        end
+        response = client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
       end
@@ -117,10 +129,12 @@ class TrainingsController < ApplicationController
   end
 
   def cancel
+    authorize @training
     @training.update(status: :canceled)
   end
 
   def destroy
+    authorize @training
     calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
     begin
       if calendar_id
@@ -132,14 +146,18 @@ class TrainingsController < ApplicationController
           service.delete_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom')
         end
       end
-      TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id) if @training.status == :planned
-      @training.destroy
-      redirect_to calendar_index_path
     rescue Google::Apis::AuthorizationError
-      response = @client.refresh!
+      if client.refresh_token == nil
+        refresh_token = Calendar.find_by(user_id: current_user.id).code
+        client.refresh_token = refresh_token
+      end
+      response = client.refresh!
       session[:authorization] = session[:authorization].merge(response)
       retry
     end
+    TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id) if @training.status == :planned
+    @training.destroy
+    redirect_to calendar_index_path
   end
 
   private

@@ -48,6 +48,7 @@ to display a collection of resources in an HTML table.
       <% end %>
       <th>Reset</th>
       <th>Block</th>
+      <th>Destroy</th>
       <% [valid_action?(:edit, collection_presenter.resource_name),
           valid_action?(:destroy, collection_presenter.resource_name)].count(true).times do %>
         <th scope="col"></th>
@@ -86,6 +87,9 @@ to display a collection of resources in an HTML table.
         </td>
         <td data-id="<%= resource.id %>">
           <%= render 'block_link', user: resource %>
+        </td>
+        <td>
+          <%= link_to 'Delete user', admin_user_path(resource), method: :delete, data: {confirm: 'Are you sure?'} %>
         </td>
         <% if valid_action? :edit, collection_presenter.resource_name %>
           <td><%= link_to(

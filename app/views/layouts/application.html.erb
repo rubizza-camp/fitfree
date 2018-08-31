@@ -33,10 +33,10 @@
           <%#= t('navigation.settings') %>
 <!--        </a>-->
 <!--      </div>-->
-<!--      <a class="item" href="<%#= destroy_user_session_path(@user) %>">-->
-<!--        <i class="logout icon"></i>-->
-        <%#= t('sing_out') %>
-<!--      </a>-->
+      <a class="item" >
+        <i class="logout icon"></i>
+        <%= link_to t('sing_out'), destroy_user_session_path, method: :delete %>
+      </a>
 <!--      </div>-->
     <div class="pusher">
       <%= render 'layouts/messages' %>

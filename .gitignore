@@ -15,7 +15,7 @@
 /vendor/bundle/
 /vendor/ruby/
 /node_modules
-.env
+
 
 # minimal Rails specific artifacts
 db/*.sqlite3
@@ -161,3 +161,4 @@ pickle-email-*.html
 # tilde files are usually backup files from a text editor
 
 *~
+sendgrid.env

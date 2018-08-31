@@ -22,7 +22,6 @@ class ClientsController < ApplicationController
   end
 
   def create
-
     @client = current_user.clients.build(client_params)
     authorize @client
     if @client.save
@@ -36,6 +35,12 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:client_id])
     authorize @client
     @snapshots = @client.snapshots.includes(measurements: :metric)
+  end
+
+  def diary
+    @client = Client.find(params[:client_id])
+    authorize @client
+    @trainings = @client.trainings.order('created_at DESC').page(params[:page])
   end
 
   def edit; end

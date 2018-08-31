@@ -29,6 +29,7 @@ gem 'kaminari'
 gem 'paperclip'
 gem 'pundit'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'sendgrid'
 
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 

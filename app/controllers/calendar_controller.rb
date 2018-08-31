@@ -6,20 +6,23 @@ class CalendarController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    client = Signet::OAuth2::Client.new(client_options)
-    #binding.pry
-    client.update!(session[:authorization])
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-    @calendar = Calendar.find_by(user_id: current_user.id)
-    if @calendar != nil
-      begin
+    begin
+      client = Signet::OAuth2::Client.new(client_options)
+      client.update!(session[:authorization])
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = client
+      @calendar = Calendar.find_by(user_id: current_user.id)
+      if @calendar != nil
         @calendar_summary = service.get_calendar(@calendar.calendar_id).summary
-      rescue Google::Apis::AuthorizationError
-        response = client.refresh!
-        session[:authorization] = session[:authorization].merge(response)
-        retry
       end
+    rescue Google::Apis::AuthorizationError
+      if client.refresh_token == nil
+        refresh_token = Calendar.find_by(user_id: current_user.id).code
+        client.refresh_token = refresh_token
+      end
+      response = client.refresh!
+      session[:authorization] = session[:authorization].merge(response)
+      retry
     end
   end
 
@@ -38,6 +41,10 @@ class CalendarController < ApplicationController
         @calendars << calendar
       end
     rescue Google::Apis::AuthorizationError
+      if client.refresh_token == nil
+        refresh_token = Calendar.find_by(user_id: current_user.id).code
+        client.refresh_token = refresh_token
+      end
       response = client.refresh!
       session[:authorization] = session[:authorization].merge(response)
       retry
@@ -45,13 +52,8 @@ class CalendarController < ApplicationController
   end
 
   def create
-    @calendar = Calendar.find_by(user_id: current_user.id)
-    if @calendar == nil
-      @calendar = Calendar.new(user_id: current_user.id, calendar_id: params[:calendar_id])
-      @calendar.save
-    else
-      @calendar.update(calendar_id: params[:calendar_id])
-    end
+    @calendar = Calendar.new(user_id: current_user.id, calendar_id: params[:calendar_id], code: session[:authorization]['refresh_token'])
+    @calendar.save
     redirect_to calendar_index_path
   end
 
@@ -74,7 +76,6 @@ class CalendarController < ApplicationController
   def callback
     client = Signet::OAuth2::Client.new(client_options)
     client.code = params[:code]
-    #binding.pry
     response = client.fetch_access_token!
     session[:authorization] = response
     redirect_to new_calendar_path
@@ -88,10 +89,12 @@ class CalendarController < ApplicationController
   private
   def client_options
     {
+        access_type: 'offline',
         client_id: Rails.application.secrets.google_client_id,
         client_secret: Rails.application.secrets.google_client_secret,
         authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
         token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+        grant_type: 'refresh_token',
         user_id: current_user.id,
         scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
         redirect_uri: callback_url
