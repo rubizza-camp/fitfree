@@ -2,15 +2,14 @@
   .ui.raised.very.padded.text.container.segment
     .ui.top.attached.label
       h4 #{t('.title')}
-=     form_tag('new', method: :post)
-        .ui.form.mb-3
-        .field
-          label #{t('.date')}
-          #training_date.ui.calendar
-            .ui.input.left.icon
-              i.calendar.icon
-              input placeholder=t('.date') type="text" name="date" /
-
+    =form_tag('new', method: :post)
+      .ui.form.mb-3
+      .field
+        label #{t('.date')}
+        #training_date.ui.calendar
+          .ui.input.left.icon
+            i.calendar.icon
+            input placeholder=t('.date') type="text" name="date" /
       .ui.form.input.mb-3
         .field
           label Price
