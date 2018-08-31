@@ -9,7 +9,7 @@ class CalendarController < ApplicationController
     begin
       client = Signet::OAuth2::Client.new(client_options)
       client.update!(session[:authorization])
-      if client.refresh_token == nil
+      if client.refresh_token == nil && Calendar.find_by(user_id: current_user.id) != nil
         refresh_token = Calendar.find_by(user_id: current_user.id).code
         client.refresh_token = refresh_token
       end
@@ -33,7 +33,7 @@ class CalendarController < ApplicationController
     begin
       client = Signet::OAuth2::Client.new(client_options)
       client.update!(session[:authorization])
-      if client.refresh_token == nil
+      if client.refresh_token == nil && Calendar.find_by(user_id: current_user.id) != nil
         refresh_token = Calendar.find_by(user_id: current_user.id).code
         client.refresh_token = refresh_token
       end
