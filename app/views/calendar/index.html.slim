@@ -1,4 +1,6 @@
 ==javascript_include_tag 'lang/ru'
+script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"
+script src="birthday.js"
 
 .main.ui.container
   .ui.active.tab [data-tab="definition"]
@@ -12,3 +14,5 @@
         p
           | #{t('.connected', calendar: @calendar_summary)}
       #calendar
+javascript:
+  birthday_notification("#{@client_birthday_list}");

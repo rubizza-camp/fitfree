@@ -24,6 +24,7 @@ module FitFree
                                request_specs:    false
       generator.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
+    config.exceptions_app = self.routes
 
     config.i18n.default_locale = :en
     # Initialize configuration defaults for originally generated Rails version.
