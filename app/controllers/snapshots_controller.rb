@@ -34,7 +34,7 @@ class SnapshotsController < ApplicationController
   private
 
   def snapshot_params
-    params.permit(:date, measurements_attributes:
+    params.require(:snapshot).permit(:date, measurements_attributes:
       %i[value metric_id])
   end
 
