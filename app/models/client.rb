@@ -47,9 +47,4 @@ class Client < ApplicationRecord
   def full_name
     "#{first_name} #{second_name}"
   end
-
-  before_validation do
-    binding.pry
-    self.metrics.each { |metric| metric.to_i }
-  end
 end
