@@ -50,13 +50,13 @@ class TrainingsController < ApplicationController
           start_time = @training.time
           end_time = start_time + 2.hours
           summary = Client.find_by(id: @training.client_id).full_name
-          event = Google::Apis::CalendarV3::Event.new({
-                                                          id: 'training' + @training.id.to_s + 'fitfree1asslcom',
-                                                          start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
-                                                          end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
-                                                          summary: summary,
-                                                          description: @training.description
-                                                      })
+          event = Google::Apis::CalendarV3::Event.new(
+            id: 'training' + @training.id.to_s + 'fitfree1asslcom',
+            start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+            end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+            summary: summary,
+            description: @training.description
+                                                      )
             service.insert_event(calendar_id, event)
         end
       rescue Google::Apis::AuthorizationError
@@ -97,12 +97,12 @@ class TrainingsController < ApplicationController
           start_time = @training.time
           end_time = start_time + 2.hours
           summary = Client.find_by(id: @training.client_id).full_name
-          event = Google::Apis::CalendarV3::Event.new({
-                                                          start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
-                                                          end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
-                                                          summary: summary,
-                                                          description: @training.description
-                                                      })
+          event = Google::Apis::CalendarV3::Event.new(
+            start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+            end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+            summary: summary,
+            description: @training.description
+                                                      )
           if service.get_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom')
             service.patch_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom', event)
           end

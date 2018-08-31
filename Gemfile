@@ -21,7 +21,7 @@ gem 'slim-rails'
 gem 'sprockets'
 gem 'sucker_punch'
 gem 'uglifier', '>= 1.3.0'
-
+gem 'figaro'
 gem 'enum_help'
 gem 'excon'
 gem 'gravatar_image_tag'

@@ -140,6 +140,8 @@ GEM
     faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
+    figaro (1.1.1)
+      thor (~> 0.14)
     gibbon (3.2.0)
       faraday (>= 0.9.1)
       multi_json (>= 1.11.0)
@@ -398,6 +400,7 @@ DEPENDENCIES
   excon
   factory_bot_rails
   faker
+  figaro
   gibbon
   google-api-client
   gravatar_image_tag
