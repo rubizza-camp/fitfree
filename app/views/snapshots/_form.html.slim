@@ -1,23 +1,19 @@
-form [action="/clients/#{@client.id}/snapshots" method="post" ]
+= form_for [@client, @snapshot] do |f|
   .ui.form.mb-3
     .field
       label =t('snaphots.form.date')
-      #birth_date.ui.calendar
-        .ui.input.left.icon
-          i.calendar.icon
-          input type="text" name="date"
-
-  - @snapshot.measurements.each do |measurs|
+      = f.date_field :date
     .ui.form.mb-3
       .field
-        label #{measurs.metric.name} (#{measurs.metric.units})
-        .ui.input
-          input name='#{measurs.metric_id}' min="0" step="1" type='number'
-          / input name='#{measurs.metric_id}' type='hidden'
+    = f.fields_for :measurements do |mf|
+      label #{ metric_name_with_units(mf.object.metric)}
+      = mf.text_field :value, type:'number'
+      = mf.hidden_field :metric_id
 
   .ui.form
     .extra
       .ui.buttons.right.floated
         a.ui.button href="#{client_stats_path(@client)}" Cancel
         .or
-        button.ui.positive.button type="submit" Save
+        button.ui.positive.button type="submit" onclick="document.findElementById('new_snapshot').submit" Save
+
