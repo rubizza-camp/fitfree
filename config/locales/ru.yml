@@ -91,7 +91,8 @@ ru:
       price: "Цена"
       metrics: "Замеры"
       date: "День рождения"
-      submit: "%{action} клиента"
+      submit: "Подтвердить"
+      cancel: "Отменить"
     show:
       client: "Клиент: "
       email: "E-mail: "

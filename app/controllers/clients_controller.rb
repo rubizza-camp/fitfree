@@ -22,7 +22,6 @@ class ClientsController < ApplicationController
   end
 
   def create
-
     @client = current_user.clients.build(client_params)
     authorize @client
     if @client.save

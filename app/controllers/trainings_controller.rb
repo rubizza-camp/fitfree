@@ -8,17 +8,6 @@ class TrainingsController < ApplicationController
   # protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token, only: %i[join_clients]
 
-  def index
-
-    @training = Training.where(user_id: current_user.id).map do |training|
-      {
-        name:     Client.find_by(id: training.client_id).full_name,
-        training: training
-      }
-    end
-    authorize @training
-  end
-
   def show
     authorize @training
     @name = Client.find_by(id: @training.client_id).full_name
@@ -77,7 +66,11 @@ class TrainingsController < ApplicationController
             service.insert_event(calendar_id, event)
         end
       rescue Google::Apis::AuthorizationError
-        response = @client.refresh!
+        if client.refresh_token == nil
+          refresh_token = Calendar.find_by(user_id: current_user.id).code
+          client.refresh_token = refresh_token
+        end
+        response = client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
       end
@@ -121,7 +114,11 @@ class TrainingsController < ApplicationController
           end
         end
       rescue Google::Apis::AuthorizationError
-        response = @client.refresh!
+        if client.refresh_token == nil
+          refresh_token = Calendar.find_by(user_id: current_user.id).code
+          client.refresh_token = refresh_token
+        end
+        response = client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
       end
@@ -155,14 +152,18 @@ class TrainingsController < ApplicationController
           service.delete_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom')
         end
       end
-      TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id) if @training.status == :planned
-      @training.destroy
-      redirect_to calendar_index_path
     rescue Google::Apis::AuthorizationError
-      response = @client.refresh!
+      if client.refresh_token == nil
+        refresh_token = Calendar.find_by(user_id: current_user.id).code
+        client.refresh_token = refresh_token
+      end
+      response = client.refresh!
       session[:authorization] = session[:authorization].merge(response)
       retry
     end
+    TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id) if @training.status == :planned
+    @training.destroy
+    redirect_to calendar_index_path
   end
 
   private
