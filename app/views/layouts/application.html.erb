@@ -17,29 +17,29 @@
 <% if user_signed_in? %>
 
 
-<!--  <div class="ui sidebar inverted vertical menu visible">-->
-<!--    <div class="container_btns">-->
-<!--      <div class="item">-->
-<!--        <a href="/"><h1><b>FitFree</b></h1></a>-->
-<!--      </div>-->
-<!--      <a class="item" href="<%#= calendar_index_path %>">-->
-<!--        <i class="calendar icon"></i>-->
-        <%#= t('navigation.calendar') %>
-<!--      </a>-->
-<!--      <a class="item" href="<%#= clients_path %>">-->
-<!--        <i class="users icon"></i>-->
-        <%#= t('navigation.clients') %>
-<!--      </a>-->
-<!--      <a class="item" href="#">-->
-<!--        <i class="cog icon"></i>-->
-        <%#= t('navigation.settings') %>
-<!--      </a>-->
-<!--    </div>-->
-<!--    <a class="item" href="<%#= destroy_user_session_path(@user) %>">-->
-<!--      <i class="logout icon"></i>-->
-      <%#= t('sing_out') %>
-<!--    </a>-->
-<!--  </div>-->
+  <div id="fixed-sidebar" class="ui sidebar inverted vertical menu visible">
+    <div class="container_btns">
+      <div class="item">
+        <a href="/"><h1><b>FitFree</b></h1></a>
+      </div>
+      <a class="item" href="<%= calendar_index_path %>">
+        <i class="calendar icon"></i>
+        <%= t('navigation.calendar') %>
+      </a>
+      <a class="item" href="<%= clients_path %>">
+        <i class="users icon"></i>
+        <%= t('navigation.clients') %>
+      </a>
+      <a class="item" href="#">
+        <i class="cog icon"></i>
+        <%= t('navigation.settings') %>
+      </a>
+    </div>
+    <a class="item" href="<%= destroy_user_session_path(@user) %>">
+      <i class="logout icon"></i>
+      <%= t('sing_out') %>
+    </a>
+  </div>
 
   <div id="bottom-segment" class="ui attached segment pushable">
 
