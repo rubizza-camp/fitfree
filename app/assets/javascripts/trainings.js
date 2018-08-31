@@ -1,7 +1,12 @@
 $(document).ready(function(){
-    $('#clients_select').dropdown({onChange(value, text, selItem) {
+    // $('#clients_select').dropdown({onChange(value, text, selItem) {
+    //todo:
+    $('.ui.dropdown').dropdown({onChange(value, text, selItem) {
         join_clients(JSON.stringify(value));
     }});
+
+    $('.exercises-types-select').dropdown({onChange(value, text, selItem) {
+        }});
 
     $('#training_date').calendar({
         type: 'date'

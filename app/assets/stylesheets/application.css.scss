@@ -41,17 +41,38 @@
 .ui.raised.container.segment {
 //#container-segment {
   margin-top: 23px;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+#bottom-segment {
+  width: calc(100% - 210px);
+  margin-left: 210px;
 }
 
 @media only screen and (max-width: 1144px) {
   #fixed-sidebar {
     display: none;
   }
+  #kek {
+    margin-top: 4rem;
+  }
   #toggle-sidebar,
   #menu-sidebar {
     display: flex;
   }
 
+  #bottom-segment {
+    margin-left: auto;
+    width: 100%;
+  }
+
+  table.ui.unstackable.selectable.table {
+    overflow: scroll;
+    display: block;
+    width: 100%;
+    overflow-y: hidden;
+  }
 }
 
 @media only screen and (min-width: 1145px) {
