@@ -56,6 +56,8 @@ en:
     index:
       edit: "Edit"
       delete: "Detele"
+      metrics: "Metrics"
+      exercise_types: "Exercise Types"
     delete:
       sure: "Are you sure?"
     edit:
@@ -119,6 +121,10 @@ en:
       new_snapshot: "Add new snapshot"
     edit:
       title: "Edit client"
+    diet:
+      title: "Client's training diary"
+      date: "Date"
+      price: "Price"
   payments:
     index:
       title: "Client's payments"
@@ -161,6 +167,8 @@ en:
       metric: "Metric"
       units: "Units"
       new: "Add new metric"
+      metrics: "Metrics"
+      exercise_types: "Exercise Types"
     new:
       title: "New metric"
     _form:

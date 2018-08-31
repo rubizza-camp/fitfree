@@ -1,0 +1,28 @@
+link[href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css"]
+
+.main.ui.container
+  .ui.raised.container.segment
+    .ui.top.attached.label
+      h3
+        | Hello dear admin!
+    h4
+      | This tutorial will show you how to get a name and a token for the new telegram bot:
+    .ui.container
+      .ui.raised.container.segment
+        p
+          | To create a bot - go to the telegram, type @BotFather in the search (this is a bot that can create and configure other bots) and start a dialog with it:
+        .ui.ordered.list
+          .item
+            | Send the command / newbot - so we tell @BotFather that we need a new bot.
+          .item
+            | Now @BotFather will ask us to give a name to the new bot. This name will be seen by our future users, so the name should be given understandable and simple.
+          .item
+            | The last step is for the bot username, at the end of which it is necessary write "bot".
+          .item
+            | If the name is not occupied, we receive a confirmation message and an access token.
+        p
+          | To make it clearer - below is a screenshot with all the actions:
+      p
+        img[src="https://hsto.org/getpro/habr/post_images/966/d4f/e0e/966d4fe0ee230cf4556ab3788d20b0e9.png"]
+    h4
+      | So, now you have a name and a token and you can insert them into the required fields
