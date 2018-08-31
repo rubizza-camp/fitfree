@@ -62,6 +62,6 @@
         - else
           h4 #{t('payments.index.no_payments')}
           button.positive.ui.button [type="submit" onclick="window.location='payments/create';"] #{t('.add')}
-    /todo: make pagination
-    = paginate @payments_list,
-            previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0
+.pagniation-wrapper align="center"
+  = will_paginate @payments_list,
+          previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0

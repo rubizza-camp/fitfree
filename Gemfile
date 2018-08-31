@@ -63,3 +63,5 @@ group :test do
 end
 gem 'sidekiq'
 gem 'sidekiq-status'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap4'
