@@ -1,18 +1,18 @@
 ==javascript_include_tag 'lang/ru'
-==javascript_include_tag 'sing_out_google'
 script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"
 script src="birthday.js"
 
-- if @calendar == nil
-  p
-    | #{t('.no_calendar')}
-  = link_to t('.connect'), redirect_path, class: 'btn btn-primary'
-- else
-  p
-    | #{t('.connected', calendar: @calendar_summary)}
 .main.ui.container
   .ui.active.tab [data-tab="definition"]
     / .ui.raised.very.padded.text.container.segment
     .ui.existing.segment
+      - if @calendar == nil
+        p
+          | #{t('.no_calendar')}
+        = link_to t('.connect'), redirect_path, class: 'btn btn-primary'
+      - else
+        p
+          | #{t('.connected', calendar: @calendar_summary)}
+      #calendar
 javascript:
   birthday_notification("#{@client_birthday_list}");

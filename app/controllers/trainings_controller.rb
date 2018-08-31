@@ -18,6 +18,7 @@ class TrainingsController < ApplicationController
     @clients = current_user.clients
     @training = current_user.trainings.build
     authorize @training
+    # todo: parse and set to calendar input
     @list = client_list(current_user)
     redirect_to new_client_path if @list.empty?
     date = params[:date][0...10]

@@ -1,17 +1,17 @@
 = render 'clients/navbar', active_section: :diary
-h1
-  |Client training diary
-table.table
-  thead
-    tr
-      th Training
-      th Date
-      th Price
-
-  tbody
-    - @trainings.each do |training|
-      tr
-        td = link_to 'Training', training_path(training)
-        td= training.time.to_date.strftime("%d/%m/%Y")
-        td= training.price
+.main.ui.container
+  .ui.raised.very.padded.text.container.segment
+    .ui.top.attached.label
+      h3
+        | #{t('clients.diet.title')}
+    table.table
+      thead
+        tr
+          th #{t('clients.diet.date')}
+          th #{t('clients.diet.price')}
+      tbody
+        - @trainings.each do |training|
+          tr
+            td=  link_to training.time, training_path(training)
+            td= training.price
 

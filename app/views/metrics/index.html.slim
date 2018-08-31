@@ -4,9 +4,9 @@
 .ui.container
   .ui.six.item.stackable.menu
     a.item.active href="#{metrics_path}" role="tab"
-      | Metrics
+      | #{t('.metrics')}
     a.item href="#{exercise_types_path}" role="tab"
-      | Exercise types
+      | #{t('.exercise_types')}
   h1= t('.title_exist')
   table.table
     thead
