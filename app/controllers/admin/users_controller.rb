@@ -63,8 +63,7 @@ module Admin
 
     #move to callback
     def register_webhooks_for_bot(user)
-      bot = user.telegram_bot
-      Excon.get("https://api.telegram.org/bot#{bot[:token]}/setWebhook?url=https:/#{request.server_name}{/#{bot[:telegram_webhook_id]}")
+      Excon.get("https://api.telegram.org/bot#{user.bot_token}/setWebhook?url=https:/#{request.server_name}{/#{user.bot_webhook_id}")
     end
 
   

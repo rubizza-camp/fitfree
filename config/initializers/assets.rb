@@ -13,6 +13,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
 Rails.application.config.assets.precompile += %w( application.js )
+Rails.application.config.assets.precompile += %w( instruction.js )
 Rails.application.config.assets.precompile += %w( new_client.js )
 Rails.application.config.assets.precompile += %w( newkit.js )
 Rails.application.config.assets.precompile += %w( newexerciseform.js )

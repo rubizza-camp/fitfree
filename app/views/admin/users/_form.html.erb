@@ -13,6 +13,7 @@ and renders all form fields for a resource's editable attributes.
 
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
 %>
+<%= javascript_include_tag 'instruction' %>
 
 <%= form_for([namespace, page.resource], html: { class: "form" }) do |f| %>
   <% if page.resource.errors.any? %>
@@ -32,6 +33,10 @@ and renders all form fields for a resource's editable attributes.
       </ul>
     </div>
   <% end %>
+
+  <input type="button" onclick="instruction()" value="How get telegram bot name and token?">
+  <div id="instruction" class="container"></div>
+  <p></p>
 
   <% page.attributes.each do |attribute| -%>
     <div class="field-unit field-unit--<%= attribute.html_class %>">
