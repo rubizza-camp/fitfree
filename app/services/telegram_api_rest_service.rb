@@ -13,8 +13,8 @@ class TelegramApiRestService
     Excon.get("#{api_req(bot.token)}/deleteWebhook")
   end
 
-  def self.send_message_from_bot_to_chat(bot, chat_id, msg)
-    Excon.get(URI.encode("#{api_req(bot.token)}/sendMessage?chat_id=#{chat_id}&text=#{msg}"))
+  def self.send_message_from_bot_to_chat(token, chat_id, msg)
+    Excon.get(URI.encode("#{api_req(token)}/sendMessage?chat_id=#{chat_id}&text=#{msg}"))
   end
 
   # todo: need test
