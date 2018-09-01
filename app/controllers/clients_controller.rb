@@ -68,6 +68,7 @@ class ClientsController < ApplicationController
   end
 
   def client_params
+    # todo: check params
     params[:status] = params[:status].to_i
     params[:gender] = params[:gender].to_i
     params[:metric_ids].map!(&:to_i)

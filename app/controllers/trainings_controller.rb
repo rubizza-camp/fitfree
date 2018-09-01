@@ -6,19 +6,46 @@ class TrainingsController < ApplicationController
   before_action :find_training, only: %i[show edit update cancel destroy]
   before_action :authenticate_user!
   # protect_from_forgery with: :null_session
-  skip_before_action :verify_authenticity_token, only: %i[join_clients]
+  skip_before_action :verify_authenticity_token, only: %i[join_clients exercises]
 
   def new
     authorize @training
     @clients = current_user.clients
-    @date = params[:date]
-    @training = current_user.trainings.build
+    (current_user.trainings.find_by(status: 0))&.delete
+    training = current_user.trainings.build
+    redirect_url calendar_path, alert: "Couldn't create training" unless training.save
   end
 
   def join_clients
-    if params[:clients] && params[:clients].present?
+    training.clients.each do |client|
+      training.clients.destroy(client) unless JSON.parse(params[:clients]).include?(client.id.to_s)
+    end
+    if params[:clients]&.present?
       @clients = current_user.clients.select do|client|
-        JSON.parse(params[:clients]).include?(client.id.to_s)
+        if client && JSON.parse(params[:clients]).include?(client.id.to_s)
+          client.trainings << training unless client.trainings.include?(training)
+          client
+        end
+      end
+    end
+    @exercises = ExerciseType.all
+    render layout: false
+  end
+
+  def training
+    @training ||= current_user.trainings.find_by(status: 0)
+  end
+
+  def client_with_current_training
+    current_user.clients.select do |client|
+      client if client && client.trainings.include?(training)
+    end
+  end
+
+  def exercises
+    if params[:erercises]&.present?
+      @exercises = ExerciseType.select do|exe|
+        JSON.parse(params[:erercises]).include?(exe.id.to_s)
       end
     end
     render layout: false
@@ -52,11 +79,11 @@ class TrainingsController < ApplicationController
           end_time = start_time + 2.hours
           summary = Client.find_by(id: @training.client_id).full_name
           event = Google::Apis::CalendarV3::Event.new(
-            id: 'training' + @training.id.to_s + 'fitfree1asslcom',
-            start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
-            end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
-            summary: summary,
-            description: @training.description
+                                                          id: 'training' + @training.id.to_s + 'fitfree1asslcom',
+                                                          start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+                                                          end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+                                                          summary: summary,
+                                                          description: @training.description
                                                       )
             service.insert_event(calendar_id, event)
         end
@@ -99,10 +126,10 @@ class TrainingsController < ApplicationController
           end_time = start_time + 2.hours
           summary = Client.find_by(id: @training.client_id).full_name
           event = Google::Apis::CalendarV3::Event.new(
-            start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
-            end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
-            summary: summary,
-            description: @training.description
+                                                          start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+                                                          end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+                                                          summary: summary,
+                                                          description: @training.description
                                                       )
           if service.get_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom')
             service.patch_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom', event)

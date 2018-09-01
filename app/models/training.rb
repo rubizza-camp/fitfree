@@ -19,5 +19,5 @@ class Training < ApplicationRecord
   has_many :exercises
   paginates_per 10
 
-  enum status: %i[is_created planned complete canceled]
+  enum status: %i[creation planned complete canceled]
 end

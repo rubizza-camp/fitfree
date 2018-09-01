@@ -2,9 +2,6 @@
 class WebhooksController < ApplicationController
 
   def callback
-    puts
-    puts message[:text]
-    puts
     if client && message_exist.nil? && message[:text]
       client.messages.create(text: message[:text], update_id: webhook[:update_id])
       send_broadcast

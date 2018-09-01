@@ -1,5 +1,6 @@
 $(document).ready(function(){
-    $('#clients_select').dropdown({onChange(value, text, selItem) {
+    // $('#clients_select').dropdown({onChange(value, text, selItem) {
+    $('.client-select').dropdown({onChange(value, text, selItem) {
         join_clients(JSON.stringify(value));
     }});
 
@@ -23,13 +24,27 @@ function join_clients(clients_ids) {
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
             document.getElementById("clients_continer").innerHTML = this.responseText;
+            $('.exercises-types-select').dropdown({onChange(value, text, selItem) {
+                    add_exercise_params(this.id, JSON.stringify(value));
+                }});
         }
     };
     xhttp.open("POST", "/trainings/clients", true);
     xhttp.send(form_data);
 }
 
-
+function add_exercise_params (elem_id, clients_ids) {
+    var form_data = new FormData();
+    form_data.append('erercises', clients_ids);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            document.getElementById(`exercise_continer_${elem_id}`).innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("POST", "/trainings/exercises", true);
+    xhttp.send(form_data);
+}
 
 function add_exercise() {
     $('.tiny.modal').modal('show');
