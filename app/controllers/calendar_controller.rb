@@ -6,6 +6,9 @@ class CalendarController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @client_birthday_list = CalendarHelper.birthday_clients_list(current_user.id).to_json unless current_user.birthday_seen
+    current_user.birthday_seen = true
+    current_user.save!
     begin
       client = Signet::OAuth2::Client.new(client_options)
       client.update!(session[:authorization])
@@ -24,9 +27,6 @@ class CalendarController < ApplicationController
       session[:authorization] = session[:authorization].merge(response)
       retry
     end
-    @client_birthday_list = CalendarHelper.birthday_clients_list(current_user.id).to_json unless current_user.birthday_seen
-    current_user.birthday_seen = true
-    current_user.save!
   end
 
   def new
