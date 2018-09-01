@@ -13,6 +13,8 @@
 #
 
 class Message < ApplicationRecord
+  mount_uploader :avatar, AvatarUploader
+
   enum status: [:unread, :read]
   belongs_to :messagable, polymorphic: true
   has_one :attachment

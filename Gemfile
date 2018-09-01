@@ -14,6 +14,8 @@ gem 'devise'
 gem 'gibbon'
 gem 'google-api-client'
 gem 'high_voltage'
+gem "mini_magick"
+gem 'carrierwave', '~> 1.0'
 gem 'jbuilder', '~> 2.5'
 gem 'pg'
 gem 'puma', '~> 3.11'

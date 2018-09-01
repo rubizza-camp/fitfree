@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_30_220232) do
+ActiveRecord::Schema.define(version: 2018_09_01_013555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 2018_08_30_220232) do
     t.bigint "messagable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
     t.index ["messagable_type", "messagable_id"], name: "index_messages_on_messagable_type_and_messagable_id"
   end
 
@@ -227,7 +228,7 @@ ActiveRecord::Schema.define(version: 2018_08_30_220232) do
     t.string "encrypted_password", default: "", null: false
     t.string "bot_token"
     t.string "bot_name"
-    t.string "bot_webhook_id", default: SecureRandom.uuid, null: false
+    t.string "bot_webhook_id", default: "b7c5bf6b-a8ea-4cba-ab0d-9216b8a876de", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -243,10 +244,11 @@ ActiveRecord::Schema.define(version: 2018_08_30_220232) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.datetime "blocked_at"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.integer "role"
     t.boolean "birthday_seen"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
 end
