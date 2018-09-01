@@ -6,9 +6,16 @@ class CalendarController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @client_birthday_list = CalendarHelper.birthday_clients_list(current_user.id).to_json unless current_user.birthday_seen
+    current_user.birthday_seen = true
+    current_user.save!
     begin
       client = Signet::OAuth2::Client.new(client_options)
       client.update!(session[:authorization])
+      if client.refresh_token == nil && Calendar.find_by(user_id: current_user.id) != nil
+        refresh_token = Calendar.find_by(user_id: current_user.id).code
+        client.refresh_token = refresh_token
+      end
       service = Google::Apis::CalendarV3::CalendarService.new
       service.authorization = client
       @calendar = Calendar.find_by(user_id: current_user.id)
@@ -16,23 +23,20 @@ class CalendarController < ApplicationController
         @calendar_summary = service.get_calendar(@calendar.calendar_id).summary
       end
     rescue Google::Apis::AuthorizationError
-      if client.refresh_token == nil
-        refresh_token = Calendar.find_by(user_id: current_user.id).code
-        client.refresh_token = refresh_token
-      end
       response = client.refresh!
       session[:authorization] = session[:authorization].merge(response)
       retry
     end
-    @client_birthday_list = CalendarHelper.birthday_clients_list(current_user.id).to_json unless current_user.birthday_seen
-    current_user.birthday_seen = true
-    current_user.save!
   end
 
   def new
     begin
       client = Signet::OAuth2::Client.new(client_options)
       client.update!(session[:authorization])
+      if client.refresh_token == nil && Calendar.find_by(user_id: current_user.id) != nil
+        refresh_token = Calendar.find_by(user_id: current_user.id).code
+        client.refresh_token = refresh_token
+      end
       service = Google::Apis::CalendarV3::CalendarService.new
       service.authorization = client
       @calendar = Calendar.new
@@ -44,10 +48,6 @@ class CalendarController < ApplicationController
         @calendars << calendar
       end
     rescue Google::Apis::AuthorizationError
-      if client.refresh_token == nil
-        refresh_token = Calendar.find_by(user_id: current_user.id).code
-        client.refresh_token = refresh_token
-      end
       response = client.refresh!
       session[:authorization] = session[:authorization].merge(response)
       retry
