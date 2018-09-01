@@ -111,14 +111,13 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
   end
 
   create_table "exercises", force: :cascade do |t|
-    t.bigint "training_id"
-    t.bigint "exercise_type_id"
+    t.integer "exercise_type_id"
+    t.integer "kit_id"
+    t.integer "user_id"
     t.integer "repeats"
-    t.integer "approaches"
+    t.integer "approach"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exercise_type_id"], name: "index_exercises_on_exercise_type_id"
-    t.index ["training_id"], name: "index_exercises_on_training_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -139,6 +138,13 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
 
   create_table "kinds", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kits", force: :cascade do |t|
+    t.integer "training_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -203,15 +209,14 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
   end
 
   create_table "trainings", force: :cascade do |t|
-    t.bigint "user_id"
     t.datetime "time"
     t.integer "price"
     t.text "description"
+    t.integer "user_id"
     t.integer "client_id"
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_trainings_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|
