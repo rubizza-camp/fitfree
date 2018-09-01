@@ -6,6 +6,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       ## Database authenticatable
       t.string :email,              null: false, default: ''
       t.string :encrypted_password, null: false, default: ''
+      t.string :bot_token, unique: true
+      t.string :bot_name, unique: true
+      t.string :telegram_webhook_id, default: SecureRandom.uuid, null: false
 
       ## Recoverable
       t.string   :reset_password_token

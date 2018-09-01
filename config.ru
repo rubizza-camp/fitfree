@@ -3,7 +3,6 @@
 require_relative 'config/environment'
 
 run Rails.application
-
 BirthdayNotificationWorker.perform_async
 
 EatingNotificationHelper.set_task('10:30')
