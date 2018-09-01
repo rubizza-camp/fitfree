@@ -1,35 +1,10 @@
-/= render 'clients/navbar', active_section: :payments
-/ ul.nav.nav-tabs.justify-content-center role="tablist"
-/   li.nav-item
-/     a.nav-link href="./" role="tab"
-/       i.now-ui-icons.users_single-02
-/       | Client info
-/   li.nav-item
-/     a.nav-link href="./stats" role="tab"
-/       i.now-ui-icons.sport_user-run
-/       |Stats
-/   li.nav-item
-/     a.nav-link role="tab"
-/       i.now-ui-icons.ui-1_email-85
-/       | Messages
-/   li.nav-item
-/     a.nav-link role="tab"
-/       i.now-ui-icons.shopping_box
-/       | Client diet
-/   li.nav-item
-/     a.nav-link.active href="#{client_payments_path}" role="tab"
-/       i.now-ui-icons.business_bank
-/       | Payments
-/   li.nav-item
-/     a.nav-link role="tab"
-/       i.now-ui-icons.sport_trophy
-/       | Training diary
+= render 'clients/navbar', active_section: :payments
 
 .ui.container
   /todo: change depends screen size => .html.ui.top.attached.segment
   .ui.raised.container.segment
     .ui.top.attached.label
-      h4 #{t('.title')}
+      h3 Adding payments for client
     #content
       br
         h2 #{t('payments.index.current_balance')} #{@result_balance}

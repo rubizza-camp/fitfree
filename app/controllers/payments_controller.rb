@@ -3,8 +3,9 @@ class PaymentsController < ApplicationController
 
   def index
     @payments_list = Transaction.where(client_id: client_id).order(created_at: :desc)
-    @payments_list = @payments_list.page(params[:page]).per(10)
-    @result_balance = Client.find(client_id).cash
+    @payments_list = @payments_list.page(params[:page])
+    @client = client
+    @result_balance = client.cash
   end
 
   def create; end

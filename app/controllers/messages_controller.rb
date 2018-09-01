@@ -27,7 +27,7 @@ class MessagesController < ApplicationController
   end
 
   def token
-    current_user.telegram_bot.token
+    current_user.bot_token
   end
 
   def send_message

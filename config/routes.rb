@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :metrics
 
   post 'trainings/clients', to: 'trainings#join_clients'
+  post 'trainings/exercises', to: 'trainings#exercises'
 
   mount ActionCable.server, at: '/cable'
 
