@@ -9,11 +9,12 @@ class TrainingsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[join_clients exercises]
 
   def new
-    authorize @training
     @clients = current_user.clients
     (current_user.trainings.find_by(status: 0))&.delete
     training = current_user.trainings.build
     redirect_url calendar_path, alert: "Couldn't create training" unless training.save
+    @date = params[:date]
+    @training = current_user.trainings.build
   end
 
   def join_clients
@@ -71,8 +72,12 @@ class TrainingsController < ApplicationController
       calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
       begin
         if calendar_id
-          @client = Signet::OAuth2::Client.new(client_options)
-          @client.update!(session[:authorization])
+          client = Signet::OAuth2::Client.new(client_options)
+          client.update!(session[:authorization])
+          if client.refresh_token == nil && Calendar.find_by(user_id: current_user.id) != nil
+            refresh_token = Calendar.find_by(user_id: current_user.id).code
+            client.refresh_token = refresh_token
+          end
           service = Google::Apis::CalendarV3::CalendarService.new
           service.authorization = @client
           start_time = @training.time
@@ -88,10 +93,6 @@ class TrainingsController < ApplicationController
             service.insert_event(calendar_id, event)
         end
       rescue Google::Apis::AuthorizationError
-        if client.refresh_token == nil
-          refresh_token = Calendar.find_by(user_id: current_user.id).code
-          client.refresh_token = refresh_token
-        end
         response = client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
@@ -117,9 +118,12 @@ class TrainingsController < ApplicationController
       calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
       begin
         if calendar_id
-          @client = Signet::OAuth2::Client.new(client_options)
-          @client.update!(session[:authorization])
-
+          client = Signet::OAuth2::Client.new(client_options)
+          client.update!(session[:authorization])
+          if client.refresh_token == nil && Calendar.find_by(user_id: current_user.id) != nil
+            refresh_token = Calendar.find_by(user_id: current_user.id).code
+            client.refresh_token = refresh_token
+          end
           service = Google::Apis::CalendarV3::CalendarService.new
           service.authorization = @client
           start_time = @training.time
@@ -136,10 +140,6 @@ class TrainingsController < ApplicationController
           end
         end
       rescue Google::Apis::AuthorizationError
-        if client.refresh_token == nil
-          refresh_token = Calendar.find_by(user_id: current_user.id).code
-          client.refresh_token = refresh_token
-        end
         response = client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
@@ -166,8 +166,12 @@ class TrainingsController < ApplicationController
     calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
     begin
       if calendar_id
-        @client = Signet::OAuth2::Client.new(client_options)
-        @client.update!(session[:authorization])
+        client = Signet::OAuth2::Client.new(client_options)
+        client.update!(session[:authorization])
+        if client.refresh_token == nil && Calendar.find_by(user_id: current_user.id) != nil
+          refresh_token = Calendar.find_by(user_id: current_user.id).code
+          client.refresh_token = refresh_token
+        end
         service = Google::Apis::CalendarV3::CalendarService.new
         service.authorization = @client
         if service.get_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom').status != 'cancelled'
@@ -175,10 +179,6 @@ class TrainingsController < ApplicationController
         end
       end
     rescue Google::Apis::AuthorizationError
-      if client.refresh_token == nil
-        refresh_token = Calendar.find_by(user_id: current_user.id).code
-        client.refresh_token = refresh_token
-      end
       response = client.refresh!
       session[:authorization] = session[:authorization].merge(response)
       retry

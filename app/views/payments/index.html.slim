@@ -1,6 +1,6 @@
 = render 'clients/navbar', active_section: :payments
 
-.main.ui.container
+.ui.container
   /todo: change depends screen size => .html.ui.top.attached.segment
   .ui.raised.container.segment
     .ui.top.attached.label
@@ -21,22 +21,11 @@
                   td.Date = payment.datetime.strftime("%B %d, %Y")
                   td.Price = payment.price
                   td.right.aligned.Cancel: button.negative.ui.button [onclick="document.location.replace('#{'payments/' + payment.id.to_s + '/delete'}')"] Ⓧ
-            tfoot
-              tr
-                th colspan="3"
-                  button.positive.ui.button [onclick="window.location='payments/create';"] #{t('.add')}
-                  .ui.right.floated.pagination.menu
-                    a.icon.item
-                      i.left.chevron.icon
-                    a.item 1
-                    a.item 2
-                    a.item 3
-                    a.item 4
-                    a.icon.item
-                      i.right.chevron.icon
+          center
+            .pagniation-wrapper align="center"
+              = paginate @payments_list
+            button.positive.ui.button [onclick="window.location='payments/create';"] #{t('.add')}
+
         - else
           h4 #{t('payments.index.no_payments')}
           button.positive.ui.button [type="submit" onclick="window.location='payments/create';"] #{t('.add')}
-    /todo: make pagination
-    = paginate @payments_list,
-            previous_label: 'Previous', next_label: 'Next', inner_window: 1, outer_window: 0

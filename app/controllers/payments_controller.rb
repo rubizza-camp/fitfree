@@ -1,6 +1,5 @@
 class PaymentsController < ApplicationController
   before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token
 
   def index
     @payments_list = Transaction.where(client_id: client_id).order(created_at: :desc)

@@ -15,6 +15,8 @@ class UserDashboard < Administrate::BaseDashboard
     messages: Field::HasMany,
     id: Field::Number,
     email: Field::String,
+    bot_token: Field::String,
+    bot_name: Field::String,
     encrypted_password: Field::String,
     reset_password_token: Field::String,
     reset_password_sent_at: Field::DateTime,
@@ -41,9 +43,10 @@ class UserDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :telegram_bot,
-    :trainings,
-    :clients,
+    :name,
+    :bot_token,
+    :bot_name,
+    :encrypted_password,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -56,6 +59,8 @@ class UserDashboard < Administrate::BaseDashboard
     #:messages,
     :id,
     :email,
+    :bot_token,
+    :bot_name,
     # :encrypted_password,
     # :reset_password_token,
     # :reset_password_sent_at,
@@ -82,7 +87,8 @@ class UserDashboard < Administrate::BaseDashboard
     :email,
     :password,
     :password_confirmation,
-    :telegram_bot,
+    :bot_token,
+    :bot_name,
   ].freeze
 
   # Overwrite this method to customize how users are displayed
