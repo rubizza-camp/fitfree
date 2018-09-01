@@ -1,0 +1,24 @@
+= render 'clients/navbar', active_section: :messages
+.main.ui.container
+  .ui.raised.container.segment
+    .ui.top.attached.label
+      h3 #{@client.full_name} conversation
+    .col-sm-offset-4.frame
+      ul
+      div
+        .msj-rta.macro
+          .text.text-r style=("background:whitesmoke !important")
+            input.mytext placeholder=("Type a message") /
+        div style="padding:10px;"
+          button#button-addon2.btn.btn-outline-secondary onclick=("send_message(<%= @client.id %>)") type="button"  Send
+          
+/ #container_msg style=("margin-bottom: 20%")
+/   - @messages.each do |msg|
+/     p style=("<%= 'float: right;'if msg.messagable_type.eql?('User')  %>")
+/     = msg.messagable_type %>: <%= msg.text %
+/ nav.navbar.fixed-bottom.navbar-dark.bg-dark style=("margin-bottom: 0px")
+/   .input-group.mb-3
+/     form action="post" method=""
+/       input#message.form-control aria-describedby="button-addon2" aria-label=("Recipient's username") placeholder=("Write your message") type="text" /
+/       .input-group-append
+/         button#button-addon2.btn.btn-outline-secondary onclick=("send_message(<%= @client.id %>)") type="button"  Send
