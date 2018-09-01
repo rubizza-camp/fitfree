@@ -5,7 +5,7 @@ class CreateTrainings < ActiveRecord::Migration[5.2]
       t.datetime :time
       t.integer :price
       t.text :description
-      t.integer :status, default: 0, null: false
+      t.integer :status, default: 0
       t.timestamps
     end
   end
