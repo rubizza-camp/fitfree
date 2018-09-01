@@ -1,0 +1,37 @@
+.main.ui.container
+  .ui.raised.container.segment
+    .ui.top.attached.label
+      h3 Clients
+    .ui.form
+      .field
+        label Start Date
+        #training_date.ui.calendar
+          .ui.input.left.icon
+            i.calendar.icon
+            input placeholder="Date" type="text" /
+    .ui.form
+      .field
+        label Start time
+        #start_time.ui.calendar
+          .ui.input.left.icon
+            i.time.icon
+            input placeholder="Time" type="text" /
+    .ui.form
+      .field
+        label Notes
+        textarea rows="2"
+
+.main.ui.container
+  .ui.raised.container.segment
+    .ui.top.attached.label
+      h3 Clients
+    .ui.form
+      .field style=("margin-bottom: 20px; margin-top: 20px")
+        - if @clients.present?
+          select#clients_select.ui.fluid.search.dropdown.client-select.multiple multiple=""
+            option value=""  Clinets...
+            - @clients.each do |client|
+              option value=("#{client.id}")  "#{client.full_name}"
+        - else
+          a.ui.green.button href="#{new_client_path}"  Create client
+#clients_continer
