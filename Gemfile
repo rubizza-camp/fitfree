@@ -9,6 +9,7 @@ gem 'bourbon'
 gem 'foreman'
 gem 'rails_12factor', group: :production
 gem 'dotenv'
+gem 'whenever', require: false
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'gibbon'
