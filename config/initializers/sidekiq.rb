@@ -3,11 +3,17 @@ require 'sidekiq-status'
 
 Sidekiq.configure_client do |config|
   # accepts :expiration (optional)
+  config.redis = {
+     url: 'redis://redis:6379'
+   }
   Sidekiq::Status.configure_client_middleware config, expiration: 30.minutes
 end
 
 Sidekiq.configure_server do |config|
   # accepts :expiration (optional)
+  config.redis = {
+      url: 'redis://redis:6379'
+  }
   Sidekiq::Status.configure_server_middleware config, expiration: 30.minutes
 
   # accepts :expiration (optional)

@@ -8,13 +8,26 @@ class TrainingsController < ApplicationController
   # protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token, only: %i[join_clients exercises]
 
+  def index
+    @training = Training.where(user_id: current_user.id).map do |training|
+      {
+          name:     Client.find_by(id: training.client_id).full_name,
+          training: training
+      }
+    end
+  end
+
+  def show
+    @name = Client.find_by(id: @training.client_id).full_name
+    @sets = kit_constructor
+  end
+
   def new
     @clients = current_user.clients
     (current_user.trainings.find_by(status: 0))&.delete
+    @date = params[:date]
     training = current_user.trainings.build
     redirect_url calendar_path, alert: "Couldn't create training" unless training.save
-    @date = params[:date]
-    @training = current_user.trainings.build
   end
 
   def join_clients
@@ -52,48 +65,37 @@ class TrainingsController < ApplicationController
     render layout: false
   end
 
-  def show
-    authorize @training
-    @name = Client.find_by(id: @training.client_id).full_name
-    @sets = kit_constructor
-  end
-
   def client_list
     current_user.clients.map do |client|
-    # Client.where(user_id: user).map do |client|
+      # Client.where(user_id: user).map do |client|
       [client.first_name + ' ' + client.second_name, client.id]
     end
   end
 
   def create
     @training = current_user.trainings.build(training_params)
-    authorize @training
     if @training.save
       calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
       begin
         if calendar_id
-          client = Signet::OAuth2::Client.new(client_options)
-          client.update!(session[:authorization])
-          if client.refresh_token == nil && Calendar.find_by(user_id: current_user.id) != nil
-            refresh_token = Calendar.find_by(user_id: current_user.id).code
-            client.refresh_token = refresh_token
-          end
+          @client = Signet::OAuth2::Client.new(client_options)
+          @client.update!(session[:authorization])
           service = Google::Apis::CalendarV3::CalendarService.new
           service.authorization = @client
           start_time = @training.time
           end_time = start_time + 2.hours
           summary = Client.find_by(id: @training.client_id).full_name
           event = Google::Apis::CalendarV3::Event.new(
-                                                          id: 'training' + @training.id.to_s + 'fitfree1asslcom',
-                                                          start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
-                                                          end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
-                                                          summary: summary,
-                                                          description: @training.description
-                                                      )
-            service.insert_event(calendar_id, event)
+              id: 'training' + @training.id.to_s + 'fitfree1asslcom',
+              start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+              end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+              summary: summary,
+              description: @training.description
+          )
+          service.insert_event(calendar_id, event)
         end
       rescue Google::Apis::AuthorizationError
-        response = client.refresh!
+        response = @client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
       end
@@ -105,7 +107,6 @@ class TrainingsController < ApplicationController
   end
 
   def edit
-    authorize @training
     @list = client_list
     @name = name(@training)
     @sets = sets(@training, current_user)
@@ -113,34 +114,30 @@ class TrainingsController < ApplicationController
 
   def update
     @training.update(status: :planned)
-    authorize @training
     if @training.update(training_params)
       calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
       begin
         if calendar_id
-          client = Signet::OAuth2::Client.new(client_options)
-          client.update!(session[:authorization])
-          if client.refresh_token == nil && Calendar.find_by(user_id: current_user.id) != nil
-            refresh_token = Calendar.find_by(user_id: current_user.id).code
-            client.refresh_token = refresh_token
-          end
+          @client = Signet::OAuth2::Client.new(client_options)
+          @client.update!(session[:authorization])
+
           service = Google::Apis::CalendarV3::CalendarService.new
           service.authorization = @client
           start_time = @training.time
           end_time = start_time + 2.hours
           summary = Client.find_by(id: @training.client_id).full_name
           event = Google::Apis::CalendarV3::Event.new(
-                                                          start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
-                                                          end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
-                                                          summary: summary,
-                                                          description: @training.description
-                                                      )
+              start: Google::Apis::CalendarV3::EventDateTime.new(date_time: (start_time - 3.hours).to_datetime.rfc3339),
+              end: Google::Apis::CalendarV3::EventDateTime.new(date_time: (end_time - 3.hours).to_datetime.rfc3339),
+              summary: summary,
+              description: @training.description
+          )
           if service.get_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom')
             service.patch_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom', event)
           end
         end
       rescue Google::Apis::AuthorizationError
-        response = client.refresh!
+        response = @client.refresh!
         session[:authorization] = session[:authorization].merge(response)
         retry
       end
@@ -157,35 +154,29 @@ class TrainingsController < ApplicationController
   end
 
   def cancel
-    authorize @training
     @training.update(status: :canceled)
   end
 
   def destroy
-    authorize @training
     calendar_id = Calendar.find_by(user_id: current_user.id).calendar_id
     begin
       if calendar_id
-        client = Signet::OAuth2::Client.new(client_options)
-        client.update!(session[:authorization])
-        if client.refresh_token == nil && Calendar.find_by(user_id: current_user.id) != nil
-          refresh_token = Calendar.find_by(user_id: current_user.id).code
-          client.refresh_token = refresh_token
-        end
+        @client = Signet::OAuth2::Client.new(client_options)
+        @client.update!(session[:authorization])
         service = Google::Apis::CalendarV3::CalendarService.new
         service.authorization = @client
         if service.get_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom').status != 'cancelled'
           service.delete_event(calendar_id, 'training' + @training.id.to_s + 'fitfree1asslcom')
         end
       end
+      TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id) if @training.status == :planned
+      @training.destroy
+      redirect_to calendar_index_path
     rescue Google::Apis::AuthorizationError
-      response = client.refresh!
+      response = @client.refresh!
       session[:authorization] = session[:authorization].merge(response)
       retry
     end
-    TrainingsHelper::BackgroundProccess.delete_background_proc(@training.id) if @training.status == :planned
-    @training.destroy
-    redirect_to calendar_index_path
   end
 
   private
@@ -216,8 +207,8 @@ class TrainingsController < ApplicationController
   def kit_constructor
     sets = Kit.where(training_id: @training.id, user_id: current_user.id).map do |kit|
       {
-        exercises: Exercise.where(kit_id: kit.id, user_id: current_user.id),
-        kit:       kit
+          exercises: Exercise.where(kit_id: kit.id, user_id: current_user.id),
+          kit:       kit
       }
     end
     sets.each do |kit|

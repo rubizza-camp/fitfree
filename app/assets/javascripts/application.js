@@ -15,8 +15,6 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require moment
-////= require select2/dist/js/select2.full.js
-//= require chart.js/dist/Chart.js
 //= require cable
 //= require moment
 //= require jquery

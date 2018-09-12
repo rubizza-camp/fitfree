@@ -34,13 +34,12 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.index ["confirmation_token"], name: "index_administrators_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_administrators_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_administrators_on_reset_password_token", unique: true
   end
 
   create_table "attachments", force: :cascade do |t|
     t.integer "message_id"
-    t.text "path"
+    t.text "name"
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -58,18 +57,18 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
     t.string "second_name", default: "", null: false
     t.string "phone_number", default: "", null: false
     t.integer "user_id"
-    t.integer "price"
-    t.datetime "birth"
-    t.string "email"
-    t.string "instagram_link"
-    t.string "facebook_link"
-    t.string "vk_link"
-    t.integer "status"
+    t.datetime "birth", default: "2018-09-12 11:09:19", null: false
+    t.string "email", default: "", null: false
+    t.string "instagram_link", default: "", null: false
+    t.string "facebook_link", default: "", null: false
+    t.string "vk_link", default: "", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "price", default: 0, null: false
+    t.string "telegram_chat_id"
+    t.string "telegram_bind_id", default: "d86dfff5-2070-4078-a743-13ab474f5562"
     t.integer "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "13a4cefa-016e-434b-a25d-1ae406d74abb"
     t.string "avatar_file_name"
     t.string "avatar_content_type"
     t.bigint "avatar_file_size"
@@ -111,21 +110,13 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
   end
 
   create_table "exercises", force: :cascade do |t|
-    t.integer "exercise_type_id"
+    t.bigint "exercise_type_id"
     t.integer "kit_id"
-    t.integer "user_id"
     t.integer "repeats"
-    t.integer "approach"
+    t.integer "approaches"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.integer "message_id"
-    t.integer "status"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["exercise_type_id"], name: "index_exercises_on_exercise_type_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -180,9 +171,9 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
   create_table "metrics", force: :cascade do |t|
     t.string "name", null: false
     t.string "units", null: false
+    t.integer "kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "kind_id"
   end
 
   create_table "snapshots", force: :cascade do |t|
@@ -193,30 +184,25 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
     t.index ["client_id"], name: "index_snapshots_on_client_id"
   end
 
-  create_table "statuses", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "telegram_bots", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "token", default: "", null: false
-    t.string "telegram_webhook_id", default: "11d6d037-15d1-4394-9485-5c3bb7b470d3", null: false
+    t.string "name"
+    t.string "token"
+    t.string "telegram_webhook_id", default: "e5205e08-2779-445a-a9f6-cc4bd0a6b9de", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_telegram_bots_on_user_id"
   end
 
   create_table "trainings", force: :cascade do |t|
+    t.bigint "user_id"
     t.datetime "time"
     t.integer "price"
     t.text "description"
-    t.integer "user_id"
-    t.integer "client_id"
-    t.integer "status", default: 0, null: false
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: fals
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_trainings_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -233,7 +219,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
     t.string "encrypted_password", default: "", null: false
     t.string "bot_token"
     t.string "bot_name"
-    t.string "bot_webhook_id", default: "b7c5bf6b-a8ea-4cba-ab0d-9216b8a876de", null: false
+    t.string "telegram_webhook_id", default: "ac7e45ee-967b-43d3-9753-870f9a6634c2", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -249,11 +235,11 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.datetime "blocked_at"
-    t.integer "role"
-    t.boolean "birthday_seen"
+    t.boolean "birthday_seen", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "jobs", "trainings"
 end
