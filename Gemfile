@@ -7,6 +7,7 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'bourbon'
 gem 'foreman'
+gem 'rails_12factor', group: :production
 gem 'dotenv'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
