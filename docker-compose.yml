@@ -1,44 +1,54 @@
 version: '2'
 
 services:
+  # todo: ngnix, https://
   postgres:
-    image: 'postgres:10.5'
+    image: postgres:10.5
     restart: always
     volumes:
-    - 'postgres:/var/lib/postgresql/data'
+      - /data:/var/lib/postgresql/data
     env_file:
-    - '.env'
+      - .env
 
   redis:
-    image: 'redis:5.0-rc4'
+    image: redis:5.0-rc4
     restart: always
     command: redis-server
     ports:
-    - "6379:6379"
+      - $REDIS_PORT:$REDIS_PORT
     volumes:
-    - 'redis:/data'
-
-  website:
-    depends_on:
-    - 'postgres'
-    build: .
-    command: puma -C config/puma.rb
-    ports:
-    - '3000:3000'
-    volumes:
-    - '.:/app'
+      - /data:/var/data/redis
     env_file:
-    - '.env'
+    - .env
+
+  app:
+    depends_on:
+      - postgres
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    volumes:
+      - .:/app
+
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    depends_on:
+      - app
+    ports:
+      - 90:90
+      - 443:443
 
   sidekiq:
     depends_on:
-    - 'redis'
-    build: .
+      - redis
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
     command: bundle exec sidekiq
     volumes:
-    - '.:/app'
-    env_file:
-    - '.env'
+      - .:/app
 
 volumes:
   redis:

@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
     t.string "second_name", default: "", null: false
     t.string "phone_number", default: "", null: false
     t.integer "user_id"
-    t.datetime "birth", default: "2018-09-12 11:09:19", null: false
+    t.datetime "birth", default: "2018-09-14 07:48:24", null: false
     t.string "email", default: "", null: false
     t.string "instagram_link", default: "", null: false
     t.string "facebook_link", default: "", null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
     t.integer "status", default: 0, null: false
     t.integer "price", default: 0, null: false
     t.string "telegram_chat_id"
-    t.string "telegram_bind_id", default: "d86dfff5-2070-4078-a743-13ab474f5562"
+    t.string "telegram_bind_id", default: "73e911d9-da46-4354-9a08-086271698cc1"
     t.integer "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -188,7 +188,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
     t.bigint "user_id"
     t.string "name"
     t.string "token"
-    t.string "telegram_webhook_id", default: "e5205e08-2779-445a-a9f6-cc4bd0a6b9de", null: false
+    t.string "telegram_webhook_id", default: "f442b4a9-9882-4d20-9265-c20452cddfd4", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_telegram_bots_on_user_id"
@@ -219,7 +219,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_013555) do
     t.string "encrypted_password", default: "", null: false
     t.string "bot_token"
     t.string "bot_name"
-    t.string "telegram_webhook_id", default: "ac7e45ee-967b-43d3-9753-870f9a6634c2", null: false
+    t.string "telegram_webhook_id", default: "eb4ddba1-640c-4ac1-8070-9be5c7f36b2c", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
