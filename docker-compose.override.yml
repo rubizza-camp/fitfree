@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  app:
+    build:
+      args:
+        BRANCH: Alex
+        REPOSITORY: git@github.com:rubizza-survival-camp/fitfree.git
+        PROJECT_NAME: fitfree

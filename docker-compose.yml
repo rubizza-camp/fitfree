@@ -1,0 +1,55 @@
+version: '2'
+
+services:
+  # todo: ngnix, https://
+  postgres:
+    image: postgres:10.5
+    restart: always
+    volumes:
+      - /data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  redis:
+    image: redis:5.0-rc4
+    restart: always
+    command: redis-server
+    ports:
+      - $REDIS_PORT:$REDIS_PORT
+    volumes:
+      - /data:/var/data/redis
+    env_file:
+    - .env
+
+  app:
+    depends_on:
+      - postgres
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    volumes:
+      - .:/app
+
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    depends_on:
+      - app
+    ports:
+      - 90:90
+      - 443:443
+
+  sidekiq:
+    depends_on:
+      - redis
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    command: bundle exec sidekiq
+    volumes:
+      - .:/app
+
+volumes:
+  redis:
+  postgres:

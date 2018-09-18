@@ -15,6 +15,7 @@
 /vendor/bundle/
 /vendor/ruby/
 /node_modules
+/docker/ssl_keys
 
 
 # minimal Rails specific artifacts
